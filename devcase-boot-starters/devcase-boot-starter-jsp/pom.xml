@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>br.com.devcase.boot</groupId>
+		<artifactId>devcase-boot-starters</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>devcase-boot-starter-jsp</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.undertow.jastow</groupId>
+			<artifactId>jastow</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jboss.spec.javax.servlet</groupId>
+					<artifactId>jboss-servlet-api_3.1_spec</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.metadata</groupId>
+			<artifactId>jboss-metadata-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.metadata</groupId>
+			<artifactId>jboss-metadata-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+	</dependencies>
+</project>
