@@ -2,12 +2,8 @@ package br.com.devcase.boot.jsp.undertow;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -31,48 +27,82 @@ import org.jboss.metadata.web.spec.TagFileMetaData;
 import org.jboss.metadata.web.spec.TagMetaData;
 import org.jboss.metadata.web.spec.TldMetaData;
 import org.jboss.metadata.web.spec.VariableMetaData;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 public class TldLocator {
 	public static HashMap<String, TagLibraryInfo> createTldInfos() throws IOException {
-		URLClassLoader loader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
-		URL[] urls = loader.getURLs();
+		// URLClassLoader loader = (URLClassLoader)
+		// Thread.currentThread().getContextClassLoader();
+		// URLClassLoader loader = (URLClassLoader) TldLocator.class.getClassLoader();
+		// URL[] urls = loader.getURLs();
+		// HashMap<String, TagLibraryInfo> tagLibInfos = new HashMap<String,
+		// TagLibraryInfo>();
+		// for (URL url : urls) {
+		// if (url.toString().endsWith(".jar")) {
+		// try (JarFile jarFile = new JarFile(url.getFile())) {
+		// final Enumeration<JarEntry> entries = jarFile.entries();
+		// while (entries.hasMoreElements()) {
+		// final JarEntry entry = entries.nextElement();
+		// if (entry.getName().endsWith(".tld")) {
+		// InputStream is = null;
+		// try {
+		// JarEntry fileEntry = jarFile.getJarEntry(entry.getName());
+		// is = jarFile.getInputStream(fileEntry);
+		// final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		// inputFactory.setXMLResolver(NoopXMLResolver.create());
+		// XMLStreamReader xmlReader = inputFactory.createXMLStreamReader(is);
+		// TldMetaData tldMetadata = TldMetaDataParser.parse(xmlReader);
+		// TagLibraryInfo taglibInfo = getTagLibraryInfo(tldMetadata);
+		// if (!tagLibInfos.containsKey(taglibInfo.getUri())) {
+		// tagLibInfos.put(taglibInfo.getUri(), taglibInfo);
+		// }
+		// } catch (XMLStreamException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// } finally {
+		// try {
+		// if (is != null) {
+		// is.close();
+		// }
+		// } catch (IOException ignore) {
+		// }
+		// }
+		// }
+		// }
+		// }
+		// }
+		// }
+		final URLClassLoader loader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
+		final ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(loader);
+		final Resource[] resources;
+		final String locationPattern = "classpath*:**/*.tld";
+		try {
+			resources = resolver.getResources(locationPattern);
+		} catch (IOException e) {
+			throw new IllegalStateException(String
+					.format("Error while retrieving resources" + "for location pattern '%s'.", locationPattern, e));
+		}
+
 		HashMap<String, TagLibraryInfo> tagLibInfos = new HashMap<String, TagLibraryInfo>();
-		for (URL url : urls) {
-			if (url.toString().endsWith(".jar")) {
-				try (JarFile jarFile = new JarFile(url.getFile())) {
-					final Enumeration<JarEntry> entries = jarFile.entries();
-					while (entries.hasMoreElements()) {
-						final JarEntry entry = entries.nextElement();
-						if (entry.getName().endsWith(".tld")) {
-							InputStream is = null;
-							try {
-								JarEntry fileEntry = jarFile.getJarEntry(entry.getName());
-								is = jarFile.getInputStream(fileEntry);
-								final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-								inputFactory.setXMLResolver(NoopXMLResolver.create());
-								XMLStreamReader xmlReader = inputFactory.createXMLStreamReader(is);
-								TldMetaData tldMetadata = TldMetaDataParser.parse(xmlReader);
-								TagLibraryInfo taglibInfo = getTagLibraryInfo(tldMetadata);
-								if (!tagLibInfos.containsKey(taglibInfo.getUri())) {
-									tagLibInfos.put(taglibInfo.getUri(), taglibInfo);
-								}
-							} catch (XMLStreamException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							} finally {
-								try {
-									if (is != null) {
-										is.close();
-									}
-								} catch (IOException ignore) {
-								}
-							}
-						}
-					}
+		for (Resource resource : resources) {
+			try (InputStream is = resource.getInputStream()) {
+				final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+				inputFactory.setXMLResolver(NoopXMLResolver.create());
+				XMLStreamReader xmlReader = inputFactory.createXMLStreamReader(is);
+				TldMetaData tldMetadata = TldMetaDataParser.parse(xmlReader);
+				TagLibraryInfo taglibInfo = getTagLibraryInfo(tldMetadata);
+				if (!tagLibInfos.containsKey(taglibInfo.getUri())) {
+					tagLibInfos.put(taglibInfo.getUri(), taglibInfo);
 				}
+			} catch (XMLStreamException e) {
+				throw new IllegalStateException(String
+						.format("Error while reading tld metadata from %s", resource.toString(), e));
 			}
 		}
+
 		return tagLibInfos;
 	}
 
