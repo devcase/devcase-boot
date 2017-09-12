@@ -20,22 +20,15 @@ import br.com.devcase.boot.sample.webapp.WebApplication;
 @DirtiesContext
 @ContextConfiguration(classes=WebApplication.class)
 @ActiveProfiles("integration-test")
-public class JspIT {
-
+public class MyControllerIT {
 
 	@Autowired
 	private TestRestTemplate restTemplate;	
 
 	
 	@Test
-	public void testSampleJsp() throws Exception {
-		String body = this.restTemplate.getForObject("/sample.jsp", String.class);
-		Assert.assertTrue(body.contains("OK"));
-	}
-	
-	@Test
-	public void testSample2Jsp() throws Exception {
-		String body = this.restTemplate.getForObject("/sample2.jsp", String.class);
-		Assert.assertTrue(body.contains("1300"));
+	public void testMyControllerIndex() throws Exception {
+		String body = this.restTemplate.getForObject("/my", String.class);
+		Assert.assertTrue(body.contains("TEXT TEXT TEXT"));
 	}
 }

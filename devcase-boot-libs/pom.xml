@@ -9,11 +9,10 @@
     <relativePath>../devcase-boot-parent</relativePath>
   </parent>
 
-  <artifactId>devcase-boot-samples</artifactId>
+  <artifactId>devcase-boot-libs</artifactId>
   <packaging>pom</packaging>
 
   <modules>
-  	<module>devcase-boot-sample-simplest</module>
-  	<module>devcase-boot-sample-webapp</module>
+  	<module>devcase-boot-jsp</module>
   </modules>
 </project>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -13,16 +12,42 @@
 	<artifactId>devcase-boot-build</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+
+	<url>https://bitbucket.org/devcase/devcase-boot</url>
+	<organization>
+		<name>Hirata &amp; Leifert Tecnologia LTDA</name>
+		<url>http://www.devcase.com.br</url>
+	</organization>
+	<licenses>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>thiagohirata</id>
+			<name>Thiag Massao Kuraoka Hirata</name>
+			<email>hirata at devcase.com.br</email>
+			<roles>
+				<role>Project lead</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<modules>
+		<module>devcase-boot-dependencies</module>
+		<module>devcase-boot-parent</module>
+		<module>devcase-boot-starters</module>
+		<module>devcase-boot-samples</module>
+		<module>devcase-boot-libs</module>
+	</modules>
+
+	<scm>
+		<url>https://bitbucket.org/devcase/devcase-boot</url>
+	</scm>
+
 	<repositories>
 		<repository>
 			<id>jboss-releases</id>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
 		</repository>
 	</repositories>
-	<modules>
-		<module>devcase-boot-dependencies</module>
-		<module>devcase-boot-parent</module>
-		<module>devcase-boot-starters</module>
-		<module>devcase-boot-samples</module>
-	</modules>
 </project>
