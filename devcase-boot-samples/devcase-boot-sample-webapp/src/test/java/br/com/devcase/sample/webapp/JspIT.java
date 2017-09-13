@@ -41,4 +41,11 @@ public class JspIT {
 		String body = this.restTemplate.getForObject("/sample3.jsp", String.class);
 		Assert.assertTrue(body.contains("Sample: Hello"));
 	}
+
+
+	@Test
+	public void testSample4Jsp() throws Exception {
+		String body = this.restTemplate.getForObject("/sample4.jsp", String.class);
+		Assert.assertTrue(body.contains("Example: Carregado com sucesso!"));
+	}
 }

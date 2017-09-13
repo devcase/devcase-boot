@@ -5,21 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import br.com.devcase.boot.jsp.undertow.JspForUndertowContainerCustomizer;
-import br.com.devcase.boot.jsp.undertow.ResourceManagerUndertowContainerCustomizer;
+import br.com.devcase.boot.jsp.undertow.EnableUndertowJsp;
 
 @Configuration
+@EnableUndertowJsp
 public class JspAutoConfiguration {
-
-	@Bean
-	public JspForUndertowContainerCustomizer jspForUndertowContainerCustomizer() {
-		return new JspForUndertowContainerCustomizer();
-	}
-	
-	@Bean
-	public ResourceManagerUndertowContainerCustomizer resourceManagerUndertowContainerCustomizer() {
-		return new ResourceManagerUndertowContainerCustomizer();
-	}
 	
 	@Bean
 	public InternalResourceViewResolver jstlViewResolver() {
