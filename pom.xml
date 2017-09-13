@@ -43,11 +43,51 @@
 	<scm>
 		<url>https://bitbucket.org/devcase/devcase-boot</url>
 	</scm>
+	<!-- Custom Devcase Distribuition Repository -->
+	<distributionManagement>
+		<repository>
+			<id>devcase-sp-repo</id>
+			<name>Devcase Repository S3 Bucket</name>
+			<url>s3://devcase-sp-repo/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>devcase-sp-repo-snapshots</id>
+			<name>Devcase Repository S3 Bucket</name>
+			<url>s3://devcase-sp-repo/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<repositories>
 		<repository>
 			<id>jboss-releases</id>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
 		</repository>
+		<repository>
+			<id>devcase-repo</id>
+			<name>Devcase Releases</name>
+			<url>http://repo.devcase.com.br/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>devcase-repo-snapshots</id>
+			<name>Devcase Snapshots</name>
+			<url>http://repo.devcase.com.br/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.springframework.build</groupId>
+				<artifactId>aws-maven</artifactId>
+				<version>5.0.0.RELEASE</version>
+			</extension>
+		</extensions>
+
+	</build>
 </project>
