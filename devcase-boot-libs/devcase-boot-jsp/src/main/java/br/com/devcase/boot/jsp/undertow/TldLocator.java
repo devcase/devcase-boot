@@ -78,7 +78,7 @@ public class TldLocator {
 		final URLClassLoader loader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
 		final ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(loader);
 		final Resource[] resources;
-		final String locationPattern = "classpath*:**/*.tld";
+		final String locationPattern = "classpath*:**/META-INF/*.tld";
 		try {
 			resources = resolver.getResources(locationPattern);
 		} catch (IOException e) {

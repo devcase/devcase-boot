@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>br.com.devcase.boot</groupId>
+		<artifactId>devcase-boot-starters</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>devcase-boot-starter-dbmigration</artifactId>
+	<description>Dependências e autoconfiguração de migrations usando Flyway e geração de scripts para migrations.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-crud</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-starter-crud</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
