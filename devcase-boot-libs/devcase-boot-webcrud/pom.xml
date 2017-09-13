@@ -3,18 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>br.com.devcase.boot</groupId>
-		<artifactId>devcase-boot-starters</artifactId>
+		<artifactId>devcase-boot-libs</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>devcase-boot-starter-crud</artifactId>
+	<artifactId>devcase-boot-webcrud</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-crud</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 	</dependencies>
 </project>

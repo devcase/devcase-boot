@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>JSP com JSTL</h1>
 	<c:forEach var="i" begin="1" end="100" step="1">
 		${i * 13}
 	</c:forEach>

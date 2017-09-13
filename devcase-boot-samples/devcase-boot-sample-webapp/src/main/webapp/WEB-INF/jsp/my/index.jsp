@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>JSP como view do Spring MVC</h1>
 	${testtext}
 </body>
 </html>

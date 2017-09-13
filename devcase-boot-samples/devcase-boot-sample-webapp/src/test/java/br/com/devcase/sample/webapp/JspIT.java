@@ -17,7 +17,6 @@ import br.com.devcase.boot.sample.webapp.WebApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-@DirtiesContext
 @ContextConfiguration(classes=WebApplication.class)
 @ActiveProfiles("integration-test")
 public class JspIT {
@@ -37,5 +36,10 @@ public class JspIT {
 	public void testSample2Jsp() throws Exception {
 		String body = this.restTemplate.getForObject("/sample2.jsp", String.class);
 		Assert.assertTrue(body.contains("1300"));
+	}
+	@Test
+	public void testSample3Jsp() throws Exception {
+		String body = this.restTemplate.getForObject("/sample3.jsp", String.class);
+		Assert.assertTrue(body.contains("Sample: Hello"));
 	}
 }

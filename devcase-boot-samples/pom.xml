@@ -16,5 +16,6 @@
   	<module>devcase-boot-sample-simplest</module>
   	<module>devcase-boot-sample-webapp</module>
   	<module>devcase-boot-sample-crud</module>
+  	<module>devcase-boot-sample-webcrud</module>
   </modules>
 </project>

@@ -3,18 +3,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>br.com.devcase.boot</groupId>
-		<artifactId>devcase-boot-starters</artifactId>
+		<artifactId>devcase-boot-starter-webapp-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
+		<relativePath>../../devcase-boot-starters/devcase-boot-starter-webapp-parent</relativePath>
 	</parent>
-	<artifactId>devcase-boot-starter-crud</artifactId>
+	<artifactId>devcase-boot-sample-webcrud</artifactId>
+	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
-			<artifactId>devcase-boot-crud</artifactId>
+			<artifactId>devcase-boot-starter-webcrud</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-sample-crud</artifactId>
+			<version>0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

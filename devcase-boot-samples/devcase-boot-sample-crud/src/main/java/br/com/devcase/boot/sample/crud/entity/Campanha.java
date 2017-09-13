@@ -6,6 +6,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Audited
@@ -15,6 +16,7 @@ public class Campanha {
 	@GenericGenerator(name="UUID", strategy="org.hibernate.id.UUIDGenerator")
 	private String id;
 	
+	@NotBlank
 	private String name;
 
 	public String getId() {

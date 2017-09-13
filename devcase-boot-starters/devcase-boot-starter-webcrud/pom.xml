@@ -6,15 +6,11 @@
 		<artifactId>devcase-boot-starters</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>devcase-boot-starter-crud</artifactId>
+	<artifactId>devcase-boot-starter-webcrud</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
-			<artifactId>devcase-boot-crud</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
+			<artifactId>devcase-boot-webcrud</artifactId>
 		</dependency>
 	</dependencies>
 </project>

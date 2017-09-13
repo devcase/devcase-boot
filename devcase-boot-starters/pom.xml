@@ -18,5 +18,6 @@
   	<module>devcase-boot-starter-webapp-parent</module>
   	<module>devcase-boot-starter-jsp</module>
   	<module>devcase-boot-starter-crud</module>
+  	<module>devcase-boot-starter-webcrud</module>
   </modules>
 </project>

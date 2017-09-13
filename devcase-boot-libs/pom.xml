@@ -15,5 +15,6 @@
   <modules>
   	<module>devcase-boot-jsp</module>
   	<module>devcase-boot-crud</module>
+  	<module>devcase-boot-webcrud</module>
   </modules>
 </project>
