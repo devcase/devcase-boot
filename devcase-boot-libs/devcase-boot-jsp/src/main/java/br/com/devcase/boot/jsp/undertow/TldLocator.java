@@ -93,7 +93,13 @@ public class TldLocator {
 				inputFactory.setXMLResolver(NoopXMLResolver.create());
 				XMLStreamReader xmlReader = inputFactory.createXMLStreamReader(is);
 				TldMetaData tldMetadata = TldMetaDataParser.parse(xmlReader);
-				TagLibraryInfo taglibInfo = getTagLibraryInfo(tldMetadata);
+				
+				String resourceName = resource.getURL().toString();
+				
+				System.out.println(resourceName);
+				String path = resourceName.substring(resourceName.indexOf("/META-INF/"));
+				System.out.println(path);
+				TagLibraryInfo taglibInfo = getTagLibraryInfo(tldMetadata, path);
 				if (!tagLibInfos.containsKey(taglibInfo.getUri())) {
 					tagLibInfos.put(taglibInfo.getUri(), taglibInfo);
 				}
@@ -106,8 +112,11 @@ public class TldLocator {
 		return tagLibInfos;
 	}
 
-	static TagLibraryInfo getTagLibraryInfo(TldMetaData tldMetaData) {
+	static TagLibraryInfo getTagLibraryInfo(TldMetaData tldMetaData, String path) {
 		TagLibraryInfo tagLibraryInfo = new TagLibraryInfo();
+		
+		tagLibraryInfo.setPath(path);
+		
 		tagLibraryInfo.setTlibversion(tldMetaData.getTlibVersion());
 		if (tldMetaData.getJspVersion() == null) {
 			tagLibraryInfo.setJspversion(tldMetaData.getVersion());

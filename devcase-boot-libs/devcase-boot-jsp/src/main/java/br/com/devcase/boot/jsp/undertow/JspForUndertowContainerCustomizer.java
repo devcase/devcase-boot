@@ -11,7 +11,6 @@ import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServle
 
 import io.undertow.jsp.HackInstanceManager;
 import io.undertow.jsp.JspServletBuilder;
-import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.servlet.api.DeploymentInfo;
 
 /**
@@ -39,9 +38,6 @@ public class JspForUndertowContainerCustomizer
 
 				JspServletBuilder.setupDeployment(deploymentInfo, new HashMap<String, JspPropertyGroup>(),
 						tagLibraryInfo, new HackInstanceManager());
-				
-				
-//				deploymentInfo.setResourceManager(new ClassPathResourceManager(Thread.currentThread().getContextClassLoader()));
 			}
 		});
 

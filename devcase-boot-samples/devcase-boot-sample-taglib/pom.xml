@@ -4,20 +4,16 @@
 
 	<parent>
 		<groupId>br.com.devcase.boot</groupId>
-		<artifactId>devcase-boot-starters</artifactId>
+		<artifactId>devcase-boot-samples</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>devcase-boot-starter-webcrud</artifactId>
+	<artifactId>devcase-boot-sample-taglib</artifactId>
 
 	<dependencies>
 		<dependency>
-			<groupId>br.com.devcase.boot</groupId>
-			<artifactId>devcase-boot-webcrud</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>br.com.devcase.boot</groupId>
-			<artifactId>devcase-boot-starter-web</artifactId>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>

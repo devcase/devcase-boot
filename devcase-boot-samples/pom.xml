@@ -17,5 +17,6 @@
   	<module>devcase-boot-sample-webapp</module>
   	<module>devcase-boot-sample-crud</module>
   	<module>devcase-boot-sample-webcrud</module>
+  	<module>devcase-boot-sample-taglib</module>
   </modules>
 </project>
