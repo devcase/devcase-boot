@@ -17,5 +17,6 @@
   	<module>devcase-boot-crud</module>
   	<module>devcase-boot-webcrud</module>
   	<module>devcase-boot-taglib</module>
+  	<module>devcase-boot-sitemesh</module>
   </modules>
 </project>

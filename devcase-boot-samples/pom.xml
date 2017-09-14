@@ -18,5 +18,6 @@
   	<module>devcase-boot-sample-crud</module>
   	<module>devcase-boot-sample-webcrud</module>
   	<module>devcase-boot-sample-taglib</module>
+  	<module>devcase-boot-sample-sitemesh</module>
   </modules>
 </project>
