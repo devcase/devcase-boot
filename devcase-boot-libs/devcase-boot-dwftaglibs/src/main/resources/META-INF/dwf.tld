@@ -84,4 +84,17 @@
 		<name>inputText</name>
 		<path>/META-INF/tags/inputText.tag</path>
 	</tag-file>
+	<tag-file>
+		<name>inputDate</name>
+		<path>/META-INF/tags/inputDate.tag</path>
+	</tag-file>
+	<tag-file>
+		<name>inputMoney</name>
+		<path>/META-INF/tags/inputMoney.tag</path>
+	</tag-file>
+	<tag-file>
+		<name>inputNumber</name>
+		<path>/META-INF/tags/inputNumber.tag</path>
+	</tag-file>
+
 </taglib>

@@ -6,7 +6,7 @@
 		<groupId>br.com.devcase.boot</groupId>
 		<artifactId>devcase-boot-starter-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
-		<relativePath>../../devcase-boot-starters/devcase-boot-starter</relativePath>
+		<relativePath>../../devcase-boot-starters/devcase-boot-starter-parent</relativePath>
 	</parent>
 
 	<artifactId>devcase-boot-sample-webapp</artifactId>

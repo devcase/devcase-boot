@@ -1,4 +1,4 @@
-package br.com.devcase.sample.webapp;
+package br.com.devcase.sample.sitemesh;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,28 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.devcase.boot.sample.webapp.WebApplication;
+import br.com.devcase.boot.sample.sitemesh.SiteMeshSampleApplication;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-@DirtiesContext
-@ContextConfiguration(classes=WebApplication.class)
+@ContextConfiguration(classes=SiteMeshSampleApplication.class)
 @ActiveProfiles("integration-test")
-public class MyControllerIT {
+public class SiteMeshIT {
+
 
 	@Autowired
 	private TestRestTemplate restTemplate;	
 
 	
 	@Test
-	public void testMyControllerIndex() throws Exception {
-		String body = this.restTemplate.getForObject("/my", String.class);
-		Assert.assertTrue("Texto não encontrado", body.contains("TEXT TEXT TEXT"));
+	public void testIndex() throws Exception {
+		String body = this.restTemplate.getForObject("/", String.class);
+		Assert.assertTrue(body.contains("Body Title"));
+		Assert.assertTrue(body.contains("<div class=\"container\">"));
 	}
 }

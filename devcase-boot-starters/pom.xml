@@ -19,5 +19,6 @@
   	<module>devcase-boot-starter-crud</module>
   	<module>devcase-boot-starter-webcrud</module>
   	<module>devcase-boot-starter-dbmigration</module>
+  	<module>devcase-boot-starter</module>
   </modules>
 </project>

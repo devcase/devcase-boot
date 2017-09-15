@@ -23,6 +23,10 @@
 		</dependency>		
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-dwftaglibs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-sample-crud</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
