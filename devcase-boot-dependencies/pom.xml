@@ -20,6 +20,7 @@
 		<jastow.version>2.0.3.Devcase-SNAPSHOT</jastow.version>
 		<sitemesh.version>3.0.1</sitemesh.version>
 		<spring-boot.version>1.5.6.RELEASE</spring-boot.version>
+		<guava.version>23.0</guava.version>
 	</properties>
 
 	<dependencyManagement>
@@ -125,6 +126,21 @@
 						<artifactId>spring-boot-starter-tomcat</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.money</groupId>
+				<artifactId>money-api</artifactId>
+				<version>1.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javamoney</groupId>
+				<artifactId>moneta</artifactId>
+				<version>1.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
