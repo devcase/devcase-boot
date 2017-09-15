@@ -18,5 +18,6 @@
   	<module>devcase-boot-webcrud</module>
   	<module>devcase-boot-taglib</module>
   	<module>devcase-boot-sitemesh</module>
+  	<module>devcase-boot-dwftaglibs</module>
   </modules>
 </project>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.1">
+
+	<description>Devcase User Interface Library</description>
+	<display-name>Devcase User Interface Library</display-name>
+	<tlib-version>2.0</tlib-version>
+	<short-name>dwf</short-name>
+	<uri>http://boot.devcase.com.br/dwf</uri>
+	<tag>
+		<name>autoFormat</name>
+		<tag-class>br.com.devcase.boot.dwftaglibs.tag.AutoFormatTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.Object</type>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+
+	</tag>
+	<tag>
+		<name>resolveEL</name>
+		<tag-class>br.com.devcase.boot.dwftaglibs.tag.ResolveELTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>el</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>no</required>
+			<rtexprvalue>no</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<name>setEntity</name>
+		<tag-class>br.com.devcase.boot.dwftaglibs.tag.SetEntityTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>entity</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.Object</type>
+		</attribute>
+		<attribute>
+			<name>entityName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag-file>
+		<name>mergeMaps</name>
+		<path>/META-INF/tags/mergeMaps.tag</path>
+	</tag-file>
+
+	<tag-file>
+		<name>formGroup</name>
+		<path>/META-INF/tags/formGroup.tag</path>
+	</tag-file>
+	<tag-file>
+		<name>inputText</name>
+		<path>/META-INF/tags/inputText.tag</path>
+	</tag-file>
+</taglib>

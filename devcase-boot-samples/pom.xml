@@ -19,5 +19,6 @@
   	<module>devcase-boot-sample-webcrud</module>
   	<module>devcase-boot-sample-taglib</module>
   	<module>devcase-boot-sample-sitemesh</module>
+  	<module>devcase-boot-sample-dwftaglibs</module>
   </modules>
 </project>
