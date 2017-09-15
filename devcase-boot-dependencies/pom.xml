@@ -76,6 +76,11 @@
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-labels</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
 				<groupId>io.undertow.jastow</groupId>
 				<artifactId>jastow</artifactId>
 				<version>${jastow.version}</version>

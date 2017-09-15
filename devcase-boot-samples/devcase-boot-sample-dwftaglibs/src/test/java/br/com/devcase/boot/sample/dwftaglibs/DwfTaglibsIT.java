@@ -29,5 +29,12 @@ public class DwfTaglibsIT {
 		String body = this.restTemplate.getForObject("/resolve-el.jsp", String.class);
 		Assert.assertTrue(body.contains("Using resolveEL tag: texto"));
 	}
-	
+
+	@Test
+	public void testAutoFormatDate() throws Exception {
+		String body = this.restTemplate.getForObject("/auto-format-date.jsp", String.class);
+		Assert.assertTrue(body.contains("Date (pt-BR, default timezone): 31/12/2017"));
+		Assert.assertTrue(body.contains("Date (en-US, default timezone): Dec 31, 2017"));
+	}
+
 }

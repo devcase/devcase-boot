@@ -21,6 +21,5 @@
 			<groupId>org.javamoney</groupId>
 			<artifactId>moneta</artifactId>
 		</dependency>
-
 	</dependencies>
 </project>
