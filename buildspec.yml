@@ -9,10 +9,9 @@ version: 0.2
 #    key: "value"
             
 phases:
-#  install:
-#    commands:
-#      - command
-#      - command
+  install:
+    commands:
+      - mvn initialize
   pre_build:
     commands:
       - mvn clean
@@ -22,15 +21,16 @@ phases:
       - echo Build started on `date`
       - mvn package
       - mvn verify
+      - mvn deploy
   post_build:
     commands:
       - echo Build completed on `date`
 #      - mvn deploy
 #  post_build:
 #    commands:
-artifacts:
-  files:
-    - '**/target/devcase-boot-*.war'
-    - '**/target/devcase-boot-*.jar'
+#artifacts:
+#  files:
+#    - '**/target/devcase-boot-*.war'
+#    - '**/target/devcase-boot-*.jar'
 #  discard-paths: yes
 #  base-directory: location
