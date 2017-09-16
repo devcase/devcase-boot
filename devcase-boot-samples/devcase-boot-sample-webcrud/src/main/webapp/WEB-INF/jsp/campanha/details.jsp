@@ -2,26 +2,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://boot.devcase.com.br/dwf" prefix="dwf"%>
+
+<!DOCTYPE html>
 <html>
 <head>
-<title><spring:message code="domain.campanha.plural" /> Form</title>
+<title><spring:message code="domain.campanha.plural" /> Details</title>
+<meta name="decorator" content="/WEB-INF/jsp/decorators/default.jsp"></meta>
 </head>
 <body>
-	<h1>
-		<spring:message code="domain.campanha.plural" />
-	</h1>
-	<form:form action="/campanha/${entity.id}/edit" method="GET" commandName="entity">
-		<label><spring:message code="campanha.nome"/>: </label>
-		<dwf:autoFormat value="${entity.nome}"/>
-		<br/>
-		<label><spring:message code="campanha.orcamento"/>: </label>
-		<dwf:autoFormat value="${entity.orcamento}"/>
-		<br/>
-		
-		<a href="/campanha">Voltar à lista</a>
-		<form:button >Editar</form:button>
-	</form:form>
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title"><spring:message code="domain.campanha" /></h4>
+			<form>
+				<dwf:setEntity entityName="campanha" entity="${entity}"/>
+				<dwf:outputText property="nome" row="true"/>
+				<dwf:outputText property="inicio" row="true"/>
+				<dwf:outputText property="orcamento" row="true"/>
+				
+				<a href="/${entityName}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a>
+				<button type="submit" class="btn btn-primary" formaction="/${entityName}/${entity.id}/edit" formmethod="get"><spring:message code="action.edit"/></button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

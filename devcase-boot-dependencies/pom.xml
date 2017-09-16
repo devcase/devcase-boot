@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -84,7 +85,57 @@
 				<artifactId>devcase-boot-starter</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
-
+			<!-- JAVAX -->
+			<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>javax.el-api</artifactId>
+				<version>3.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>javax.servlet.jsp-api</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.money</groupId>
+				<artifactId>money-api</artifactId>
+				<version>1.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javamoney</groupId>
+				<artifactId>moneta</artifactId>
+				<version>1.1</version>
+			</dependency>
+			<!-- APACHE -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>4.1</version>
+			</dependency>
+			<!-- SPRING -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring-boot.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- GOOGLE -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+			<!-- JBOSS -->
 			<dependency>
 				<groupId>io.undertow.jastow</groupId>
 				<artifactId>jastow</artifactId>
@@ -106,52 +157,18 @@
 				<artifactId>jboss-metadata-web</artifactId>
 				<version>${jboss-metadata.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>javax.el</groupId>
-				<artifactId>javax.el-api</artifactId>
-				<version>3.0.0</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet.jsp</groupId>
-				<artifactId>javax.servlet.jsp-api</artifactId>
-				<version>2.3.1</version>
-			</dependency>
+			<!-- ETC -->
 			<dependency>
 				<groupId>org.sitemesh</groupId>
 				<artifactId>sitemesh</artifactId>
 				<version>${sitemesh.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.6</version>
+				<groupId>com.github.slugify</groupId>
+				<artifactId>slugify</artifactId>
+				<version>2.1.9</version>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring-boot.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-starter-tomcat</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${guava.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.money</groupId>
-				<artifactId>money-api</artifactId>
-				<version>1.0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.javamoney</groupId>
-				<artifactId>moneta</artifactId>
-				<version>1.1</version>
-			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 </project>
