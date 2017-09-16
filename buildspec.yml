@@ -24,9 +24,9 @@ phases:
     commands:
       - echo Build completed on `date`
       - mvn verify
-  post_build:
-    commands:
       - mvn deploy
+#  post_build:
+#    commands:
 artifacts:
   files:
     - '**/target/devcase-boot-*.war'
