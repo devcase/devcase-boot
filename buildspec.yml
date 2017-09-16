@@ -15,16 +15,17 @@ phases:
 #      - command
   pre_build:
     commands:
+      - mvn clean
       - mvn test
   build:
     commands:
       - echo Build started on `date`
       - mvn build
+      - mvn verify
   post_build:
     commands:
       - echo Build completed on `date`
-      - mvn verify
-      - mvn deploy
+#      - mvn deploy
 #  post_build:
 #    commands:
 artifacts:
