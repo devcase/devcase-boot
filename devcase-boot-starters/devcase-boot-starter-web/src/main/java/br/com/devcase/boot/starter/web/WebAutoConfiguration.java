@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import br.com.devcase.boot.starter.web.i18n.LocaleChangeFilter;
+import br.com.devcase.boot.web.editor.CustomPropertyEditorRegistrarAdvice;
+import br.com.devcase.boot.web.i18n.LocaleChangeFilter;
 
 @Configuration
 public class WebAutoConfiguration {
@@ -23,7 +24,10 @@ public class WebAutoConfiguration {
 		public LocaleResolver localeResolver() {
 			return new SessionLocaleResolver();
 		}
-
 	}
 
+	@Bean
+	public CustomPropertyEditorRegistrarAdvice registerPropertyEditorAdvice() {
+		return new CustomPropertyEditorRegistrarAdvice();
+	}
 }

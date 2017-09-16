@@ -23,7 +23,6 @@ public class SiteMeshView extends JstlView {
 		
 		ApplicationContext ctx = getApplicationContext();
 		Filter siteMeshFilter = ctx.getBean(SiteMeshFilter.class);		
-		
 		siteMeshFilter.doFilter(request, response, new InternalFilterChain(model, this));
 	}
 	

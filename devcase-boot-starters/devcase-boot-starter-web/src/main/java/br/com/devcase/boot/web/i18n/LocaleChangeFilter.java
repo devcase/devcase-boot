@@ -1,4 +1,4 @@
-package br.com.devcase.boot.starter.web.i18n;
+package br.com.devcase.boot.web.i18n;
 
 import java.io.IOException;
 import java.util.Locale;

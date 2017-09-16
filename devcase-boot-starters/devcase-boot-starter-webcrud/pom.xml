@@ -17,7 +17,15 @@
 		</dependency>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
-			<artifactId>devcase-boot-starter-web</artifactId>
+			<artifactId>devcase-boot-starter-jsp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-dwftaglibs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-sitemesh</artifactId>
 		</dependency>
 	</dependencies>
 </project>

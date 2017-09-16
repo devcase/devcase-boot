@@ -4,7 +4,10 @@
 <%@ taglib uri="http://boot.devcase.com.br/dwf" prefix="dwf"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <dwf:formGroup parentAttrMap="${attrMap}">
-	<fmt:formatDate value="${value}" pattern="yyyy-MM-dd" var="valueOutput"/>
+	<c:set var="valueOutput" value="${value}"/>
+	<c:if test="${value.class.name eq 'java.util.Date'}">
+		<fmt:formatDate value="${value}" pattern="yyyy-MM-dd" var="valueOutput"/>
+	</c:if>
 	<input type="date" 
 		value="${valueOutput}" name="${name}" <c:if test="${attrMap.required}">required="required"</c:if>
 		class='form-control <c:if test="${attrMap.required}">required</c:if>'

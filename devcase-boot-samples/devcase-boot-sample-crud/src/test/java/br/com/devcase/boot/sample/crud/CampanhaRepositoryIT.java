@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -19,6 +20,7 @@ import br.com.devcase.boot.sample.crud.repository.CampanhaRepository;
 @SpringBootTest()
 @DirtiesContext
 @ContextConfiguration(classes=SampleCrudConfig.class)
+@EnableAutoConfiguration
 @ActiveProfiles("integration-test")
 public class CampanhaRepositoryIT {
 	@Autowired
@@ -27,7 +29,7 @@ public class CampanhaRepositoryIT {
 	@Test
 	public void testSalvar() throws Exception {
 		Campanha c = new Campanha();
-		c.setName("Campanha X");
+		c.setNome("Campanha X");
 		
 		c = campanhaRepository.save(c);
 		Assert.assertNotNull(c);

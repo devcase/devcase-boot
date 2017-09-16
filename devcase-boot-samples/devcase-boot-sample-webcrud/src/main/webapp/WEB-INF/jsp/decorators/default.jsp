@@ -16,13 +16,15 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
 	crossorigin="anonymous">
-<title><sitemesh:write property='title' /></title>
-<sitemesh:write property='head' />
+<title><sitemesh:write property="title" /></title>
+<sitemesh:write property="head" />
 </head>
 <body>
-
+	<nav class="navbar navbar-dark bg-dark mb-3">
+		<a class="navbar-brand" href="/">WebCrud</a>
+	</nav>
 	<div class="container">
-		<sitemesh:write property='body' />
+		<sitemesh:write property="body" />
 	</div>
 
 	<!-- Optional JavaScript -->

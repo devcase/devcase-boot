@@ -2,14 +2,13 @@ package br.com.devcase.boot.sample.sitemesh;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.devcase.boot.sitemesh.SiteMeshConfig;
+import br.com.devcase.boot.sitemesh.EnableSiteMesh;
 
 @SpringBootApplication
-@Import(SiteMeshConfig.class)
+@EnableSiteMesh
 @Controller
 public class SiteMeshSampleApplication {
 

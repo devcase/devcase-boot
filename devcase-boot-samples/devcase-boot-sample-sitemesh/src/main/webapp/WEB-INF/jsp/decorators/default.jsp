@@ -20,8 +20,10 @@
 <sitemesh:write property='head' />
 </head>
 <body>
-
-	<div class="container">
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">Home</a>
+	</nav>
+	<div class="container mt-1">
 		<sitemesh:write property='body' />
 	</div>
 

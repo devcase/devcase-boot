@@ -1,6 +1,8 @@
 package br.com.devcase.boot.dwftaglibs.tag;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,10 +11,12 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.money.MonetaryAmount;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -130,7 +134,12 @@ public class AutoFormatTag extends TagSupport {
 			return getOutput((ZonedDateTime) value);
 		} else if (value instanceof LocalTime) {
 			return getOutput((LocalDateTime) value);
-		}
+		} else if (MonetaryAmount.class.isAssignableFrom(value.getClass())) {
+			MonetaryAmount money = (MonetaryAmount) value;
+			NumberFormat nf = NumberFormat.getCurrencyInstance(locale());
+			nf.setCurrency(Currency.getInstance(money.getCurrency().getCurrencyCode()));
+			return nf.format(money.getNumber());
+		} 
 		return value.toString();
 	}
 	protected String getOutput(LocalTime lt) {

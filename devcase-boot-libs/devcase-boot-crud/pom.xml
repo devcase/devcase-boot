@@ -17,5 +17,9 @@
 			<groupId>org.javamoney</groupId>
 			<artifactId>moneta</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
 	</dependencies>
 </project>
