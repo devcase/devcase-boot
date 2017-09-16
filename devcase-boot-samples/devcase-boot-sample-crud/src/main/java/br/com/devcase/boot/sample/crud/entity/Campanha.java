@@ -31,6 +31,18 @@ public class Campanha {
 	@Columns(columns= {@Column(name="orcamento_cur"), @Column(name="orcamento_val")})
 	private Money orcamento;
 
+	
+	public Campanha() {
+		super();
+	}
+
+	private Campanha(Builder builder) {
+		this.id = builder.id;
+		this.nome = builder.nome;
+		this.inicio = builder.inicio;
+		this.orcamento = builder.orcamento;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -61,6 +73,51 @@ public class Campanha {
 
 	public void setOrcamento(Money budget) {
 		this.orcamento = budget;
+	}
+
+	/**
+	 * Creates builder to build {@link Campanha}.
+	 * @return created builder
+	 */
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	/**
+	 * Builder to build {@link Campanha}.
+	 */
+	public static final class Builder {
+		private String id;
+		private String nome;
+		private LocalDate inicio;
+		private Money orcamento;
+
+		private Builder() {
+		}
+
+		public Builder withId(String id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder withNome(String nome) {
+			this.nome = nome;
+			return this;
+		}
+
+		public Builder withInicio(LocalDate inicio) {
+			this.inicio = inicio;
+			return this;
+		}
+
+		public Builder withOrcamento(Money orcamento) {
+			this.orcamento = orcamento;
+			return this;
+		}
+
+		public Campanha build() {
+			return new Campanha(this);
+		}
 	}
 
 }

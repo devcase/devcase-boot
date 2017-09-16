@@ -38,6 +38,7 @@ public abstract class CrudController<E, ID extends Serializable> {
 		Page<E> page = repository.findAll(pageable);
 		model.addAttribute("list", page.getContent());
 		model.addAttribute("page", page);
+		model.addAttribute("pageable", pageable);
 		model.addAttribute("pageNumber", pageable.getPageNumber());
 		model.addAttribute("pageSize", pageable.getPageSize());
 		model.addAttribute("count", repository.count());

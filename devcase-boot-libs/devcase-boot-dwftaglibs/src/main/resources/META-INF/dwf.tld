@@ -100,6 +100,14 @@
 		<name>outputText</name>
 		<path>/META-INF/tags/outputText.tag</path>
 	</tag-file>
+	<tag-file>
+		<name>dataGrid</name>
+		<path>/META-INF/tags/dataGrid.tag</path>
+	</tag-file>
+	<tag-file>
+		<name>labelTextFor</name>
+		<path>/META-INF/tags/labelTextFor.tag</path>
+	</tag-file>
 	<function>
 		<name>memberOf</name>
 		<function-class>dwf.web.taglib.DwfFunctions</function-class>

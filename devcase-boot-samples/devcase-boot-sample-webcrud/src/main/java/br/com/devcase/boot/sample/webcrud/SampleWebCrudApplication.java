@@ -16,5 +16,7 @@ public class SampleWebCrudApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SampleWebCrudApplication.class, args);
 	}
+	
+	
 
 }

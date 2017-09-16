@@ -3,17 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://boot.devcase.com.br/dwf" prefix="dwf"%>
+
+<!DOCTYPE html>
 <html>
 <head>
-	<title><spring:message code="domain.campanha.plural"/></title>
+<title><spring:message code="domain.campanha.plural" /> Details</title>
+<meta name="decorator" content="/WEB-INF/jsp/decorators/default.jsp"></meta>
 </head>
 <body>
-	<h1><spring:message code="domain.campanha.plural"/></h1>
-	<a href="/campanha/create">Criar</a>
-	<ul>
-		<c:forEach items="${list}" var="campanha">
-			<li><a href="/campanha/${campanha.id}">${campanha.nome}</a></li>
-		</c:forEach>
-	</ul>
+	<dwf:setEntity entityName="campanha"/>
+	<div class="mb-2">
+		<a class="btn btn-primary" href="/${entityName}/create"><spring:message code="action.create"/></a>
+	</div>
+	<dwf:dataGrid columns="nome,inicio,orcamento"/>
 </body>
 </html>

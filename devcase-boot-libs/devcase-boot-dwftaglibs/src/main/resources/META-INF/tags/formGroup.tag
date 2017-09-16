@@ -41,21 +41,6 @@
 		name = property;
 	}
 
-	//definir label
-	String label = "";
-	if (StringUtils.isNotBlank(property)) {
-		label = messageSource.getMessage(entityName.concat(".").concat(property), null, "", locale);
-	}
-	if (StringUtils.isBlank(label) && StringUtils.isNotBlank(property)) {
-		//não achou no message source
-		label = property;
-		if (label.length() > 0) {
-			label = label.replaceAll("(\\p{Ll})(\\p{Lu})", "$1 $2");
-			label = (char) ((int) label.charAt(0) + ('A' - 'a')) + label.substring(1);
-		}
-
-	}
-
 	//definir value
 	Object value = "";
 	if (attrMap.containsKey("value")) {
@@ -64,14 +49,14 @@
 		value = BeanUtilsBean2.getInstance().getPropertyUtils().getProperty(bean, property);
 	}
 
+	getJspContext().setAttribute("property", property);
 	getJspContext().setAttribute("name", name);
-	getJspContext().setAttribute("label", label);
 	getJspContext().setAttribute("value", value);
 %>
 <c:choose>
 	<c:when test="${attrMap.row eq true}">
 		<div class="form-group row">
-			<label for="${name}" class="col col-form-label">${label}</label>
+			<label for="${name}" class="col col-form-label"><dwf:labelTextFor property="${property}"/></label>
 			<div class="col-sm-9">
 				<jsp:doBody />
 			</div>
@@ -80,7 +65,7 @@
 	</c:when>
 	<c:otherwise>
 		<div class="form-group">
-			<label for="${name}">${label}</label>
+			<label for="${name}"><dwf:labelTextFor property="${property}"/></label>
 			<jsp:doBody />
 		</div>
 	</c:otherwise>
