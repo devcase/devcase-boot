@@ -13,24 +13,23 @@ phases:
 #    commands:
 #      - command
 #      - command
-#  pre_build:
-#    commands:
-#      - command
-#      - command
+  pre_build:
+    commands:
+      - mvn test
   build:
     commands:
       - echo Build started on `date`
-      - mvn test
+      - mvn build
   post_build:
     commands:
       - echo Build completed on `date`
-      - mvn package
-#  post_build:
-#    commands:
-#      - command
-#      - command
+      - mvn verify
+  post_build:
+    commands:
+      - mvn deploy
 artifacts:
   files:
-    - devcase-boot-samples/devcase-boot-sample-dwftaglibs/target/devcase-boot-sample-dwftaglibs-*.war
-  discard-paths: yes
+    - '**/target/devcase-boot-*.war'
+    - '**/target/devcase-boot-*.jar'
+#  discard-paths: yes
 #  base-directory: location
