@@ -41,6 +41,7 @@
 	</tbody>
 </table>
 <!-- PAGINATOR -->
+<c:if test="${page.totalPages > 1}">
 <nav aria-label="Navegação por páginas" class="mt-3">
 	<ul class="pagination justify-content-center">
 		<!-- previous page -->
@@ -61,3 +62,4 @@
 		><spring:message code="action.next" /></a></li>
 	</ul>
 </nav>
+</c:if>

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -16,16 +15,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import br.com.devcase.boot.crud.jpa.repository.query.CriteriaRepository;
 import br.com.devcase.boot.crud.validation.groups.Create;
 import br.com.devcase.boot.crud.validation.groups.Update;
+import br.com.devcase.boot.webcrud.criteria.CriteriaSource;
 
 public abstract class CrudController<E, ID extends Serializable> {
 
-	private final JpaRepository<E, ID> repository;
+	private final CriteriaRepository<E, ID> repository;
 	private final String viewNamePrefix;
 	private final Class<E> entityClass;
 
-	public CrudController(Class<E> entityClass, JpaRepository<E, ID> repository, String viewNamePrefix) {
+	public CrudController(Class<E> entityClass, CriteriaRepository<E, ID> repository, String viewNamePrefix) {
 		super();
 		this.repository = repository;
 		Assert.isTrue(!StringUtils.startsWithIgnoreCase(viewNamePrefix, "/") && !StringUtils.startsWithIgnoreCase(viewNamePrefix, "/"), "viewNamePrefix inválido (começa com barra, termina sem barra)");
@@ -34,8 +35,8 @@ public abstract class CrudController<E, ID extends Serializable> {
 	}
 
 	@GetMapping({ "/", "", "/list" })
-	public String list(Pageable pageable, Model model) {
-		Page<E> page = repository.findAll(pageable);
+	public String list(CriteriaSource criteriaSource, Pageable pageable, Model model) {
+		Page<E> page = repository.findAll(criteriaSource.getCriteria(entityClass), pageable);
 		model.addAttribute("list", page.getContent());
 		model.addAttribute("page", page);
 		model.addAttribute("pageable", pageable);
