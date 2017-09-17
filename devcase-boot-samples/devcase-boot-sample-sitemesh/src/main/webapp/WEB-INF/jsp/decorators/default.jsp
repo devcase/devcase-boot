@@ -21,10 +21,11 @@
 </head>
 <body>
 	<nav class="navbar navbar-dark bg-dark">
-		<a class="navbar-brand" href="/">@SiteMeshTest@</a>
+		<a class="navbar-brand" href="/">SiteMeshTest</a>
 	</nav>
 	<div class="container mt-1">
 		<sitemesh:write property='body' />
+		<p>This text is in the decorator</p>
 	</div>
 
 	<!-- Optional JavaScript -->

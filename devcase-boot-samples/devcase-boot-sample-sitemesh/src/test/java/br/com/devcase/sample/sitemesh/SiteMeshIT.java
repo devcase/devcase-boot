@@ -28,7 +28,7 @@ public class SiteMeshIT {
 	@Test
 	public void testIndex() throws Exception {
 		String body = this.restTemplate.getForObject("/", String.class);
-		Assert.assertTrue(body.contains("Body Title"));
-		Assert.assertTrue(body.contains("@SiteMeshTest@"));
+		Assert.assertTrue("Não encontrou conteúdo de index.jsp", body.contains("Body Title"));
+		Assert.assertTrue("Não encontrou conteúdo do decorador", body.contains("This text is in the decorator"));
 	}
 }
