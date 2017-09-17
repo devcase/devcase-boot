@@ -29,6 +29,6 @@ public class SiteMeshIT {
 	public void testIndex() throws Exception {
 		String body = this.restTemplate.getForObject("/", String.class);
 		Assert.assertTrue(body.contains("Body Title"));
-		Assert.assertTrue(body.contains("<div class=\"container\">"));
+		Assert.assertTrue(body.contains("@SiteMeshTest@"));
 	}
 }

@@ -104,8 +104,8 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 
 	@SuppressWarnings("rawtypes")
 	protected <P extends Number & Comparable> BooleanExpression createNumberPredicate(PathBuilder<T> pathBuilder,
-			Criteria<P> criteria) {
-		NumberPath<P> path = pathBuilder.getNumber(criteria.getProperty(), criteria.getPropertyType());
+			Criteria criteria) {
+		NumberPath path = pathBuilder.getNumber(criteria.getProperty(), criteria.getPropertyType());
 
 		switch (criteria.getOperation()) {
 		case EQ:
@@ -115,13 +115,13 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 		case NE:
 			return path.ne(criteria.getValue());
 		case GT:
-			return path.gt(criteria.getValue());
+			return path.gt((Number) criteria.getValue());
 		case LT:
-			return path.lt(criteria.getValue());
+			return path.lt((Number) criteria.getValue());
 		case GTE:
-			return path.goe(criteria.getValue());
+			return path.goe((Number) criteria.getValue());
 		case LTE:
-			return path.loe(criteria.getValue());
+			return path.loe((Number) criteria.getValue());
 		default:
 			throw new RuntimeException("Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
 		}
