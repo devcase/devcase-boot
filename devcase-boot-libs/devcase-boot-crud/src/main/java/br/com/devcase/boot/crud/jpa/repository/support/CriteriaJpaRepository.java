@@ -53,7 +53,7 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 	}
 
 	@Override
-	public Page<T> findAll(List<Criteria> criteria, Pageable pageable) {
+	public Page<T> findAll(List<Criteria<?>> criteria, Pageable pageable) {
 		Predicate predicate = createPredicate(criteria.toArray(new Criteria[0]));
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
