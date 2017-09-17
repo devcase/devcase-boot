@@ -3,6 +3,7 @@ package br.com.devcase.boot.crud.jpa.repository.support;
 import java.io.Serializable;
 import java.time.temporal.Temporal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -19,12 +20,11 @@ import com.querydsl.core.types.dsl.DatePath;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathBuilder;
 
-import br.com.devcase.boot.crud.jpa.repository.FilterRepository;
 import br.com.devcase.boot.crud.jpa.repository.query.Criteria;
-import br.com.devcase.boot.crud.jpa.repository.query.CriteriaSource;
+import br.com.devcase.boot.crud.jpa.repository.query.CriteriaRepository;
 
-public class FilterJpaRepository<T, ID extends Serializable> extends QueryDslJpaRepository<T, ID>
-		implements FilterRepository<T, ID> {
+public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJpaRepository<T, ID>
+		implements CriteriaRepository<T, ID> {
 
 	static EntityPathResolver resolver;
 	static {
@@ -32,7 +32,7 @@ public class FilterJpaRepository<T, ID extends Serializable> extends QueryDslJpa
 			
 			@Override
 			public <T> EntityPath<T> createPath(Class<T> domainClass) {
-				return FilterJpaRepository.createPath(domainClass);
+				return CriteriaJpaRepository.createPath(domainClass);
 			}
 		};
 	}
@@ -41,32 +41,32 @@ public class FilterJpaRepository<T, ID extends Serializable> extends QueryDslJpa
 		return new PathBuilder<T>(domainClass, domainClass.getSimpleName().toLowerCase().concat("_1"));
 	}
 	
-	public FilterJpaRepository(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
+	public CriteriaJpaRepository(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
 		super(entityInformation, entityManager, resolver);
 	}
 
 	@Override
-	public Page<T> findAll(CriteriaSource filter, Pageable pageable) {
-		Predicate predicate = createPredicate(filter);
+	public Page<T> findAll(Pageable pageable, Criteria<?>... criteria) {
+		Predicate predicate = createPredicate(criteria);
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
 
-	public Iterable<T> findAll(CriteriaSource filter) {
-		Predicate predicate = createPredicate(filter);
+	@Override
+	public List<T> findAll(Criteria<?>... criteria) {
+		Predicate predicate = createPredicate(criteria);
 		return predicate == null ? findAll() : findAll(predicate);
 	}
 
-	protected BooleanExpression createPredicate(CriteriaSource filter) {
-		Iterable<Criteria<?>> generatedCriteria = filter.getCriteriaFor(this.getDomainClass());
+	protected BooleanExpression createPredicate(Criteria<?>... criteria) {
 		
 		//translate the criteria into predicates for QueryDSL
-		PathBuilder<T> parentPath = FilterJpaRepository.createPath(getDomainClass());
+		PathBuilder<T> parentPath = CriteriaJpaRepository.createPath(getDomainClass());
 		BooleanExpression predicate = null;
-		for (Criteria<?> criteria : generatedCriteria) {
+		for (Criteria<?> crit : criteria) {
 			if(predicate == null) {
-				predicate = createPredicate(parentPath, criteria);
+				predicate = createPredicate(parentPath, crit);
 			} else {
-				predicate = predicate.and(createPredicate(parentPath, criteria));
+				predicate = predicate.and(createPredicate(parentPath, crit));
 			}
 		}
 		return predicate;

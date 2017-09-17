@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,51 +26,12 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 
 import com.google.common.collect.Lists;
 
-import br.com.devcase.boot.crud.jpa.repository.support.FilterJpaRepository;
+import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FilterJpaRepositoryTest {
 
 	public static class ExampleDomainClass {
-//		private String id;
-//		private String name;
-//		private Long weight;
-//		private LocalDate dayOfBirth;
-//		private Date creationDate;
-//
-//		public String getId() {
-//			return id;
-//		}
-//
-//		public void setId(String id) {
-//			this.id = id;
-//		}
-//
-//		public String getName() {
-//			return name;
-//		}
-//
-//		public void setName(String name) {
-//			this.name = name;
-//		}
-//
-//		public Long getWeight() {
-//			return weight;
-//		}
-//
-//		public void setWeight(Long weight) {
-//			this.weight = weight;
-//		}
-//
-//		public LocalDate getDayOfBirth() {
-//			return dayOfBirth;
-//		}
-//
-//		public void setDayOfBirth(LocalDate dayOfBirth) {
-//			this.dayOfBirth = dayOfBirth;
-//		}
-//		
-//		
 	}
 
 	@Mock EntityManager em;
@@ -83,7 +43,7 @@ public class FilterJpaRepositoryTest {
 	@Mock javax.persistence.Query query;
 	@Mock Metamodel metamodel;
 
-	FilterJpaRepository<ExampleDomainClass, String> filterJpaRepository;
+	CriteriaJpaRepository<ExampleDomainClass, String> filterJpaRepository;
 
 	@Before
 	public void setUp() {
@@ -95,21 +55,17 @@ public class FilterJpaRepositoryTest {
 		when(emf.createEntityManager()).thenReturn(em);
 		when(em.createQuery(anyString())).thenReturn(query);
 		
-		filterJpaRepository = spy(new FilterJpaRepository<>(information, em));
+		filterJpaRepository = spy(new CriteriaJpaRepository<>(information, em));
 	}
 	
 	@Test
 	public void testFilterJpaRepository() {
-		List<Criteria<?>> sampleCriteria = Lists.newArrayList(
+		Criteria<?>[] sampleCriteria = Lists.newArrayList(
 					new Criteria<String>("name", Operation.EQ, "Fulano de tal", String.class),
 					new Criteria<Long>("weight", Operation.GT, 14L, Long.class)
-				);
+				).toArray(new Criteria<?>[0]);
 		
-		CriteriaSource mockCriteria = mock(CriteriaSource.class);
-		when(mockCriteria.getCriteriaFor(any())).thenReturn(sampleCriteria);
-		
-		
-		filterJpaRepository.findAll(mockCriteria);
+		filterJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -123,17 +79,13 @@ public class FilterJpaRepositoryTest {
 	
 	@Test
 	public void testStringOperations() {
-		List<Criteria<?>> sampleCriteria = Lists.newArrayList(
+		Criteria<?>[] sampleCriteria = Lists.newArrayList(
 					new Criteria<String>("name", Operation.EQ, "Fulano de tal", String.class),
 					new Criteria<String>("name", Operation.NE, "Silvia Gomes", String.class),
 					new Criteria<String>("name", Operation.ISNULL, null, String.class)
-				);
+				).toArray(new Criteria<?>[0]);
 		
-		CriteriaSource mockCriteria = mock(CriteriaSource.class);
-		when(mockCriteria.getCriteriaFor(any())).thenReturn(sampleCriteria);
-		
-		
-		filterJpaRepository.findAll(mockCriteria);
+		filterJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -147,7 +99,7 @@ public class FilterJpaRepositoryTest {
 	
 	@Test
 	public void testNumericOperations() {
-		List<Criteria<?>> sampleCriteria = Lists.newArrayList(
+		Criteria<?>[] sampleCriteria = Lists.newArrayList(
 				new Criteria<Long>("weight", Operation.EQ, 1L, Long.class),
 				new Criteria<Long>("weight", Operation.NE, 2L, Long.class),
 				new Criteria<Long>("weight", Operation.ISNULL, null, Long.class),
@@ -155,12 +107,9 @@ public class FilterJpaRepositoryTest {
 				new Criteria<Long>("weight", Operation.LT, 4L, Long.class),
 				new Criteria<Long>("weight", Operation.GTE, 5L, Long.class),
 				new Criteria<Long>("weight", Operation.LTE, 6L, Long.class)
-			);
-		CriteriaSource mockCriteria = mock(CriteriaSource.class);
-		when(mockCriteria.getCriteriaFor(any())).thenReturn(sampleCriteria);
-		
-		
-		filterJpaRepository.findAll(mockCriteria);
+			).toArray(new Criteria<?>[0]);
+
+		filterJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -179,7 +128,7 @@ public class FilterJpaRepositoryTest {
 	@Test
 	public void testLocalDateOperations() {
 		LocalDate ld = LocalDate.of(2017, 9, 16);
-		List<Criteria<?>> sampleCriteria = Lists.newArrayList(
+		Criteria<?>[] sampleCriteria = Lists.newArrayList(
 					new Criteria<LocalDate>("dayOfBirth", Operation.EQ, ld.plusDays(1), LocalDate.class),
 					new Criteria<LocalDate>("dayOfBirth", Operation.NE, ld.plusDays(2), LocalDate.class),
 					new Criteria<LocalDate>("dayOfBirth", Operation.ISNULL, null, LocalDate.class),
@@ -187,13 +136,9 @@ public class FilterJpaRepositoryTest {
 					new Criteria<LocalDate>("dayOfBirth", Operation.LT, ld.plusDays(4), LocalDate.class),
 					new Criteria<LocalDate>("dayOfBirth", Operation.GTE, ld.plusDays(5), LocalDate.class),
 					new Criteria<LocalDate>("dayOfBirth", Operation.LTE, ld.plusDays(6), LocalDate.class)
-				);
+				).toArray(new Criteria<?>[0]);
 		
-		CriteriaSource mockCriteria = mock(CriteriaSource.class);
-		when(mockCriteria.getCriteriaFor(any())).thenReturn(sampleCriteria);
-		
-		
-		filterJpaRepository.findAll(mockCriteria);
+		filterJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -212,8 +157,7 @@ public class FilterJpaRepositoryTest {
 	@Test
 	public void testDateOperations() {
 		ZonedDateTime ld = LocalDate.of(2017, 9, 16).atStartOfDay(ZoneId.of("America/Sao_Paulo"));
-		Date d = new Date();
-		List<Criteria<?>> sampleCriteria = Lists.newArrayList(
+		Criteria<?>[] sampleCriteria = Lists.newArrayList(
 					new Criteria<Date>("dayOfBirth", Operation.EQ, Date.from(ld.plusDays(1).toInstant()), Date.class),
 					new Criteria<Date>("dayOfBirth", Operation.NE, Date.from(ld.plusDays(2).toInstant()), Date.class),
 					new Criteria<Date>("dayOfBirth", Operation.ISNULL, null, Date.class),
@@ -221,13 +165,9 @@ public class FilterJpaRepositoryTest {
 					new Criteria<Date>("dayOfBirth", Operation.LT, Date.from(ld.plusDays(4).toInstant()), Date.class),
 					new Criteria<Date>("dayOfBirth", Operation.GTE, Date.from(ld.plusDays(5).toInstant()), Date.class),
 					new Criteria<Date>("dayOfBirth", Operation.LTE, Date.from(ld.plusDays(6).toInstant()), Date.class)
-				);
+				).toArray(new Criteria<?>[0]);
 		
-		CriteriaSource mockCriteria = mock(CriteriaSource.class);
-		when(mockCriteria.getCriteriaFor(any())).thenReturn(sampleCriteria);
-		
-		
-		filterJpaRepository.findAll(mockCriteria);
+		filterJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());

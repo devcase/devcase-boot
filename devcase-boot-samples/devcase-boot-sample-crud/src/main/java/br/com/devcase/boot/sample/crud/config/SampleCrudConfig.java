@@ -4,12 +4,13 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
 import br.com.devcase.boot.sample.crud.entity.Campanha;
 import br.com.devcase.boot.sample.crud.repository.CampanhaRepository;
 
 @Configuration
 @EntityScan(basePackageClasses=Campanha.class)
-@EnableJpaRepositories(basePackageClasses=CampanhaRepository.class, )
+@EnableJpaRepositories(basePackageClasses=CampanhaRepository.class, repositoryBaseClass=CriteriaJpaRepository.class)
 public class SampleCrudConfig {
 	
 }
