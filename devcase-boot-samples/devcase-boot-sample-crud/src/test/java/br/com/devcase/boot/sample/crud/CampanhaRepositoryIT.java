@@ -61,9 +61,8 @@ public class CampanhaRepositoryIT {
 			campanhaRepository.save(c);
 		}
 
-		Criteria<?>[] sampleCriteria = Lists
-				.newArrayList(new Criteria<String>("nome", Operation.EQ, "Exemplo de campanha 13", String.class))
-				.toArray(new Criteria<?>[0]);
+		List<Criteria> sampleCriteria = Lists
+				.newArrayList(new Criteria<String, String>("nome", Operation.EQ, "Exemplo de campanha 13", String.class));
 
 		List<Campanha> results = campanhaRepository.findAll(sampleCriteria);
 

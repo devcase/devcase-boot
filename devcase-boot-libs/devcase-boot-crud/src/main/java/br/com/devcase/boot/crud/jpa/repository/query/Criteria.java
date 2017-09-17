@@ -1,16 +1,16 @@
 package br.com.devcase.boot.crud.jpa.repository.query;
 
-public class Criteria<T> {
+public class Criteria<P, V> {
 	private String property;
 	private Operation operation;
-	private T value;
-	private Class<T> propertyType;
+	private V value;
+	private Class<P> propertyType;
 
 	public Criteria() {
 		super();
 	}
 
-	public Criteria(String property, Operation operation, T value, Class<T> propertyType) {
+	public Criteria(String property, Operation operation, V value, Class<P> propertyType) {
 		super();
 		this.property = property;
 		this.operation = operation;
@@ -35,19 +35,19 @@ public class Criteria<T> {
 		this.operation = operation;
 	}
 
-	public T getValue() {
+	public V getValue() {
 		return value;
 	}
 
-	public void setValue(T value) {
+	public void setValue(V value) {
 		this.value = value;
 	}
 
-	public Class<T> getPropertyType() {
+	public Class<P> getPropertyType() {
 		return propertyType;
 	}
 
-	public void setPropertyType(Class<T> propertyType) {
+	public void setPropertyType(Class<P> propertyType) {
 		this.propertyType = propertyType;
 	}
 

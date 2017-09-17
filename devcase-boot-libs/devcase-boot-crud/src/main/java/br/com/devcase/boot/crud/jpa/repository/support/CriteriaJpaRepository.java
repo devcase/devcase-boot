@@ -47,29 +47,32 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 
 
 	@Override
-	public Page<T> findAll(Pageable pageable, Criteria<?>... criteria) {
+	public Page<T> findAll(Pageable pageable, Criteria... criteria) {
 		Predicate predicate = createPredicate(criteria);
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
-
 	@Override
-	public Page<T> findAll(List<Criteria<?>> criteria, Pageable pageable) {
+	public List<T> findAll(List<Criteria> criteria) {
+		Predicate predicate = createPredicate(criteria.toArray(new Criteria[0]));
+		return predicate == null ? findAll() : findAll(predicate);
+	}
+	@Override
+	public Page<T> findAll(List<Criteria> criteria, Pageable pageable) {
 		Predicate predicate = createPredicate(criteria.toArray(new Criteria[0]));
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
-
 	@Override
-	public List<T> findAll(Criteria<?>... criteria) {
+	public List<T> findAll(Criteria... criteria) {
 		Predicate predicate = createPredicate(criteria);
 		return predicate == null ? findAll() : findAll(predicate);
 	}
 
-	protected BooleanExpression createPredicate(Criteria<?>... criteria) {
+	protected BooleanExpression createPredicate(Criteria... criteria) {
 		
 		//translate the criteria into predicates for QueryDSL
 		PathBuilder<T> parentPath = CriteriaJpaRepository.createPath(getDomainClass());
 		BooleanExpression predicate = null;
-		for (Criteria<?> crit : criteria) {
+		for (Criteria crit : criteria) {
 			if(predicate == null) {
 				predicate = createPredicate(parentPath, crit);
 			} else {
@@ -80,13 +83,13 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 	}
 
 	@SuppressWarnings("unchecked")
-	protected BooleanExpression createPredicate(PathBuilder<T> pathBuilder, Criteria<?> criteria) {
+	protected BooleanExpression createPredicate(PathBuilder<T> pathBuilder, Criteria criteria) {
 		if (Number.class.isAssignableFrom(criteria.getPropertyType())) {
-			return createNumberPredicate(pathBuilder, (Criteria<Long>) criteria);
+			return createNumberPredicate(pathBuilder, (Criteria) criteria);
 		}
 		
 		if(Temporal.class.isAssignableFrom(criteria.getPropertyType()) || Date.class.isAssignableFrom(criteria.getPropertyType())) {
-			return createTemporalPredicate(pathBuilder, (Criteria<Comparable<?>>) criteria);
+			return createTemporalPredicate(pathBuilder, (Criteria) criteria);
 		}
 		PathBuilder<Object> path = pathBuilder.get(criteria.getProperty());
 
@@ -129,8 +132,8 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 
 	@SuppressWarnings("rawtypes")
 	protected <P extends Comparable> BooleanExpression createTemporalPredicate(PathBuilder<T> pathBuilder,
-			Criteria<P> criteria) {
-		DatePath<P> path = pathBuilder.getDate(criteria.getProperty(), criteria.getPropertyType());
+			Criteria criteria) {
+		DatePath path = pathBuilder.getDate(criteria.getProperty(), criteria.getPropertyType());
 
 		switch (criteria.getOperation()) {
 		case EQ:
@@ -140,13 +143,13 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 		case NE:
 			return path.ne(criteria.getValue());
 		case GT:
-			return path.gt(criteria.getValue());
+			return path.gt((Comparable) criteria.getValue());
 		case LT:
-			return path.lt(criteria.getValue());
+			return path.lt((Comparable) criteria.getValue());
 		case GTE:
-			return path.goe(criteria.getValue());
+			return path.goe((Comparable) criteria.getValue());
 		case LTE:
-			return path.loe(criteria.getValue());
+			return path.loe((Comparable) criteria.getValue());
 		default:
 			throw new RuntimeException("Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
 		}

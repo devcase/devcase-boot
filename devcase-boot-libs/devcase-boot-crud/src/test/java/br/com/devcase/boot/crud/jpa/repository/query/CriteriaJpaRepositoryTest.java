@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,7 +30,7 @@ import com.google.common.collect.Lists;
 import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FilterJpaRepositoryTest {
+public class CriteriaJpaRepositoryTest {
 
 	public static class ExampleDomainClass {
 	}
@@ -43,7 +44,7 @@ public class FilterJpaRepositoryTest {
 	@Mock javax.persistence.Query query;
 	@Mock Metamodel metamodel;
 
-	CriteriaJpaRepository<ExampleDomainClass, String> filterJpaRepository;
+	CriteriaJpaRepository<ExampleDomainClass, String> criteriaJpaRepository;
 
 	@Before
 	public void setUp() {
@@ -55,17 +56,16 @@ public class FilterJpaRepositoryTest {
 		when(emf.createEntityManager()).thenReturn(em);
 		when(em.createQuery(anyString())).thenReturn(query);
 		
-		filterJpaRepository = spy(new CriteriaJpaRepository<>(information, em));
+		criteriaJpaRepository = spy(new CriteriaJpaRepository<>(information, em));
 	}
 	
 	@Test
 	public void testFilterJpaRepository() {
-		Criteria<?>[] sampleCriteria = Lists.newArrayList(
-					new Criteria<String>("name", Operation.EQ, "Fulano de tal", String.class),
-					new Criteria<Long>("weight", Operation.GT, 14L, Long.class)
-				).toArray(new Criteria<?>[0]);
+		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
+					new Criteria("name", Operation.EQ, "Fulano de tal", String.class),
+					new Criteria("weight", Operation.GT, 14L, Long.class));
 		
-		filterJpaRepository.findAll(sampleCriteria);
+		criteriaJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -79,13 +79,13 @@ public class FilterJpaRepositoryTest {
 	
 	@Test
 	public void testStringOperations() {
-		Criteria<?>[] sampleCriteria = Lists.newArrayList(
-					new Criteria<String>("name", Operation.EQ, "Fulano de tal", String.class),
-					new Criteria<String>("name", Operation.NE, "Silvia Gomes", String.class),
-					new Criteria<String>("name", Operation.ISNULL, null, String.class)
-				).toArray(new Criteria<?>[0]);
+		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
+					new Criteria("name", Operation.EQ, "Fulano de tal", String.class),
+					new Criteria("name", Operation.NE, "Silvia Gomes", String.class),
+					new Criteria("name", Operation.ISNULL, null, String.class));
+					
 		
-		filterJpaRepository.findAll(sampleCriteria);
+		criteriaJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -99,17 +99,16 @@ public class FilterJpaRepositoryTest {
 	
 	@Test
 	public void testNumericOperations() {
-		Criteria<?>[] sampleCriteria = Lists.newArrayList(
-				new Criteria<Long>("weight", Operation.EQ, 1L, Long.class),
-				new Criteria<Long>("weight", Operation.NE, 2L, Long.class),
-				new Criteria<Long>("weight", Operation.ISNULL, null, Long.class),
-				new Criteria<Long>("weight", Operation.GT, 3L, Long.class),
-				new Criteria<Long>("weight", Operation.LT, 4L, Long.class),
-				new Criteria<Long>("weight", Operation.GTE, 5L, Long.class),
-				new Criteria<Long>("weight", Operation.LTE, 6L, Long.class)
-			).toArray(new Criteria<?>[0]);
+		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
+				new Criteria("weight", Operation.EQ, 1L, Long.class),
+				new Criteria("weight", Operation.NE, 2L, Long.class),
+				new Criteria("weight", Operation.ISNULL, null, Long.class),
+				new Criteria("weight", Operation.GT, 3L, Long.class),
+				new Criteria("weight", Operation.LT, 4L, Long.class),
+				new Criteria("weight", Operation.GTE, 5L, Long.class),
+				new Criteria("weight", Operation.LTE, 6L, Long.class));
 
-		filterJpaRepository.findAll(sampleCriteria);
+		criteriaJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -128,17 +127,16 @@ public class FilterJpaRepositoryTest {
 	@Test
 	public void testLocalDateOperations() {
 		LocalDate ld = LocalDate.of(2017, 9, 16);
-		Criteria<?>[] sampleCriteria = Lists.newArrayList(
-					new Criteria<LocalDate>("dayOfBirth", Operation.EQ, ld.plusDays(1), LocalDate.class),
-					new Criteria<LocalDate>("dayOfBirth", Operation.NE, ld.plusDays(2), LocalDate.class),
-					new Criteria<LocalDate>("dayOfBirth", Operation.ISNULL, null, LocalDate.class),
-					new Criteria<LocalDate>("dayOfBirth", Operation.GT, ld.plusDays(3), LocalDate.class),
-					new Criteria<LocalDate>("dayOfBirth", Operation.LT, ld.plusDays(4), LocalDate.class),
-					new Criteria<LocalDate>("dayOfBirth", Operation.GTE, ld.plusDays(5), LocalDate.class),
-					new Criteria<LocalDate>("dayOfBirth", Operation.LTE, ld.plusDays(6), LocalDate.class)
-				).toArray(new Criteria<?>[0]);
+		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
+					new Criteria("dayOfBirth", Operation.EQ, ld.plusDays(1), LocalDate.class),
+					new Criteria("dayOfBirth", Operation.NE, ld.plusDays(2), LocalDate.class),
+					new Criteria("dayOfBirth", Operation.ISNULL, null, LocalDate.class),
+					new Criteria("dayOfBirth", Operation.GT, ld.plusDays(3), LocalDate.class),
+					new Criteria("dayOfBirth", Operation.LT, ld.plusDays(4), LocalDate.class),
+					new Criteria("dayOfBirth", Operation.GTE, ld.plusDays(5), LocalDate.class),
+					new Criteria("dayOfBirth", Operation.LTE, ld.plusDays(6), LocalDate.class));
 		
-		filterJpaRepository.findAll(sampleCriteria);
+		criteriaJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
@@ -157,17 +155,16 @@ public class FilterJpaRepositoryTest {
 	@Test
 	public void testDateOperations() {
 		ZonedDateTime ld = LocalDate.of(2017, 9, 16).atStartOfDay(ZoneId.of("America/Sao_Paulo"));
-		Criteria<?>[] sampleCriteria = Lists.newArrayList(
-					new Criteria<Date>("dayOfBirth", Operation.EQ, Date.from(ld.plusDays(1).toInstant()), Date.class),
-					new Criteria<Date>("dayOfBirth", Operation.NE, Date.from(ld.plusDays(2).toInstant()), Date.class),
-					new Criteria<Date>("dayOfBirth", Operation.ISNULL, null, Date.class),
-					new Criteria<Date>("dayOfBirth", Operation.GT, Date.from(ld.plusDays(3).toInstant()), Date.class),
-					new Criteria<Date>("dayOfBirth", Operation.LT, Date.from(ld.plusDays(4).toInstant()), Date.class),
-					new Criteria<Date>("dayOfBirth", Operation.GTE, Date.from(ld.plusDays(5).toInstant()), Date.class),
-					new Criteria<Date>("dayOfBirth", Operation.LTE, Date.from(ld.plusDays(6).toInstant()), Date.class)
-				).toArray(new Criteria<?>[0]);
+		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
+					new Criteria("dayOfBirth", Operation.EQ, Date.from(ld.plusDays(1).toInstant()), Date.class),
+					new Criteria("dayOfBirth", Operation.NE, Date.from(ld.plusDays(2).toInstant()), Date.class),
+					new Criteria("dayOfBirth", Operation.ISNULL, null, Date.class),
+					new Criteria("dayOfBirth", Operation.GT, Date.from(ld.plusDays(3).toInstant()), Date.class),
+					new Criteria("dayOfBirth", Operation.LT, Date.from(ld.plusDays(4).toInstant()), Date.class),
+					new Criteria("dayOfBirth", Operation.GTE, Date.from(ld.plusDays(5).toInstant()), Date.class),
+					new Criteria("dayOfBirth", Operation.LTE, Date.from(ld.plusDays(6).toInstant()), Date.class));
 		
-		filterJpaRepository.findAll(sampleCriteria);
+		criteriaJpaRepository.findAll(sampleCriteria);
 		
 		ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 		verify(em).createQuery(queryCaptor.capture());
