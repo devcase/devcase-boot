@@ -9,7 +9,7 @@ import br.com.devcase.boot.sample.crud.repository.CampanhaRepository;
 
 @Configuration
 @EntityScan(basePackageClasses=Campanha.class)
-@EnableJpaRepositories(basePackageClasses=CampanhaRepository.class)
+@EnableJpaRepositories(basePackageClasses=CampanhaRepository.class, )
 public class SampleCrudConfig {
 	
 }
