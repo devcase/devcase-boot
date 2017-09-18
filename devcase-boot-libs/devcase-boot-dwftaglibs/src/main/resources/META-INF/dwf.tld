@@ -97,6 +97,10 @@
 		<path>/META-INF/tags/inputNumber.tag</path>
 	</tag-file>
 	<tag-file>
+		<name>selectEntity</name>
+		<path>/META-INF/tags/selectEntity.tag</path>
+	</tag-file>
+	<tag-file>
 		<name>outputText</name>
 		<path>/META-INF/tags/outputText.tag</path>
 	</tag-file>

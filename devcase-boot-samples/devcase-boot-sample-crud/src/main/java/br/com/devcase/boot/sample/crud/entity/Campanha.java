@@ -74,6 +74,55 @@ public class Campanha {
 	public void setOrcamento(Money budget) {
 		this.orcamento = budget;
 	}
+	
+	@Override
+	public String toString() {
+		return getNome();
+	}
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inicio == null) ? 0 : inicio.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((orcamento == null) ? 0 : orcamento.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Campanha other = (Campanha) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (inicio == null) {
+			if (other.inicio != null)
+				return false;
+		} else if (!inicio.equals(other.inicio))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (orcamento == null) {
+			if (other.orcamento != null)
+				return false;
+		} else if (!orcamento.equals(other.orcamento))
+			return false;
+		return true;
+	}
 
 	/**
 	 * Creates builder to build {@link Campanha}.
