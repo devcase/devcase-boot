@@ -8,7 +8,7 @@
 <c:set var="maxXsCols" value="1" />
 <jsp:useBean id="queryStringBuilder" class="br.com.devcase.boot.dwftaglibs.util.QueryStringBuilder" />
 <c:set var="queryStringBuilder" value="${queryStringBuilder.fromRequest(pageContext.request)}"/>
-<c:set var="pagePath" value="/${entityName}"/>
+<c:set var="pagePath" value="/${pathPrefix}"/><!-- CrudController -->
 <table class="table table-sm table-hover">
 	<thead>
 		<c:forTokens items="${columns}" delims="," var="column" varStatus="loopStatus">
