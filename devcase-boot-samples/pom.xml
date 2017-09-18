@@ -20,5 +20,6 @@
   	<module>devcase-boot-sample-taglib</module>
   	<module>devcase-boot-sample-sitemesh</module>
   	<module>devcase-boot-sample-dwftaglibs</module>
+  	<module>devcase-boot-sample-oauth-sso</module>
   </modules>
 </project>
