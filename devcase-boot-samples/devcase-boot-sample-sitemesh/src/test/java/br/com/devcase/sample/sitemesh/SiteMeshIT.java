@@ -29,6 +29,7 @@ public class SiteMeshIT {
 	
 	@Test
 	public void testIndex() throws Exception {
+		logger.info(restTemplate.getForObject("/env", String.class));
 		String body = this.restTemplate.getForObject("/", String.class);
 		logger.info(body);
 		Assert.assertTrue("Não encontrou conteúdo de index.jsp", body.contains("Body Title"));
