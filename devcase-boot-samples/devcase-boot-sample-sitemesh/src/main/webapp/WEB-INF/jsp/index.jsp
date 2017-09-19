@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
-<meta name="decorator" content="/WEB-INF/jsp/decorators/default.jsp"></meta>
+<meta name="decorator" content="/WEB-INF/jsp/decorators/sitemesh.jsp"></meta>
 <title>Page Title</title>
 </head>
 <body>
