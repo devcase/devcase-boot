@@ -19,5 +19,6 @@
   	<module>devcase-boot-sitemesh</module>
   	<module>devcase-boot-dwftaglibs</module>
   	<module>devcase-boot-labels</module>
+  	<module>devcase-boot-ws-logging</module>
   </modules>
 </project>

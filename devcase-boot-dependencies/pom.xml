@@ -96,6 +96,11 @@
 				<artifactId>devcase-boot-starter</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-ws-logging</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- JAVAX -->
 			<dependency>
 				<groupId>javax.el</groupId>
@@ -127,6 +132,11 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-collections4</artifactId>
 				<version>4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.2</version>
 			</dependency>
 			<!-- SPRING -->
 			<dependency>
