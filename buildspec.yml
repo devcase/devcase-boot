@@ -15,12 +15,10 @@ phases:
   pre_build:
     commands:
       - mvn clean
-      - mvn test
   build:
     commands:
       - echo Build started on `date`
-      - mvn package
-      - mvn verify
+      - mvn install
       - mvn deploy
   post_build:
     commands:
