@@ -45,7 +45,7 @@
 	Object value = "";
 	if (attrMap.containsKey("value")) {
 		value = attrMap.get("value");
-	} else if (StringUtils.isNotBlank(property)) {
+	} else if (bean != null && StringUtils.isNotBlank(property)) {
 		value = BeanUtilsBean2.getInstance().getPropertyUtils().getProperty(bean, property);
 	}
 
