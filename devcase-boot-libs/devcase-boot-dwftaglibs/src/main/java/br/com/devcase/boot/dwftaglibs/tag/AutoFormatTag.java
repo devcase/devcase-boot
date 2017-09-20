@@ -84,9 +84,9 @@ public class AutoFormatTag extends TagSupport {
 		}
 	}
 
-	protected static enum Format {
-		STRING, BOOLEAN, MONEY, DATE, DATETIME, TIME;
-	}
+//	protected static enum Format {
+//		STRING, BOOLEAN, MONEY, DATE, DATETIME, TIME;
+//	}
 
 	@Override
 	public int doStartTag() throws JspException {
@@ -139,7 +139,10 @@ public class AutoFormatTag extends TagSupport {
 			NumberFormat nf = NumberFormat.getCurrencyInstance(locale());
 			nf.setCurrency(Currency.getInstance(money.getCurrency().getCurrencyCode()));
 			return nf.format(money.getNumber());
-		} 
+		} else if (Number.class.isAssignableFrom(value.getClass())) {
+			NumberFormat nf = NumberFormat.getNumberInstance(locale());
+			return nf.format((Number) value);
+		}
 		return value.toString();
 	}
 	protected String getOutput(LocalTime lt) {

@@ -20,8 +20,21 @@
 <sitemesh:write property="head" />
 </head>
 <body>
-	<nav class="navbar navbar-dark bg-dark mb-3">
+	<nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-3">
 		<a class="navbar-brand" href="/">Kotlin Sample</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="/pets"><spring:message code="domain.pet.plural" /> </a></li>
+				<li class="nav-item"><a class="nav-link" href="/orders"><spring:message code="domain.order.plural" /></a></li>
+			</ul>
+		</div>
+
 	</nav>
 	<div class="container">
 		<sitemesh:write property="body" />

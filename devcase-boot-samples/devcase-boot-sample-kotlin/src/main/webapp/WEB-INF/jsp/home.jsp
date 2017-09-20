@@ -3,17 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://boot.devcase.com.br/dwf" prefix="dwf"%>
-<dwf:setEntity entityName="pet"/>
 <!DOCTYPE html>
 <html>
 <head>
-<title><spring:message code="domain.${entityName}.plural" /></title>
+<title><spring:message code="action.home" /></title>
 <meta name="decorator" content="/WEB-INF/jsp/decorators/default.jsp"></meta>
 </head>
 <body>
-	<div class="mb-2">
-		<a class="btn btn-primary" href="/${entityName}/create"><spring:message code="action.create"/></a>
-	</div>
-	<dwf:dataGrid columns="id,name,weight"/>
+<h1>Welcome to Kotlin Sample</h1>
 </body>
 </html>

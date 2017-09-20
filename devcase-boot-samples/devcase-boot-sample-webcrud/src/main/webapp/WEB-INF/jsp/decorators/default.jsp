@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+w<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -23,6 +23,7 @@
 	<nav class="navbar navbar-dark bg-dark mb-3">
 		<a class="navbar-brand" href="/">WebCrud</a>
 	</nav>
+
 	<div class="container">
 		<sitemesh:write property="body" />
 	</div>

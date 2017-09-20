@@ -17,10 +17,11 @@
 			<h4 class="card-title"><spring:message code="domain.${entityName}" /></h4>
 			<c:if test="${empty entity.id}"><h5 class="card-subtitle mb-4 text-muted"><spring:message code="action.create" /></h5></c:if>
 			<c:if test="${!empty entity.id}"><h5 class="card-subtitle mb-4 text-muted"><spring:message code="action.edit" /></h5></c:if>
-			<form action="/${entityName}/${entity.id}" method="post">
+			<form action="/${pathPrefix}/${entity.id}" method="post">
 
-				<dwf:inputText property="name" required="true"/>
-				<dwf:inputNumber property="weight" />
+				<dwf:inputText property="name" required="true" row="true"/>
+				<dwf:inputText property="owner" required="true" row="true"/>
+				<dwf:inputNumber property="weight" row="true" step="0.1"/>
 				
 				<c:if test="${empty entity.id}"><a href="/${entityName}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
 				<c:if test="${!empty entity.id}"><a href="/${entityName}/${entity.id}" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
