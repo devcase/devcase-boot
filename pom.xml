@@ -84,6 +84,7 @@
 		<pluginRepository>
 			<id>clojars</id>
 			<url>http://clojars.org/repo/</url>
+			<name>Clojars</name>
 		</pluginRepository>
 	</pluginRepositories>
 

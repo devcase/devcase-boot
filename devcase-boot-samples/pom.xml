@@ -21,5 +21,6 @@
   	<module>devcase-boot-sample-sitemesh</module>
   	<module>devcase-boot-sample-dwftaglibs</module>
   	<module>devcase-boot-sample-oauth-sso</module>
+  	<module>devcase-boot-sample-kotlin</module>
   </modules>
 </project>
