@@ -1,3 +1,4 @@
+<%@tag import="org.apache.commons.beanutils.NestedNullException"%>
 <%@tag import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@tag import="org.springframework.web.context.WebApplicationContext"%>
 <%@tag import="java.util.Locale"%>
@@ -46,7 +47,11 @@
 	if (attrMap.containsKey("value")) {
 		value = attrMap.get("value");
 	} else if (bean != null && StringUtils.isNotBlank(property)) {
-		value = BeanUtilsBean2.getInstance().getPropertyUtils().getProperty(bean, property);
+		try {
+			value = BeanUtilsBean2.getInstance().getPropertyUtils().getProperty(bean, property);
+		} catch (NestedNullException e) {
+			value = null;
+		}
 	}
 
 	getJspContext().setAttribute("property", property);

@@ -97,6 +97,10 @@
 		<path>/META-INF/tags/inputNumber.tag</path>
 	</tag-file>
 	<tag-file>
+		<name>inputEntityName</name>
+		<path>/META-INF/tags/inputEntityName.tag</path>
+	</tag-file>
+	<tag-file>
 		<name>selectEntity</name>
 		<path>/META-INF/tags/selectEntity.tag</path>
 	</tag-file>
@@ -112,6 +116,11 @@
 		<name>labelTextFor</name>
 		<path>/META-INF/tags/labelTextFor.tag</path>
 	</tag-file>
+	<tag-file>
+		<name>entityNamesDatalist</name>
+		<path>/META-INF/tags/entityNamesDatalist.tag</path>
+	</tag-file>
+	
 	<function>
 		<name>memberOf</name>
 		<function-class>dwf.web.taglib.DwfFunctions</function-class>

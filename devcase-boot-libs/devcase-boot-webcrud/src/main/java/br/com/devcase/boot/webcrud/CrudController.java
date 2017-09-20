@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.devcase.boot.crud.jpa.repository.query.CriteriaRepository;
 import br.com.devcase.boot.crud.validation.groups.Create;
@@ -32,6 +35,10 @@ public abstract class CrudController<E, ID extends Serializable> {
 		Assert.isTrue(!StringUtils.startsWithIgnoreCase(viewNamePrefix, "/") && !StringUtils.startsWithIgnoreCase(viewNamePrefix, "/"), "viewNamePrefix inválido (começa com barra, termina sem barra)");
 		this.viewNamePrefix = viewNamePrefix;
 		this.entityClass = entityClass;
+	}
+	
+	private final Class<E> domainClass() {
+		return entityClass;
 	}
 
 	@GetMapping({ "/", "", "/list" })
@@ -54,6 +61,19 @@ public abstract class CrudController<E, ID extends Serializable> {
 		model.addAttribute("pathPrefix", viewNamePrefix);
 		return viewNamePrefix + "/details";
 	}
+	
+	@GetMapping("/{id}.json")
+	@ResponseBody
+	public ResponseEntity<E> getJson(@PathVariable ID id, Model model) {
+		return new ResponseEntity<E>(repository.findOne(id), HttpStatus.OK);
+	}
+	
+	@GetMapping(".json")
+	@ResponseBody
+	public ResponseEntity<Page<E>> getJsonList(CriteriaSource criteriaSource, Pageable pageable, Model model) {
+		return new ResponseEntity<>(repository.findAll(criteriaSource.getCriteria(domainClass()), pageable), HttpStatus.OK);
+	}
+
 
 	@GetMapping("/{id}/edit")
 	public String edit(@PathVariable ID id, Model model) {

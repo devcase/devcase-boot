@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://boot.devcase.com.br/dwf" prefix="dwf"%>
-<dwf:setEntity entityName="order" entity="${entity}"/>
+<dwf:setEntity entityName="service" entity="${entity}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +15,8 @@
 		<div class="card-body">
 			<h4 class="card-title"><spring:message code="domain.${entityName}" /></h4>
 			<form>
-				<dwf:outputText property="pet.name" row="true"/>
+				<dwf:outputText property="name" row="true"/>
 				<dwf:outputText property="price" row="true"/>
-				<dwf:outputText property="date" row="true"/>
 				
 				<a href="/${pathPrefix}/" class="btn btn-secondary"><spring:message code="action.list"/></a>
 				<button type="submit" class="btn btn-primary" formaction="/${pathPrefix}/${entity.id}/edit" formmethod="get"><spring:message code="action.edit"/></button>

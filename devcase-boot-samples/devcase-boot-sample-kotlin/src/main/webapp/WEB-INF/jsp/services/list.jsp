@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://boot.devcase.com.br/dwf" prefix="dwf"%>
-<dwf:setEntity entityName="order"/>
+<dwf:setEntity entityName="service"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,6 @@
 	<div class="mb-2">
 		<a class="btn btn-primary" href="/${pathPrefix}/create"><spring:message code="action.create"/></a>
 	</div>
-	<dwf:dataGrid columns="id,pet.name,date,price"/>
+	<dwf:dataGrid columns="id,name,price"/>
 </body>
 </html>

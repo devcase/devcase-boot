@@ -31,6 +31,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" href="/pets"><spring:message code="domain.pet.plural" /> </a></li>
+				<li class="nav-item"><a class="nav-link" href="/services"><spring:message code="domain.service.plural" /></a></li>
 				<li class="nav-item"><a class="nav-link" href="/orders"><spring:message code="domain.order.plural" /></a></li>
 			</ul>
 		</div>

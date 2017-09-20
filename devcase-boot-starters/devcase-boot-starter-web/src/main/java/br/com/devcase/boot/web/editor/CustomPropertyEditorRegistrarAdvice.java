@@ -22,7 +22,7 @@ import br.com.devcase.boot.beans.propertyeditors.DwfMoneyEditor;
 public class CustomPropertyEditorRegistrarAdvice {
 	@InitBinder
 	public void bindingPreparation(WebDataBinder binder, HttpServletRequest request) {
-		binder.setAutoGrowCollectionLimit(336); // for dwf:inputDayOfWeekTimeSchedule
+//		binder.setAutoGrowCollectionLimit(336); // for dwf:inputDayOfWeekTimeSchedule
 //		Locale locale = RequestContextUtils.getLocale(request);
 //		DecimalFormat df = new DecimalFormat("#,##0.0", new DecimalFormatSymbols(locale));
 //		binder.registerCustomEditor(Double.class, new CustomNumberEditor(Double.class, df, true));

@@ -16,10 +16,22 @@
 	String entityName = (String) getJspContext().findAttribute("entityName");
 
 	//definir label
+	final String[] IGNORABLE_SUFFIXES = {".id", ".name"};
 	String label = "";
 	if (StringUtils.isNotBlank(property)) {
 		label = messageSource.getMessage(entityName.concat(".").concat(property), null, "", locale);
+		if (StringUtils.isBlank(label)) {
+			for(String suffix : IGNORABLE_SUFFIXES) {
+				if(property.endsWith(suffix)) {
+					label = messageSource.getMessage(entityName.concat(".").concat(property.substring(0, property.length() - suffix.length())), null, "", locale);
+					if(!StringUtils.isBlank(label)) {
+						break;
+					}
+				}
+			}
+		}
 	}
+
 	if (StringUtils.isBlank(label) && StringUtils.isNotBlank(property)) {
 		//não achou no message source
 		label = property;
