@@ -17,13 +17,13 @@
 			<h4 class="card-title"><spring:message code="domain.${entityName}" /></h4>
 			<c:if test="${empty entity.id}"><h5 class="card-subtitle mb-4 text-muted"><spring:message code="action.create" /></h5></c:if>
 			<c:if test="${!empty entity.id}"><h5 class="card-subtitle mb-4 text-muted"><spring:message code="action.edit" /></h5></c:if>
-			<form action="/${entityName}/${entity.id}" method="post">
+			<form action="/${pathPrefix}/${entity.id}" method="post">
 
 				<dwf:inputText property="titulo"/>
 				<dwf:selectEntity property="campanha" required="true"/>
 				
-				<c:if test="${empty entity.id}"><a href="/${entityName}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
-				<c:if test="${!empty entity.id}"><a href="/${entityName}/${entity.id}" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
+				<c:if test="${empty entity.id}"><a href="/${pathPrefix}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
+				<c:if test="${!empty entity.id}"><a href="/${pathPrefix}/${entity.id}" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
 				<button type="submit" class="btn btn-primary"><spring:message code="action.save"/></button>
 			</form>
 		</div>

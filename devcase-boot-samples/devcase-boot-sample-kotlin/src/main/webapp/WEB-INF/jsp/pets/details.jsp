@@ -18,8 +18,8 @@
 				<dwf:outputText property="name" row="true"/>
 				<dwf:outputText property="weight" row="true"/>
 				
-				<a href="/${entityName}/" class="btn btn-secondary"><spring:message code="action.list"/></a>
-				<button type="submit" class="btn btn-primary" formaction="/${entityName}/${entity.id}/edit" formmethod="get"><spring:message code="action.edit"/></button>
+				<a href="/${pathPrefix}/" class="btn btn-secondary"><spring:message code="action.list"/></a>
+				<button type="submit" class="btn btn-primary" formaction="/${pathPrefix}/${entity.id}/edit" formmethod="get"><spring:message code="action.edit"/></button>
 			</form>
 		</div>
 	</div>

@@ -23,8 +23,8 @@
 				<dwf:inputDate property="inicio" required="true"/>
 				<dwf:inputMoney property="orcamento"/>
 				
-				<c:if test="${empty entity.id}"><a href="/${entityName}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
-				<c:if test="${!empty entity.id}"><a href="/${entityName}/${entity.id}" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
+				<c:if test="${empty entity.id}"><a href="/${pathPrefix}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
+				<c:if test="${!empty entity.id}"><a href="/${pathPrefix}/${entity.id}" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
 				<button type="submit" class="btn btn-primary"><spring:message code="action.save"/></button>
 			</form>
 		</div>

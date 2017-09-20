@@ -23,8 +23,8 @@
 				<dwf:inputText property="owner" required="true" row="true"/>
 				<dwf:inputNumber property="weight" row="true" step="0.1"/>
 				
-				<c:if test="${empty entity.id}"><a href="/${entityName}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
-				<c:if test="${!empty entity.id}"><a href="/${entityName}/${entity.id}" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
+				<c:if test="${empty entity.id}"><a href="/${pathPrefix}/" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
+				<c:if test="${!empty entity.id}"><a href="/${pathPrefix}/${entity.id}" class="btn btn-secondary"><spring:message code="action.cancel"/></a></c:if>
 				<button type="submit" class="btn btn-primary"><spring:message code="action.save"/></button>
 			</form>
 		</div>

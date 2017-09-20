@@ -13,7 +13,7 @@
 <body>
 	<dwf:setEntity entityName="campanha"/>
 	<div class="mb-2">
-		<a class="btn btn-primary" href="/${entityName}/create"><spring:message code="action.create"/></a>
+		<a class="btn btn-primary" href="/${pathPrefix}/create"><spring:message code="action.create"/></a>
 	</div>
 	<dwf:dataGrid columns="nome,inicio,orcamento"/>
 </body>

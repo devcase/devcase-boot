@@ -29,7 +29,7 @@
 					<c:choose>
 						<c:when test="${loopStatus.count eq 1}">
 							<td class="${loopStatus.count > maxXsCols ? 'd-none d-sm-table-cell' : ''}">
-								<a href="/${entityName}/${entity.id}"><dwf:autoFormat value="${value}" /></a></td>
+								<a href="/${pathPrefix}/${entity.id}"><dwf:autoFormat value="${value}" /></a></td>
 						</c:when>
 						<c:otherwise>
 							<td class="${loopStatus.count > maxXsCols ? 'd-none d-sm-table-cell' : ''}"><dwf:autoFormat value="${value}" /></td>
