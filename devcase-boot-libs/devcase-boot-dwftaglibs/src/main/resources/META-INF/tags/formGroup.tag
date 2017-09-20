@@ -15,6 +15,7 @@
 <%@ variable name-given="name" scope="NESTED"%>
 <%@ variable name-given="value" scope="NESTED" variable-class="java.lang.Object"%>
 <%@ variable name-given="label" scope="NESTED" variable-class="java.lang.String"%>
+<%@ variable name-given="fieldErrors" scope="NESTED" variable-class="java.lang.List"%>
 <%
 	WebApplicationContext webApplicationContext = WebApplicationContextUtils
 			.getRequiredWebApplicationContext(request.getServletContext());
@@ -58,20 +59,27 @@
 	getJspContext().setAttribute("name", name);
 	getJspContext().setAttribute("value", value);
 %>
+<c:set var="fieldErrors" value="${bindingResult.getFieldErrors(name)}" />
 <c:choose>
 	<c:when test="${attrMap.row eq true}">
-		<div class="form-group row">
-			<label for="${name}" class="col col-form-label"><dwf:labelTextFor property="${property}"/></label>
+		<div class="form-group row ">
+			<label for="${name}" class="col col-form-label"><dwf:labelTextFor property="${property}" /></label>
 			<div class="col-sm-9">
 				<jsp:doBody />
+				<c:forEach items="${fieldErrors}" var="fieldError">
+					<div class="invalid-feedback">${fieldError.defaultMessage}</div>
+				</c:forEach>
 			</div>
 		</div>
-	
+
 	</c:when>
 	<c:otherwise>
-		<div class="form-group">
-			<label for="${name}"><dwf:labelTextFor property="${property}"/></label>
+		<div class="form-group ">
+			<label for="${name}"><dwf:labelTextFor property="${property}" /></label>
 			<jsp:doBody />
+			<c:forEach items="${fieldErrors}" var="fieldError">
+				<div class="invalid-feedback">${fieldError.defaultMessage}</div>
+			</c:forEach>
 		</div>
 	</c:otherwise>
 </c:choose>

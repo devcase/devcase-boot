@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.javamoney.moneta.Money
+import java.time.LocalDate
+import java.math.BigDecimal
 
 @Component
 @Profile("dev")
@@ -25,7 +27,12 @@ class DevTestData : ApplicationListener<ApplicationReadyEvent> {
 				, Service(null, Money.of(123, "BRL"), "Consulta médica")
 				, Service(null, Money.of(123, "BRL"), "Retorno médico")
 		);
-		
 		services.forEach { serviceRepository.save(it) };
+		
+		val pets = listOf(
+				Pet(null, "Pingo", "Cintia", "xosudoskeiocc@readme.com", BigDecimal.valueOf(6.5), LocalDate.of(2015, 8, 1))
+				, Pet(null, "Kuro", "Cintia", "xosudoskeiocc@readme.com", BigDecimal.valueOf(5), LocalDate.of(2015, 8, 1))
+			);
+		pets.forEach { petRepository.save(it) };
 	}
 }

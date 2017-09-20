@@ -97,6 +97,10 @@
 		<path>/META-INF/tags/inputNumber.tag</path>
 	</tag-file>
 	<tag-file>
+		<name>inputEmail</name>
+		<path>/META-INF/tags/inputEmail.tag</path>
+	</tag-file>
+	<tag-file>
 		<name>inputEntityName</name>
 		<path>/META-INF/tags/inputEntityName.tag</path>
 	</tag-file>

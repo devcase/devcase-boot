@@ -10,6 +10,6 @@
 	</c:if>
 	<input type="date" 
 		value="${valueOutput}" name="${name}" <c:if test="${attrMap.required}">required="required"</c:if>
-		class='form-control <c:if test="${attrMap.required}">required</c:if>'
+		class="form-control ${!empty fieldErrors ? 'is-invalid' : ''} ${attrMap.inputStyleClass}"
 	/>
 </dwf:formGroup>

@@ -17,6 +17,6 @@
 	<input type="text" value="${value.name}" name="${name}"
 		<c:if test="${attrMap.required}">required="required"</c:if>
 		<c:if test="${!empty attrMap.listId}">list="${attrMap.listId}"</c:if>
-		
-		class='form-control' />
+		class="form-control ${!empty fieldErrors ? 'is-invalid' : ''} ${attrMap.inputStyleClass}"
+	/>
 </dwf:formGroup>

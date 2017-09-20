@@ -16,21 +16,36 @@
 	String entityName = (String) getJspContext().findAttribute("entityName");
 
 	//definir label
-	final String[] IGNORABLE_SUFFIXES = {".id", ".name"};
+	//se propriedade for, por exemplo, nomePropriedade.id ou nomePropriedade.name, busca por label nomeEntidade.nomePropriedade
+	final String[] IGNORABLE_SUFFIXES = {"", ".id", ".name"};
 	String label = "";
 	if (StringUtils.isNotBlank(property)) {
-		label = messageSource.getMessage(entityName.concat(".").concat(property), null, "", locale);
-		if (StringUtils.isBlank(label)) {
-			for(String suffix : IGNORABLE_SUFFIXES) {
-				if(property.endsWith(suffix)) {
-					label = messageSource.getMessage(entityName.concat(".").concat(property.substring(0, property.length() - suffix.length())), null, "", locale);
-					if(!StringUtils.isBlank(label)) {
-						break;
-					}
-				}
+		for(String suffix : IGNORABLE_SUFFIXES) {
+			if(!"".equals(suffix) && !property.endsWith(suffix)) {
+				continue;
+			}
+			
+			String messageCodeSuffix = property.substring(0, property.length() - suffix.length());
+			
+			//busca por nomeEntidade.nomePropriedade
+			label = messageSource.getMessage(entityName.concat(".").concat(messageCodeSuffix), null, "", locale);
+			
+			//buscar no message source label.nomePropriedade
+			if (StringUtils.isBlank(label)) {
+				label = messageSource.getMessage("label.".concat(property), null, "", locale);
+			}
+			
+			//buscar no message source domain.nomePropriedade
+			if (StringUtils.isBlank(label)) {
+				label = messageSource.getMessage("domain.".concat(property), null, "", locale);
+			}
+			
+			if (StringUtils.isNotBlank(label)) {
+				break;
 			}
 		}
 	}
+	
 
 	if (StringUtils.isBlank(label) && StringUtils.isNotBlank(property)) {
 		//não achou no message source

@@ -22,7 +22,8 @@
 			<c:if test="${!empty attrMap.minlength}">minlength="${attrMap.minlength}"</c:if>
 			<c:if test="${!empty attrMap.min}">min="${attrMap.min}"</c:if>
 			<c:if test="${!empty attrMap.max}">max="${attrMap.max}"</c:if>
-			class='form-control validate-number <c:if test="${attrMap.required}">required</c:if>' />
+		class="form-control ${!empty fieldErrors ? 'is-invalid' : ''} ${attrMap.inputStyleClass}"
+	/>
 	</div>
 
 </dwf:formGroup>

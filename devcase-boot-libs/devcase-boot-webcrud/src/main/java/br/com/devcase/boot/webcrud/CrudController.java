@@ -2,6 +2,10 @@ package br.com.devcase.boot.webcrud;
 
 import java.io.Serializable;
 
+import javax.validation.Validator;
+import javax.validation.groups.Default;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -28,6 +32,9 @@ public abstract class CrudController<E, ID extends Serializable> {
 	private final CriteriaRepository<E, ID> repository;
 	private final String viewNamePrefix;
 	private final Class<E> entityClass;
+	
+	@Autowired
+	private Validator validator;
 
 	public CrudController(Class<E> entityClass, CriteriaRepository<E, ID> repository, String viewNamePrefix) {
 		super();
@@ -108,11 +115,15 @@ public abstract class CrudController<E, ID extends Serializable> {
 	}
 
 	@PostMapping({"", "/"})
-	public String create(@Validated(Create.class) @ModelAttribute("entity") E entity,
+	public String create(@Validated({ Create.class, Default.class } ) @ModelAttribute("entity") E entity,
 			BindingResult bindingResult, Model model) {
+		
+		System.out.println(entity + "!!!!!!!!!!!!!");
+		System.out.println(bindingResult + "!!!!!!!!!!!!!");
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("entity", entity);
 			model.addAttribute("pathPrefix", viewNamePrefix);
+			model.addAttribute("bindingResult", bindingResult);
 			loadFormData(entity, model);
 			return viewNamePrefix + "/form";
 		}
@@ -122,12 +133,12 @@ public abstract class CrudController<E, ID extends Serializable> {
 
 	@PostMapping("/{id}")
 	public String update(@PathVariable ID id,
-			@Validated(Update.class) @ModelAttribute("entity") E entity,
+			@Validated({Update.class, Default.class}) @ModelAttribute("entity") E entity,
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("entity", entity);
 			model.addAttribute("pathPrefix", viewNamePrefix);
-			model.addAttribute("results", bindingResult);
+			model.addAttribute("bindingResult", bindingResult);
 			loadFormData(entity, model);
 			return viewNamePrefix + "/form";
 		}

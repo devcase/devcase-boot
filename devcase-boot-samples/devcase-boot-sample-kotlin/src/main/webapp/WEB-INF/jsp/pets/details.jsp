@@ -16,6 +16,8 @@
 			<h4 class="card-title"><spring:message code="domain.${entityName}" /></h4>
 			<form>
 				<dwf:outputText property="name" row="true"/>
+				<dwf:outputText property="owner" row="true"/>
+				<dwf:outputText property="email" row="true"/>
 				<dwf:outputText property="weight" row="true"/>
 				
 				<a href="/${pathPrefix}/" class="btn btn-secondary"><spring:message code="action.list"/></a>

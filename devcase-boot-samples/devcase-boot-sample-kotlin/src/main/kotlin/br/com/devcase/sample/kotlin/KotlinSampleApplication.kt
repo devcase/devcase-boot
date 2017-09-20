@@ -39,6 +39,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
+import java.util.Date
 
 @SpringBootApplication
 @EnableJpaRepositories(repositoryBaseClass = CriteriaJpaRepository::class)
@@ -54,23 +55,24 @@ fun main(args: Array<String>) {
 
 
 @Entity @Audited data class Pet(
-		@Id
-		@GeneratedValue
+		@field:Id
+		@field:GeneratedValue
 		var id: Long?,
-		@NotEmpty
-		@NaturalId
+		@field:NotEmpty
+		@field:NaturalId
 		var name: String,
-		@NotEmpty
+		@field:NotEmpty
 		var owner: String,
-		@Email
+		@field:Email
 		var email: String,
 		var weight: BigDecimal,
-		@CreationTimestamp
-		var created: Instant = Instant.MIN,
-		@UpdateTimestamp
-		var updated: Instant = Instant.MIN
+		var dayOfBirth: LocalDate,
+		@field:CreationTimestamp
+		var created: Date = Date(0),
+		@field:UpdateTimestamp
+		var updated: Date = Date(0)
 ) {
-	constructor() : this(null, "", "", "", BigDecimal.valueOf(0)) //construtor sem parâmetros obrigatório
+	constructor() : this(null, "", "", "", BigDecimal.valueOf(0), LocalDate.MIN) //construtor sem parâmetros obrigatório
 //
 //	override fun toString(): String {
 //		return MessageFormat.format("{0} ({1})", name, owner);
@@ -78,59 +80,59 @@ fun main(args: Array<String>) {
 }
 
 @Entity @Audited data class Service(
-		@Id
-		@GeneratedValue
+		@field:Id
+		@field:GeneratedValue
 		var id: Long?,
-		@Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
-		@Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))
+		@field:Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
+		@field:Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))
 		var price: Money,
-		@NaturalId
+		@field:NaturalId
 		var name: String,
-		@CreationTimestamp
-		var created: Instant = Instant.MIN,
-		@UpdateTimestamp
-		var updated: Instant = Instant.MIN
+		@field:CreationTimestamp
+		var created: Date = Date(0),
+		@field:UpdateTimestamp
+		var updated: Date = Date(0)
 ) {
 	constructor() : this(null, Money.of(0, "USD"), "")
 }
 
 @Entity @Audited @Table(name = "pet_order") data class Order(
-		@Id
-		@GeneratedValue
+		@field:Id
+		@field:GeneratedValue
 		var id: Long?,
-		@ManyToOne
-		@NotNull
+		@field:ManyToOne(optional = false)
+		@field:NotNull
 		var pet: Pet?,
-		@Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
-		@Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))
+		@field:Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
+		@field:Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))
 		var price: Money,
 		var date: LocalDate,
-		@OneToMany
+		@field:OneToMany
 		var items: List<OrderItem>,
-		@CreationTimestamp
-		var created: Instant = Instant.MIN,
-		@UpdateTimestamp
-		var updated: Instant = Instant.MIN
+		@field:CreationTimestamp
+		var created: Date = Date(0),
+		@field:UpdateTimestamp
+		var updated: Date = Date(0)
 ) {
 	constructor() : this(null, null, Money.of(0, "USD"), LocalDate.now(), emptyList()) //construtor sem parâmetros obrigatório
 }
 
 @Entity @Audited @Table(name = "pet_order_item") data class OrderItem(
-		@Id
-		@GeneratedValue
+		@field:Id
+		@field:GeneratedValue
 		var id: Long?,
-		@ManyToOne
+		@field:ManyToOne
 		var order: Order?,
 		var quantity : Int,
-		@Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
-		@Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))
+		@field:Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
+		@field:Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))
 		var price: Money,
-		@ManyToOne
+		@field:ManyToOne
 		var service: Service?,
-		@CreationTimestamp
-		var created: Instant = Instant.MIN,
-		@UpdateTimestamp
-		var updated: Instant = Instant.MIN
+		@field:CreationTimestamp
+		var created: Date = Date(0),
+		@field:UpdateTimestamp
+		var updated: Date = Date(0)
 ) {
 	constructor() : this(null, null, 1, Money.of(0, "USD"), null) //construtor sem parâmetros obrigatório
 }

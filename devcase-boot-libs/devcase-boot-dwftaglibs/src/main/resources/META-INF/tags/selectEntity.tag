@@ -23,7 +23,10 @@ Iterable targetEntityList = dao.findAll();
 getJspContext().setAttribute("targetEntityList", targetEntityList);
 %>
 <dwf:formGroup parentAttrMap="${attrMap}">
-	<select class="form-control" name="${name}.id">
+	<select name="${name}.id"
+			class="form-control ${!empty fieldErrors ? 'is-invalid' : ''} ${attrMap.inputStyleClass}"
+			>
+	
 		<option value=""></option>
 		<c:forEach items="${targetEntityList}" var="targetEntity">
 			<option value="${targetEntity.id}" ${targetEntity.id eq value.id ? 'selected' : ''}>${targetEntity}</option>
