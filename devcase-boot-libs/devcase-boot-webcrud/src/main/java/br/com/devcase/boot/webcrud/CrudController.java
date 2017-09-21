@@ -2,10 +2,8 @@ package br.com.devcase.boot.webcrud;
 
 import java.io.Serializable;
 
-import javax.validation.Validator;
 import javax.validation.groups.Default;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,9 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.devcase.boot.crud.jpa.repository.query.CriteriaRepository;
+import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 import br.com.devcase.boot.crud.validation.groups.Create;
 import br.com.devcase.boot.crud.validation.groups.Update;
+import br.com.devcase.boot.web.exceptions.EntityNotFoundException;
 import br.com.devcase.boot.webcrud.criteria.CriteriaSource;
 
 public abstract class CrudController<E, ID extends Serializable> {
@@ -41,8 +40,19 @@ public abstract class CrudController<E, ID extends Serializable> {
 		this.entityClass = entityClass;
 	}
 	
-	private final Class<E> domainClass() {
+	protected final CriteriaRepository<E, ID> repository() {
+		return repository;
+	}
+	protected final Class<E> domainClass() {
 		return entityClass;
+	}
+	
+	protected final String viewNamePrefix() {
+		return viewNamePrefix;
+	}
+	
+	protected final String buildViewName(String suffix) {
+		return viewNamePrefix.concat("/").concat(suffix);
 	}
 
 	@GetMapping({ "/", "", "/list" })
@@ -61,7 +71,11 @@ public abstract class CrudController<E, ID extends Serializable> {
 
 	@GetMapping("/{id}")
 	public String details(@PathVariable(name="id") ID id, Model model) {
-		model.addAttribute("entity", repository.findOne(id));
+		E entity = repository.findOne(id);
+		if(entity == null) {
+			throw new EntityNotFoundException();
+		}
+		model.addAttribute("entity", entity);
 		model.addAttribute("pathPrefix", viewNamePrefix);
 		return viewNamePrefix + "/details";
 	}
@@ -77,7 +91,6 @@ public abstract class CrudController<E, ID extends Serializable> {
 	public ResponseEntity<Page<E>> getJsonList(CriteriaSource criteriaSource, Pageable pageable, Model model) {
 		return new ResponseEntity<>(repository.findAll(criteriaSource.getCriteria(domainClass()), pageable), HttpStatus.OK);
 	}
-
 
 	@GetMapping("/{id}/edit")
 	public String edit(@PathVariable(name="id") ID id, Model model) {
@@ -123,6 +136,10 @@ public abstract class CrudController<E, ID extends Serializable> {
 			return viewNamePrefix + "/form";
 		}
 		entity = repository.save(entity);
+		return successfulCreateRedirect(repository.extractIdentifier(entity));
+	}
+	
+	protected String successfulCreateRedirect(ID id) {
 		return "redirect:/" + viewNamePrefix;
 	}
 

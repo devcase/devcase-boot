@@ -1,6 +1,6 @@
 package br.com.devcase.sample.kotlin
 
-import br.com.devcase.boot.crud.jpa.repository.query.CriteriaRepository
+import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository
 import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository
 import br.com.devcase.boot.crud.repository.FindByNameExecutor
 import br.com.devcase.boot.jsp.undertow.EnableUndertowJsp

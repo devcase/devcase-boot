@@ -27,5 +27,9 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-web</artifactId>
+		</dependency>
 	</dependencies>
 </project>

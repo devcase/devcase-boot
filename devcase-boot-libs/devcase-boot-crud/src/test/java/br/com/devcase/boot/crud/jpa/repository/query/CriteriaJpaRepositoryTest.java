@@ -28,6 +28,8 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import com.google.common.collect.Lists;
 
 import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
+import br.com.devcase.boot.crud.repository.criteria.Criteria;
+import br.com.devcase.boot.crud.repository.criteria.Operation;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CriteriaJpaRepositoryTest {

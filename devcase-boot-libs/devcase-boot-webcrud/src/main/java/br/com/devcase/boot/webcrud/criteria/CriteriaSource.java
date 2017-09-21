@@ -2,7 +2,7 @@ package br.com.devcase.boot.webcrud.criteria;
 
 import java.util.List;
 
-import br.com.devcase.boot.crud.jpa.repository.query.Criteria;
+import br.com.devcase.boot.crud.repository.criteria.Criteria;
 
 public interface CriteriaSource {
 

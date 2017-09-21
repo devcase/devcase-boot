@@ -3,9 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://boot.devcase.com.br/dwf" prefix="dwf"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%
+getJspContext().setAttribute("javaUtilDateClass", java.util.Date.class);
+%>
 <dwf:formGroup parentAttrMap="${attrMap}">
 	<c:set var="valueOutput" value="${value}"/>
-	<c:if test="${value.class.name eq 'java.util.Date'}">
+	<c:if test="${!empty value and value eq javaUtilDateClass}">
 		<fmt:formatDate value="${value}" pattern="yyyy-MM-dd" var="valueOutput"/>
 	</c:if>
 	<input type="date" 

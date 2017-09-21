@@ -20,8 +20,8 @@ import com.querydsl.core.types.dsl.DatePath;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.PathBuilder;
 
-import br.com.devcase.boot.crud.jpa.repository.query.Criteria;
-import br.com.devcase.boot.crud.jpa.repository.query.CriteriaRepository;
+import br.com.devcase.boot.crud.repository.criteria.Criteria;
+import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 
 public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJpaRepository<T, ID>
 		implements CriteriaRepository<T, ID> {
@@ -41,8 +41,13 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 		return new PathBuilder<T>(domainClass, domainClass.getSimpleName().toLowerCase().concat("_1"));
 	}
 	
+	private final EntityManager em;
+	private final JpaEntityInformation<T, ID> entityInformation;
+	
 	public CriteriaJpaRepository(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
 		super(entityInformation, entityManager, resolver);
+		this.em = entityManager;
+		this.entityInformation = entityInformation;
 	}
 
 
@@ -154,4 +159,10 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 			throw new RuntimeException("Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
 		}
 	}
+
+	@Override
+	public ID extractIdentifier(T value) {
+		return entityInformation.getId(value);
+	}
+	
 }

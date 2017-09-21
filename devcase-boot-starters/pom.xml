@@ -20,5 +20,6 @@
   	<module>devcase-boot-starter-webcrud</module>
   	<module>devcase-boot-starter-dbmigration</module>
   	<module>devcase-boot-starter</module>
+  	<module>devcase-boot-starter-kotlin</module>
   </modules>
 </project>

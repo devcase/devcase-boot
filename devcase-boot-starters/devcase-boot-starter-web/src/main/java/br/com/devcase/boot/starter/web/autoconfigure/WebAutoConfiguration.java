@@ -1,4 +1,4 @@
-package br.com.devcase.boot.starter.web;
+package br.com.devcase.boot.starter.web.autoconfigure;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
