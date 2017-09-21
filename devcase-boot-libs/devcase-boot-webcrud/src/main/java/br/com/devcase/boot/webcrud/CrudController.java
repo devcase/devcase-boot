@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 import br.com.devcase.boot.crud.validation.groups.Create;
 import br.com.devcase.boot.crud.validation.groups.Update;
+import br.com.devcase.boot.web.exceptions.EntityNotFoundException;
 import br.com.devcase.boot.webcrud.criteria.CriteriaSource;
 
 public abstract class CrudController<E, ID extends Serializable> {
@@ -70,7 +71,11 @@ public abstract class CrudController<E, ID extends Serializable> {
 
 	@GetMapping("/{id}")
 	public String details(@PathVariable(name="id") ID id, Model model) {
-		model.addAttribute("entity", repository.findOne(id));
+		E entity = repository.findOne(id);
+		if(entity == null) {
+			throw new EntityNotFoundException();
+		}
+		model.addAttribute("entity", entity);
 		model.addAttribute("pathPrefix", viewNamePrefix);
 		return viewNamePrefix + "/details";
 	}
@@ -86,7 +91,6 @@ public abstract class CrudController<E, ID extends Serializable> {
 	public ResponseEntity<Page<E>> getJsonList(CriteriaSource criteriaSource, Pageable pageable, Model model) {
 		return new ResponseEntity<>(repository.findAll(criteriaSource.getCriteria(domainClass()), pageable), HttpStatus.OK);
 	}
-
 
 	@GetMapping("/{id}/edit")
 	public String edit(@PathVariable(name="id") ID id, Model model) {

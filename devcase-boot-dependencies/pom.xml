@@ -110,6 +110,11 @@
 				<artifactId>devcase-boot-ws-logging</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-web</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- JAVAX -->
 			<dependency>
 				<groupId>javax.el</groupId>
