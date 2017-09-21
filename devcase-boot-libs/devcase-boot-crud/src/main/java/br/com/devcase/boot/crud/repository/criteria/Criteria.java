@@ -1,4 +1,4 @@
-package br.com.devcase.boot.crud.jpa.repository.query;
+package br.com.devcase.boot.crud.repository.criteria;
 
 public class Criteria<P, V> {
 	private String property;

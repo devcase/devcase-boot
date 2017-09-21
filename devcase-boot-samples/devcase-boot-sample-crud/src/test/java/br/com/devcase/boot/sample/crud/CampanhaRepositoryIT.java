@@ -1,6 +1,7 @@
 package br.com.devcase.boot.sample.crud;
 
 import static org.junit.Assert.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,8 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.google.common.collect.Lists;
 
-import br.com.devcase.boot.crud.jpa.repository.query.Criteria;
-import br.com.devcase.boot.crud.jpa.repository.query.Operation;
+import br.com.devcase.boot.crud.repository.criteria.Criteria;
+import br.com.devcase.boot.crud.repository.criteria.Operation;
 import br.com.devcase.boot.sample.crud.config.SampleCrudConfig;
 import br.com.devcase.boot.sample.crud.entity.Campanha;
 import br.com.devcase.boot.sample.crud.repository.CampanhaRepository;

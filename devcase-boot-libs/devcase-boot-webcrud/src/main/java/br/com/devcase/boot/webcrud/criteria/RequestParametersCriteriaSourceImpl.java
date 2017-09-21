@@ -9,8 +9,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import com.google.common.collect.Lists;
 
-import br.com.devcase.boot.crud.jpa.repository.query.Criteria;
-import br.com.devcase.boot.crud.jpa.repository.query.Operation;
+import br.com.devcase.boot.crud.repository.criteria.Criteria;
+import br.com.devcase.boot.crud.repository.criteria.Operation;
 
 public class RequestParametersCriteriaSourceImpl implements CriteriaSource {
 	private WebDataBinder webDataBinder;

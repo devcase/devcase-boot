@@ -37,8 +37,8 @@
 		<module>devcase-boot-dependencies</module>
 		<module>devcase-boot-parent</module>
 		<module>devcase-boot-starters</module>
-		<module>devcase-boot-samples</module>
 		<module>devcase-boot-libs</module>
+		<module>devcase-boot-samples</module>
 	</modules>
 
 	<scm>

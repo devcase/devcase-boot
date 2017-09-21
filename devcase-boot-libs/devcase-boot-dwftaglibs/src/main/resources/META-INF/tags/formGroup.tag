@@ -15,7 +15,7 @@
 <%@ variable name-given="name" scope="NESTED"%>
 <%@ variable name-given="value" scope="NESTED" variable-class="java.lang.Object"%>
 <%@ variable name-given="label" scope="NESTED" variable-class="java.lang.String"%>
-<%@ variable name-given="fieldErrors" scope="NESTED" variable-class="java.lang.List"%>
+<%@ variable name-given="fieldErrors" scope="NESTED" variable-class="java.lang.Object"%>
 <%
 	WebApplicationContext webApplicationContext = WebApplicationContextUtils
 			.getRequiredWebApplicationContext(request.getServletContext());

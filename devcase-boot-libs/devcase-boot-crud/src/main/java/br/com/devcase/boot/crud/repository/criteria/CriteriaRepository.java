@@ -1,4 +1,4 @@
-package br.com.devcase.boot.crud.jpa.repository.query;
+package br.com.devcase.boot.crud.repository.criteria;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,4 +13,6 @@ public interface CriteriaRepository<T, ID extends Serializable> extends PagingAn
 	List<T> findAll(List<Criteria> criteria);
 	Page<T> findAll(Pageable pageable, Criteria... criteria);
 	List<T> findAll(Criteria... criteria);
+	
+	ID extractIdentifier(T value);
 }

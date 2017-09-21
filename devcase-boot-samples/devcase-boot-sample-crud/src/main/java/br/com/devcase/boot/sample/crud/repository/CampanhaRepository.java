@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.devcase.boot.crud.jpa.repository.query.CriteriaRepository;
+import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 import br.com.devcase.boot.sample.crud.entity.Campanha;
 
 @Repository
