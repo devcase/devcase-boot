@@ -33,9 +33,6 @@ public abstract class CrudController<E, ID extends Serializable> {
 	private final String viewNamePrefix;
 	private final Class<E> entityClass;
 	
-	@Autowired
-	private Validator validator;
-
 	public CrudController(Class<E> entityClass, CriteriaRepository<E, ID> repository, String viewNamePrefix) {
 		super();
 		this.repository = repository;
@@ -118,8 +115,6 @@ public abstract class CrudController<E, ID extends Serializable> {
 	public String create(@Validated({ Create.class, Default.class } ) @ModelAttribute("entity") E entity,
 			BindingResult bindingResult, Model model) {
 		
-		System.out.println(entity + "!!!!!!!!!!!!!");
-		System.out.println(bindingResult + "!!!!!!!!!!!!!");
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("entity", entity);
 			model.addAttribute("pathPrefix", viewNamePrefix);

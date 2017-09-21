@@ -22,5 +22,6 @@
   	<module>devcase-boot-sample-dwftaglibs</module>
   	<module>devcase-boot-sample-oauth-sso</module>
   	<module>devcase-boot-sample-kotlin</module>
+  	<module>devcase-boot-sample-validation</module>
   </modules>
 </project>

@@ -21,6 +21,9 @@
 		<spring-boot.version>1.5.6.RELEASE</spring-boot.version>
 		<guava.version>23.0</guava.version>
 		<kotlin.version>1.1.4-3</kotlin.version>
+		<hibernate-validator.version>6.0.2.Final</hibernate-validator.version>
+		<javax-validation.version>2.0.0.Final</javax-validation.version>
+		<glassfish-el.version>3.0.1-b08</glassfish-el.version>
 	</properties>
 
 	<profiles>

@@ -14,8 +14,6 @@ import org.hibernate.annotations.NaturalId
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.UpdateTimestamp
 import org.hibernate.envers.Audited
-import org.hibernate.validator.constraints.Email
-import org.hibernate.validator.constraints.NotEmpty
 import org.javamoney.moneta.Money
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
@@ -40,6 +38,9 @@ import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
 import java.util.Date
+import br.com.devcase.boot.crud.validation.constraints.PropertyNotNull
+import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.Email
 
 @SpringBootApplication
 @EnableJpaRepositories(repositoryBaseClass = CriteriaJpaRepository::class)
@@ -102,6 +103,7 @@ fun main(args: Array<String>) {
 		var id: Long?,
 		@field:ManyToOne(optional = false)
 		@field:NotNull
+		@field:PropertyNotNull(value="id", message="{petNotFound.message}")
 		var pet: Pet?,
 		@field:Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
 		@field:Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))

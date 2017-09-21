@@ -35,7 +35,18 @@ public class NamedEntityPropertyEditor<E> extends PropertyEditorSupport {
 
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
-		setValue(repository.findByName(text));
+		E instance = repository.findByName(text);
+		if(instance != null) {
+			setValue(instance);
+		} else {
+			try {
+				instance = domainClass.newInstance();
+				PropertyAccessorFactory.forBeanPropertyAccess(instance).setPropertyValue("name", text);
+				setValue(instance);
+			} catch (InstantiationException | IllegalAccessException e) {
+				setValue(null);
+			}
+		}
 	}
 
 }
