@@ -11,8 +11,6 @@
 <meta name="decorator" content="/WEB-INF/jsp/decorators/default.jsp"></meta>
 </head>
 <body>
-	<spring:message code="petNotFound.message"/>@<spring:message code="br.com.devcase.boot.crud.validation.constraints.PropertyNotNull.message"/>
-
 	<div class="card">
 		<div class="card-body">
 			<h4 class="card-title"><spring:message code="domain.${entityName}" /></h4>
