@@ -60,7 +60,7 @@ public abstract class CrudController<E, ID extends Serializable> {
 	}
 
 	@GetMapping("/{id}")
-	public String details(@PathVariable ID id, Model model) {
+	public String details(@PathVariable(name="id") ID id, Model model) {
 		model.addAttribute("entity", repository.findOne(id));
 		model.addAttribute("pathPrefix", viewNamePrefix);
 		return viewNamePrefix + "/details";
@@ -68,11 +68,11 @@ public abstract class CrudController<E, ID extends Serializable> {
 	
 	@GetMapping("/{id}.json")
 	@ResponseBody
-	public ResponseEntity<E> getJson(@PathVariable ID id, Model model) {
+	public ResponseEntity<E> getJson(@PathVariable(name="id") ID id, Model model) {
 		return new ResponseEntity<E>(repository.findOne(id), HttpStatus.OK);
 	}
 	
-	@GetMapping(".json")
+	@GetMapping({"list.json", "json"})
 	@ResponseBody
 	public ResponseEntity<Page<E>> getJsonList(CriteriaSource criteriaSource, Pageable pageable, Model model) {
 		return new ResponseEntity<>(repository.findAll(criteriaSource.getCriteria(domainClass()), pageable), HttpStatus.OK);
@@ -80,7 +80,7 @@ public abstract class CrudController<E, ID extends Serializable> {
 
 
 	@GetMapping("/{id}/edit")
-	public String edit(@PathVariable ID id, Model model) {
+	public String edit(@PathVariable(name="id") ID id, Model model) {
 		E entity = repository.findOne(id);
 		model.addAttribute("entity", entity);
 		model.addAttribute("pathPrefix", viewNamePrefix);
