@@ -17,21 +17,8 @@
 				<artifactId>kotlin-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-stdlib</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-stdlib-jre8</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-reflect</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-starter-jsp</artifactId>
@@ -43,6 +30,10 @@
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-starter-webcrud</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-starter-kotlin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>

@@ -102,6 +102,11 @@
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-starter-kotlin</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-ws-logging</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
