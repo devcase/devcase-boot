@@ -42,6 +42,10 @@ public class SetEntityTag extends SimpleTagSupport {
 			entity = expFactory.createValueExpression(elContext, "${" + entityName + "}", Object.class).getValue(elContext);
 		}
 		
+		if("null".equals(entity)) {
+			entity = null;
+		}
+		
 		getJspContext().setAttribute("entityName", entityName, TagUtils.getScope(TagUtils.SCOPE_REQUEST));
 		getJspContext().setAttribute("entity", entity, TagUtils.getScope(TagUtils.SCOPE_REQUEST));
 		getJspContext().setAttribute(entityName, entity, TagUtils.getScope(TagUtils.SCOPE_REQUEST));

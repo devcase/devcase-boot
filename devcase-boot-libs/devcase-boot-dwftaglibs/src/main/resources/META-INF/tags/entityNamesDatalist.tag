@@ -17,8 +17,10 @@ Usage example:
 	WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(application);
 	Map attrMap = (Map) getJspContext().getAttribute("attrMap");
 	String targetEntityName = this.targetEntity;
-	if (targetEntityName == null)
+	if (targetEntityName == null) {
 		targetEntityName = property;
+	}
+	targetEntityName = targetEntityName.substring(0,1).toLowerCase().concat(targetEntityName.substring(1));
 
 	//TODO - better way to find the repository
 	CrudRepository dao = (CrudRepository) applicationContext.getBean(targetEntityName + "Repository");
