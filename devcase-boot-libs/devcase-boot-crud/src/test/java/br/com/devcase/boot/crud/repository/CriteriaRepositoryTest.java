@@ -1,6 +1,7 @@
 package br.com.devcase.boot.crud.repository;
 
-import javax.persistence.EntityManager;
+import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 
 import org.hibernate.envers.AuditReader;
@@ -66,10 +67,6 @@ public class CriteriaRepositoryTest {
 		publisherRepository.save(publisher);
 		final Long id = publisher.getId();
 
-		AuditReader auditReader = AuditReaderFactory.get(emf.createEntityManager());
-		Publisher v1 = auditReader.find(Publisher.class, id, 1);
-		Assert.assertEquals("Editora Devcase", v1.getName());
-
 		
 		Publisher p = new Publisher();
 		p.setId(id);
@@ -78,9 +75,13 @@ public class CriteriaRepositoryTest {
 
 		publisherRepository.updateProperty(id, "name", "Editora Novíssima Devcase");
 
-		v1 = auditReader.find(Publisher.class, id, 1);
-		Publisher v2 = auditReader.find(Publisher.class, id, 2);
-		Publisher v3 = auditReader.find(Publisher.class, id, 3);
+		AuditReader auditReader = AuditReaderFactory.get(emf.createEntityManager());
+		List<Number> revisionNumbers = auditReader.getRevisions(Publisher.class, id);
+		Assert.assertEquals(3, revisionNumbers.size());
+
+		Publisher v1 = auditReader.find(Publisher.class, id, revisionNumbers.get(0));
+		Publisher v2 = auditReader.find(Publisher.class, id, revisionNumbers.get(1));
+		Publisher v3 = auditReader.find(Publisher.class, id, revisionNumbers.get(2));
 		Assert.assertEquals("Editora Devcase", v1.getName());
 		Assert.assertEquals("Editora Nova Devcase", v2.getName());
 		Assert.assertEquals("Editora Novíssima Devcase", v3.getName());
