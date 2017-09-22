@@ -25,7 +25,11 @@ No arquivo `pom.xml`:
 		<artifactId>devcase-boot-starter-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	...
+```
+
+e também:
+
+```xml
 	<repositories>
 		<repository>
 			<id>devcase-repo</id>
@@ -53,5 +57,5 @@ Componente                          |Feature                               | Hab
 `devcase-boot-labels`               | Labels com textos úteis              | `@EnableDevcaseLabels`
 `devcase-boot-jsp`                  | Undertow com JSP                     | `@EnableUndertowJsp` ou automático com `devcase-boot-starter-jsp`
 `devcase-boot-sitemesh`             | SiteMesh                             | `@EnableSiteMesh`
-
+`devcase-boot-crud`                 | Repositórios JPA                     | `@EnableJpaRepositories(repositoryBaseClass = CriteriaJpaRepository::class)`
 
