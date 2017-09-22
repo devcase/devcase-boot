@@ -1,0 +1,19 @@
+
+.collapsed .d-collapsed-none {
+	display:none !important;
+}
+
+.collapsed .d-collapsed-block {
+	display:block !important;
+}
+.collapsed .d-collapsed-inline {
+	display:inline !important;
+}
+
+a:hover {
+	text-decoration: none !important;
+}
+
+.form-control-plaintext {
+	width: 100%;
+}

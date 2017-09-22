@@ -77,6 +77,7 @@ public abstract class CrudController<E, ID extends Serializable> {
 		}
 		model.addAttribute("entity", entity);
 		model.addAttribute("pathPrefix", viewNamePrefix);
+		loadDetailsData(entity, model);
 		return viewNamePrefix + "/details";
 	}
 	
@@ -165,6 +166,16 @@ public abstract class CrudController<E, ID extends Serializable> {
 	 * @param model
 	 */
 	protected void loadFormData(E entity, Model model) {
+
+	}
+	
+	/**
+	 * Sobrescrever para adicionar ao model dados necessários para montar a
+	 * tela de detalhes
+	 * 
+	 * @param model
+	 */
+	protected void loadDetailsData(E entity, Model model) {
 
 	}
 }

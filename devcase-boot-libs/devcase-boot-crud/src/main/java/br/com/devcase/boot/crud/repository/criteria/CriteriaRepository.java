@@ -8,11 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CriteriaRepository<T, ID extends Serializable> extends PagingAndSortingRepository<T, ID>, QueryDslPredicateExecutor<T> {
+import br.com.devcase.boot.crud.repository.IdentifierExtractor;
+import br.com.devcase.boot.crud.repository.PropertyUpdate;
+
+public interface CriteriaRepository<T, ID extends Serializable> extends PagingAndSortingRepository<T, ID>, QueryDslPredicateExecutor<T>, IdentifierExtractor<T, ID>, PropertyUpdate<ID> {
 	Page<T> findAll(List<Criteria> criteria, Pageable pageable);
 	List<T> findAll(List<Criteria> criteria);
 	Page<T> findAll(Pageable pageable, Criteria... criteria);
 	List<T> findAll(Criteria... criteria);
 	
-	ID extractIdentifier(T value);
 }

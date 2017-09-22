@@ -63,7 +63,7 @@
 <c:choose>
 	<c:when test="${attrMap.row eq true}">
 		<div class="form-group row ">
-			<label for="${name}" class="col col-form-label"><dwf:labelTextFor property="${property}" /></label>
+			<label for="${name}" class="col col-form-label ${attrMap.hideLabel eq true ? 'sr-only' : '' }"><dwf:labelTextFor property="${property}" /></label>
 			<div class="col-sm-9">
 				<jsp:doBody />
 				<c:forEach items="${fieldErrors}" var="fieldError">
@@ -74,8 +74,8 @@
 
 	</c:when>
 	<c:otherwise>
-		<div class="form-group ">
-			<label for="${name}"><dwf:labelTextFor property="${property}" /></label>
+		<div class="form-group">
+			<label for="${name}" class="${attrMap.hideLabel eq true ? 'sr-only' : '' }"><dwf:labelTextFor property="${property}" /></label>
 			<jsp:doBody />
 			<c:forEach items="${fieldErrors}" var="fieldError">
 				<div class="invalid-feedback">${fieldError.defaultMessage}</div>

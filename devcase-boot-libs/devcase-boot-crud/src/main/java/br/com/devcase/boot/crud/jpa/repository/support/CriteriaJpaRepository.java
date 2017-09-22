@@ -6,7 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Root;
 
+import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -29,43 +33,45 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 	static EntityPathResolver resolver;
 	static {
 		resolver = new EntityPathResolver() {
-			
+
 			@Override
 			public <T> EntityPath<T> createPath(Class<T> domainClass) {
 				return CriteriaJpaRepository.createPath(domainClass);
 			}
 		};
 	}
-	
+
 	static <T> PathBuilder<T> createPath(Class<T> domainClass) {
 		return new PathBuilder<T>(domainClass, domainClass.getSimpleName().toLowerCase().concat("_1"));
 	}
-	
+
 	private final EntityManager em;
 	private final JpaEntityInformation<T, ID> entityInformation;
-	
+
 	public CriteriaJpaRepository(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
 		super(entityInformation, entityManager, resolver);
 		this.em = entityManager;
 		this.entityInformation = entityInformation;
 	}
 
-
 	@Override
 	public Page<T> findAll(Pageable pageable, Criteria... criteria) {
 		Predicate predicate = createPredicate(criteria);
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
+
 	@Override
 	public List<T> findAll(List<Criteria> criteria) {
 		Predicate predicate = createPredicate(criteria.toArray(new Criteria[0]));
 		return predicate == null ? findAll() : findAll(predicate);
 	}
+
 	@Override
 	public Page<T> findAll(List<Criteria> criteria, Pageable pageable) {
 		Predicate predicate = createPredicate(criteria.toArray(new Criteria[0]));
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
+
 	@Override
 	public List<T> findAll(Criteria... criteria) {
 		Predicate predicate = createPredicate(criteria);
@@ -73,12 +79,12 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 	}
 
 	protected BooleanExpression createPredicate(Criteria... criteria) {
-		
-		//translate the criteria into predicates for QueryDSL
+
+		// translate the criteria into predicates for QueryDSL
 		PathBuilder<T> parentPath = CriteriaJpaRepository.createPath(getDomainClass());
 		BooleanExpression predicate = null;
 		for (Criteria crit : criteria) {
-			if(predicate == null) {
+			if (predicate == null) {
 				predicate = createPredicate(parentPath, crit);
 			} else {
 				predicate = predicate.and(createPredicate(parentPath, crit));
@@ -92,8 +98,9 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 		if (Number.class.isAssignableFrom(criteria.getPropertyType())) {
 			return createNumberPredicate(pathBuilder, (Criteria) criteria);
 		}
-		
-		if(Temporal.class.isAssignableFrom(criteria.getPropertyType()) || Date.class.isAssignableFrom(criteria.getPropertyType())) {
+
+		if (Temporal.class.isAssignableFrom(criteria.getPropertyType())
+				|| Date.class.isAssignableFrom(criteria.getPropertyType())) {
 			return createTemporalPredicate(pathBuilder, (Criteria) criteria);
 		}
 		PathBuilder<Object> path = pathBuilder.get(criteria.getProperty());
@@ -106,7 +113,8 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 		case NE:
 			return path.ne(criteria.getValue());
 		default:
-			throw new RuntimeException("Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
+			throw new RuntimeException(
+					"Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
 		}
 	}
 
@@ -131,7 +139,8 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 		case LTE:
 			return path.loe((Number) criteria.getValue());
 		default:
-			throw new RuntimeException("Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
+			throw new RuntimeException(
+					"Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
 		}
 	}
 
@@ -156,7 +165,8 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 		case LTE:
 			return path.loe((Comparable) criteria.getValue());
 		default:
-			throw new RuntimeException("Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
+			throw new RuntimeException(
+					"Invalid operation " + criteria.getOperation() + " for property " + criteria.getProperty());
 		}
 	}
 
@@ -164,5 +174,20 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 	public ID extractIdentifier(T value) {
 		return entityInformation.getId(value);
 	}
-	
+
+	@Override
+	public <P> void updateProperty(ID id, String propertyName, P value) {
+//		//Não usar CriteriaUpdate - não vai salvar no envers
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaUpdate<T> criteria = cb.createCriteriaUpdate(getDomainClass());
+//		Root<T> root = criteria.from(getDomainClass());
+//		criteria.set(propertyName, value);
+//		criteria.where(cb.equal(root.get("id"), id));
+//		return em.createQuery(criteria).executeUpdate();
+		
+		T entity = findOne(id);
+		PropertyAccessorFactory.forBeanPropertyAccess(entity).setPropertyValue(propertyName, value);
+		em.flush();
+	}
+
 }
