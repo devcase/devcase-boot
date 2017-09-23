@@ -30,6 +30,10 @@
 			<artifactId>devcase-boot-sample-crud</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-sitemesh</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
