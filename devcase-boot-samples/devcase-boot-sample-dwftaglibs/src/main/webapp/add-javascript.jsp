@@ -14,18 +14,15 @@
 >
 </head>
 <body>
-	<h1>HI!</h1>
-	<dwf:addJavascript lib="bootstrap"/>
-	<dwf:addJavascript lib="jquery"/>
-	<dwf:addJavascript lib="bootstrap"/>
-	<dwf:addJavascript src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" order="10"/>
-	<dwf:addJavascript lib="bootstrap"/>
-	<dwf:addJavascript lib="bootstrap"/>
+	<h1>Title from html</h1>
 	<dwf:addJavascript order="11">
 	<script type="text/javascript">
-		alert("hello");
+		$(document).ready($('h1').text("altered by javascript on document ready"));
 	</script>
 	</dwf:addJavascript>
+	<dwf:addJavascript lib="jquery"/>
+	<dwf:addJavascript lib="popper"/>
+	<dwf:addJavascript lib="bootstrap"/>
 	<dwf:addJavascript src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" order="10"/>
 	<dwf:printAddedJavascript/>
 </body>
