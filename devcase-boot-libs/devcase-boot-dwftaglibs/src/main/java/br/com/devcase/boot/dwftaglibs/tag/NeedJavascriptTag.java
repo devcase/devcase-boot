@@ -15,10 +15,10 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 
-import br.com.devcase.boot.dwftaglibs.autoconfigure.JavascriptLibsAutoConfiguration.JavascriptLib;
+import br.com.devcase.boot.dwftaglibs.javascript.JavascriptLibs.JavascriptLib;
 
-public class AddJavascriptTag extends SimpleTagSupport {
-	public static final String ADDED_JAVASCRIPT_ATTRIBUTE_NAME = "dwf.ADDED_JAVASCRIPT_ATTRIBUTE_NAME";
+public class NeedJavascriptTag extends SimpleTagSupport {
+	public static final String NEEDED_JAVASCRIPT_ATTRIBUTE_NAME = "dwf.NEEDED_JAVASCRIPT_ATTRIBUTE_NAME";
 	public static final String JAVASCRIPT_LIBS_MAP_ATTRIBUTE_NAME = "dwf.JAVASCRIPT_LIBS_MAP";
 
 	private String lib;
@@ -66,13 +66,13 @@ public class AddJavascriptTag extends SimpleTagSupport {
 		}
 		
 		
-		Object javascriptList = getJspContext().findAttribute(ADDED_JAVASCRIPT_ATTRIBUTE_NAME);
+		Object javascriptList = getJspContext().findAttribute(NEEDED_JAVASCRIPT_ATTRIBUTE_NAME);
 		if (javascriptList != null) {
 			((Collection<Object>) javascriptList).add(bean);
 		} else {
 			Set<AddedJavascript> list = new HashSet<>();
 			list.add(bean);
-			getJspContext().setAttribute(ADDED_JAVASCRIPT_ATTRIBUTE_NAME, list, PageContext.REQUEST_SCOPE);
+			getJspContext().setAttribute(NEEDED_JAVASCRIPT_ATTRIBUTE_NAME, list, PageContext.REQUEST_SCOPE);
 		}
 	}
 

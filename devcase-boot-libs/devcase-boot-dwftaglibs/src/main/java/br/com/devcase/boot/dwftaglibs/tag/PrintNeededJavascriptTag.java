@@ -11,15 +11,15 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.springframework.core.OrderComparator;
 
-import br.com.devcase.boot.dwftaglibs.tag.AddJavascriptTag.AddedJavascript;
+import br.com.devcase.boot.dwftaglibs.tag.NeedJavascriptTag.AddedJavascript;
 
-public class PrintAddedJavascriptTag extends SimpleTagSupport {
+public class PrintNeededJavascriptTag extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
 		Writer out = this.getJspContext().getOut();
 		
-		Object l = getJspContext().findAttribute(AddJavascriptTag.ADDED_JAVASCRIPT_ATTRIBUTE_NAME);
+		Object l = getJspContext().findAttribute(NeedJavascriptTag.NEEDED_JAVASCRIPT_ATTRIBUTE_NAME);
 		if(l != null && l instanceof Collection<?>) {
 			List<AddedJavascript> addedJavascripts = new ArrayList<>((Collection<AddedJavascript>) l);
 			

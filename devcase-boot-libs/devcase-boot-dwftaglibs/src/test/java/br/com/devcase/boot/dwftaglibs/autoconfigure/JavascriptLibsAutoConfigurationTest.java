@@ -11,7 +11,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.devcase.boot.dwftaglibs.autoconfigure.JavascriptLibsAutoConfiguration.JavascriptLib;
+import br.com.devcase.boot.dwftaglibs.javascript.JavascriptLibs;
+import br.com.devcase.boot.dwftaglibs.javascript.JavascriptLibs.JavascriptLib;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
@@ -20,11 +21,11 @@ import br.com.devcase.boot.dwftaglibs.autoconfigure.JavascriptLibsAutoConfigurat
 public class JavascriptLibsAutoConfigurationTest {
 
 	@Autowired
-	JavascriptLibsAutoConfiguration javascriptLibsAutoConfiguration;
+	JavascriptLibs javascriptLibs;
 	
 	@Test
 	public void test() throws Exception {
-		Map<String, JavascriptLib> libsMap = javascriptLibsAutoConfiguration.getJavascriptLibsMap();
+		Map<String, JavascriptLib> libsMap = javascriptLibs.getJavascriptLibsMap();
 		for (Map.Entry<String, JavascriptLib> lib : libsMap.entrySet()) {
 			System.out.println(lib.getValue().getOrder() + " " + lib.getValue().getName());
 		}
