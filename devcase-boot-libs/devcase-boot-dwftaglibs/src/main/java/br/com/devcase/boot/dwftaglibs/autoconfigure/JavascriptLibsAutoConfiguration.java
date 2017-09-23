@@ -19,7 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.devcase.boot.dwftaglibs.javascript.JavascriptLibs;
-import br.com.devcase.boot.dwftaglibs.tag.NeedJavascriptTag;
+import br.com.devcase.boot.dwftaglibs.tag.ImportJavascriptTag;
 
 @Configuration
 @EnableConfigurationProperties
@@ -39,7 +39,7 @@ public class JavascriptLibsAutoConfiguration  {
 			@Override
 			protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 					throws ServletException, IOException {
-				request.setAttribute(NeedJavascriptTag.JAVASCRIPT_LIBS_MAP_ATTRIBUTE_NAME, javascriptLibs.getJavascriptLibsMap());
+				request.setAttribute(ImportJavascriptTag.JAVASCRIPT_LIBS_MAP_ATTRIBUTE_NAME, javascriptLibs.getJavascriptLibsMap());
 				filterChain.doFilter(request, response);
 			}
 		};

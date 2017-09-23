@@ -72,8 +72,8 @@
 		</attribute>
 	</tag>
 	<tag>
-		<name>needJavascript</name>
-		<tag-class>br.com.devcase.boot.dwftaglibs.tag.NeedJavascriptTag</tag-class>
+		<name>importJavascript</name>
+		<tag-class>br.com.devcase.boot.dwftaglibs.tag.ImportJavascriptTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>lib</name>
@@ -95,8 +95,8 @@
 		</attribute>
 	</tag>
 		<tag>
-		<name>printNeededJavascript</name>
-		<tag-class>br.com.devcase.boot.dwftaglibs.tag.PrintNeededJavascriptTag</tag-class>
+		<name>printImportedJavascript</name>
+		<tag-class>br.com.devcase.boot.dwftaglibs.tag.PrintImportedJavascriptTag</tag-class>
 		<body-content>tagdependent</body-content>
 	</tag>
 	<tag-file>

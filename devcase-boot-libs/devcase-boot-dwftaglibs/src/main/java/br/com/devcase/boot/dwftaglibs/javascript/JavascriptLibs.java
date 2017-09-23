@@ -20,7 +20,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySources;
 
-import br.com.devcase.boot.dwftaglibs.tag.NeedJavascriptTag.AddedJavascript;
+import br.com.devcase.boot.dwftaglibs.tag.ImportJavascriptTag.AddedJavascript;
 
 @ConfigurationProperties(prefix = "javascript-libs")
 public class JavascriptLibs implements InitializingBean {

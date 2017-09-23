@@ -6,7 +6,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Add Javascript</title>
+<title>Import Javascript</title>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
@@ -15,15 +15,15 @@
 </head>
 <body>
 	<h1>Title from html</h1>
-	<dwf:addJavascript order="11">
+	<dwf:importJavascript order="11">
 	<script type="text/javascript">
 		$(document).ready($('h1').text("altered by javascript on document ready"));
 	</script>
-	</dwf:addJavascript>
-	<dwf:addJavascript lib="jquery"/>
-	<dwf:addJavascript lib="popper"/>
-	<dwf:addJavascript lib="bootstrap"/>
-	<dwf:addJavascript src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" order="10"/>
-	<dwf:printAddedJavascript/>
+	</dwf:importJavascript>
+	<dwf:importJavascript lib="jquery"/>
+	<dwf:importJavascript  lib="popper"/>
+	<dwf:importJavascript  lib="bootstrap"/>
+	<dwf:importJavascript  src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" order="10"/>
+	<dwf:printImportedJavascript/>
 </body>
 </html>

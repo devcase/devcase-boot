@@ -17,8 +17,8 @@ import org.springframework.core.Ordered;
 
 import br.com.devcase.boot.dwftaglibs.javascript.JavascriptLibs.JavascriptLib;
 
-public class NeedJavascriptTag extends SimpleTagSupport {
-	public static final String NEEDED_JAVASCRIPT_ATTRIBUTE_NAME = "dwf.NEEDED_JAVASCRIPT_ATTRIBUTE_NAME";
+public class ImportJavascriptTag extends SimpleTagSupport {
+	public static final String IMPORTED_JAVASCRIPT_ATTRIBUTE_NAME = "dwf.IMPORTED_JAVASCRIPT_ATTRIBUTE_NAME";
 	public static final String JAVASCRIPT_LIBS_MAP_ATTRIBUTE_NAME = "dwf.JAVASCRIPT_LIBS_MAP";
 
 	private String lib;
@@ -66,13 +66,13 @@ public class NeedJavascriptTag extends SimpleTagSupport {
 		}
 		
 		
-		Object javascriptList = getJspContext().findAttribute(NEEDED_JAVASCRIPT_ATTRIBUTE_NAME);
+		Object javascriptList = getJspContext().findAttribute(IMPORTED_JAVASCRIPT_ATTRIBUTE_NAME);
 		if (javascriptList != null) {
 			((Collection<Object>) javascriptList).add(bean);
 		} else {
 			Set<AddedJavascript> list = new HashSet<>();
 			list.add(bean);
-			getJspContext().setAttribute(NEEDED_JAVASCRIPT_ATTRIBUTE_NAME, list, PageContext.REQUEST_SCOPE);
+			getJspContext().setAttribute(IMPORTED_JAVASCRIPT_ATTRIBUTE_NAME, list, PageContext.REQUEST_SCOPE);
 		}
 	}
 
