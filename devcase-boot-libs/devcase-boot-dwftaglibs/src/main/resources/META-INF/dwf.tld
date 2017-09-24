@@ -71,6 +71,34 @@
 			<type>java.lang.String</type>
 		</attribute>
 	</tag>
+	<tag>
+		<name>importJavascript</name>
+		<tag-class>br.com.devcase.boot.dwftaglibs.tag.ImportJavascriptTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>lib</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>src</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>order</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.Integer</type>
+		</attribute>
+	</tag>
+		<tag>
+		<name>printImportedJavascript</name>
+		<tag-class>br.com.devcase.boot.dwftaglibs.tag.PrintImportedJavascriptTag</tag-class>
+		<body-content>tagdependent</body-content>
+	</tag>
 	<tag-file>
 		<name>mergeMaps</name>
 		<path>/META-INF/tags/mergeMaps.tag</path>

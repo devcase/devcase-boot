@@ -115,6 +115,11 @@
 				<artifactId>devcase-boot-web</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-htmldecorator</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- JAVAX -->
 			<dependency>
 				<groupId>javax.el</groupId>
@@ -151,6 +156,11 @@
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.5</version>
 			</dependency>
 			<!-- SPRING -->
 			<dependency>

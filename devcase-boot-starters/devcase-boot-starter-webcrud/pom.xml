@@ -25,10 +25,6 @@
 		</dependency>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
-			<artifactId>devcase-boot-sitemesh</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-starter</artifactId>
 		</dependency>
 	</dependencies>

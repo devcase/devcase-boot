@@ -1,7 +1,6 @@
 package br.com.devcase.boot.dwftaglibs.tag;
 
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.time.Instant;
 import java.time.LocalDate;

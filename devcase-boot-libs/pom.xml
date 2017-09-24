@@ -20,6 +20,7 @@
   	<module>devcase-boot-dwftaglibs</module>
   	<module>devcase-boot-labels</module>
   	<module>devcase-boot-ws-logging</module>
+  	<module>devcase-boot-htmldecorator</module>
   	<module>devcase-boot-web</module>
   </modules>
 </project>
