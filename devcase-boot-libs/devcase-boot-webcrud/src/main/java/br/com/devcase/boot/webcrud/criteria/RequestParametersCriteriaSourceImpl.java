@@ -1,13 +1,16 @@
 package br.com.devcase.boot.webcrud.criteria;
 
 import java.beans.PropertyDescriptor;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import br.com.devcase.boot.crud.repository.criteria.Criteria;
 import br.com.devcase.boot.crud.repository.criteria.Operation;
@@ -25,27 +28,43 @@ public class RequestParametersCriteriaSourceImpl implements CriteriaSource {
 	@Override
 	public <T> List<Criteria> getCriteria(Class<T> domainClass) {
 		
-//		EntityManagerFactory emf;
-//		Metamodel metamodel = emf.getMetamodel();
-//		ManagedType<T> entityType = metamodel.managedType(domainClass);
-		
 		List<Criteria> criteriaList = Lists.newArrayList();
+		
+		Set<String> presentProperties = Sets.newHashSet();
+		for(Iterator<String> iter = webRequest.getParameterNames(); iter.hasNext();) {
+			String parameterName = iter.next();
+			String[] parameterPath = parameterName.split(".");
+			presentProperties.add(parameterPath[0]);
+			presentProperties.add(parameterName);
+		}
+		
 		for (PropertyDescriptor propertyDescriptor : PropertyUtils.getPropertyDescriptors(domainClass)) {
-			Class propertyType = propertyDescriptor.getPropertyType();
 			String propertyName = propertyDescriptor.getName();
-			
-			
-			String[] values = webRequest.getParameterValues(propertyName);
-			if(values != null && values.length == 1) {
-				Object criteriaValue = webDataBinder.convertIfNecessary(values[0], propertyType);
-				criteriaList.add(new Criteria(propertyName, Operation.EQ, criteriaValue, propertyType));
+			if(!presentProperties.contains(propertyName)) {
+				continue;
 			}
+			Class<?> propertyType = propertyDescriptor.getPropertyType();
 			
-//			criteria.setValue(value);
+			createCriteria(criteriaList, propertyType, propertyName);
+			
+			for (PropertyDescriptor propertyDescriptor2 : PropertyUtils.getPropertyDescriptors(propertyType)) {
+				Class<?> propertyType2 = propertyDescriptor2.getPropertyType();
+				String propertyName2 = propertyDescriptor2.getName();
+				createCriteria(criteriaList, propertyType2, propertyName.concat(".").concat(propertyName2));
+			}
 			
 		}
 		return criteriaList;
 	}
 
+	private void createCriteria(List<Criteria> criteriaList, Class<?> propertyType, String propertyName) {
+		String[] values = webRequest.getParameterValues(propertyName);
+		if(values != null && values.length == 1) {
+			Object criteriaValue = webDataBinder.convertIfNecessary(values[0], propertyType);
+			criteriaList.add(new Criteria(propertyName, Operation.EQ, criteriaValue, propertyType));
+		}
+	}
+
+	
 	
 }
