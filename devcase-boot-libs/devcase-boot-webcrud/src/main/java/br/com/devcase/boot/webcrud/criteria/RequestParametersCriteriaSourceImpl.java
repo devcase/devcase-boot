@@ -34,7 +34,7 @@ public class RequestParametersCriteriaSourceImpl implements CriteriaSource {
 		for(Iterator<String> iter = webRequest.getParameterNames(); iter.hasNext();) {
 			String parameterName = iter.next();
 			String[] parameterPath = parameterName.split(".");
-			presentProperties.add(parameterPath[0]);
+			if (parameterPath.length > 0) presentProperties.add(parameterPath[0]);
 			presentProperties.add(parameterName);
 		}
 		
