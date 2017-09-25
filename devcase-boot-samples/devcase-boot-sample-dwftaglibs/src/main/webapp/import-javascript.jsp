@@ -21,7 +21,7 @@
 	</script>
 	</dwf:importJavascript>
 	<dwf:importJavascript lib="jquery"/>
-	<dwf:importJavascript  lib="popper"/>
+	<dwf:importJavascript  lib="popper.js"/>
 	<dwf:importJavascript  lib="bootstrap"/>
 	<dwf:importJavascript  src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" order="10"/>
 	<dwf:printImportedJavascript/>

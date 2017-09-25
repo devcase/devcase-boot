@@ -105,6 +105,8 @@ public class JavascriptLibs implements InitializingBean {
 			configFactory.bindPropertiesToTarget();
 
 			if(lib.order == null) lib.order = i;
+			lib.name = libName;
+			
 			javascriptLibsMap.put(lib.name, lib);
 		}
 	}

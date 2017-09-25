@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-br.com.devcase.boot.webcrud.WebCrudAutoConfiguration
+br.com.devcase.boot.webcrud.autoconfigure.WebCrudAutoConfiguration

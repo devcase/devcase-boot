@@ -60,7 +60,7 @@ fun main(args: Array<String>) {
 		@field:GeneratedValue
 		var id: Long?,
 		@field:NotEmpty
-		@field:NaturalId
+		@field:NaturalId(mutable=true)
 		var name: String,
 		@field:NotEmpty
 		var owner: String,
@@ -87,7 +87,7 @@ fun main(args: Array<String>) {
 		@field:Type(type = "br.com.devcase.boot.crud.hibernate.types.MoneyType")
 		@field:Columns(columns = arrayOf(Column(name = "price_cur"), Column(name = "price_val")))
 		var price: Money,
-		@field:NaturalId
+		@field:NaturalId(mutable=true)
 		var name: String,
 		@field:CreationTimestamp
 		var created: Date = Date(0),

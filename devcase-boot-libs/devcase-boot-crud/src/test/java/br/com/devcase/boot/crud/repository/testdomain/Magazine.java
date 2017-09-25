@@ -14,7 +14,7 @@ public class Magazine {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@NaturalId
+	@NaturalId(mutable=true)
 	private String name;
 	@ManyToOne
 	private Publisher publisher;
