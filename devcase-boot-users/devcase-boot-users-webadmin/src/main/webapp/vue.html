@@ -137,10 +137,13 @@
 			</div>
 		`
 	};
+	
+	const AvailableRoles = [ 'ROLE_USER', 'ROLE_SUPERUSER' ];
 	const FormUserView = {
 		data: function() {
 			return {
-				user: {}
+				user: {},
+				availableRoles : AvailableRoles
 			}
 		},
 		methods: {
@@ -179,6 +182,12 @@
 						<div class="invalid-feedback">
 				        	Obrigatório
 				      	</div>
+					</div>
+					<div class="form-check" v-for="role in availableRoles">
+					  <label class="form-check-label">
+					    	<input  class="form-check-input" type="checkbox" :value="role"  v-model="user.roles"/>
+					    	{{role}}
+					  </label>
 					</div>
 					<button type="submit" class="btn btn-primary">Salvar</button>
 					<button type="button" class="btn btn-secondary" @click="cancel()">Cancelar</button>
