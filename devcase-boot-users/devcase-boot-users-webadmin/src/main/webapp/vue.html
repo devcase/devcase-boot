@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<title>Users Web Admin</title>
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-3">
+		<a class="navbar-brand" href="/">Devcase Users</a>
+	</nav>
+	<div class="container">
+		<div id="app">
+			<router-view></router-view>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous"
+	></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"
+	></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"
+	></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.4.4/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue-router@2.7.0/dist/vue-router.min.js"></script>
+	<script type="text/javascript">
+	
+	Vue.directive('customvalidation', {
+		inserted: function(el, binding, vnode) {
+			$(el).attr('novalidate', '');
+			el.addEventListener("submit", function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				if(el.checkValidity()) {
+					el.dispatchEvent(new Event('validsubmit'));
+				} else {
+					el.classList.add("was-validated");
+				}
+			});
+			$(el).find('input:first').each(function() {this.focus()});
+		}
+	});
+	
+	Vue.component('data-grid', {
+		props: ['name', 'columns'],
+		data: function() {
+			return {
+				results: {},
+				contents: [],
+				page: {
+					number: 0,
+					size: 5,
+					totalPages : 0,
+					totalElements: 0
+				}
+			};
+		},
+		mounted: function() {
+			this.loadData();
+		},
+		methods: {
+			changePage: function(pageNum) {
+				this.page.number = pageNum;
+				this.loadData();
+			},
+			loadData: function() {
+				var self = this;
+				$.get('/' + self.name + '?size=' + self.page.size + '&page=' + self.page.number, function(data) {
+					self.results = data;
+					self.contents = data["_embedded"][self.name];
+					self.page = data['page'];
+				});
+			}
+		}, 
+		computed: {
+			pages: function() {
+				var arr = [];
+				if(this.results.page) {
+					for(var i = 0; i < this.results.page.totalPages; i++) {
+						arr.push({
+							number: i,
+							current: i == this.results.page.number
+						})
+					}
+				}
+				return arr;
+			}	
+		},
+		template: `
+		<div>
+			<table class="table table-sm table-hover" v-if="contents">
+			<thead>
+				<th v-for="column in columns">
+					{{column}}
+				</th>
+			</thead>
+			<tbody>
+				<tr v-for="entity in contents" >
+					<td v-for="column in columns">
+						<router-link :to="entity.id.toString()" >{{entity[column]}}</router-link>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			<!-- PAGINATOR -->
+			<nav aria-label="Navegação por páginas" class="mt-3" v-if="page.totalPages > 1">
+				<ul class="pagination justify-content-center">
+					<!-- previous page -->
+					<li class="page-item" v-bind:class="{ active : page.current }" v-for="page in pages" >
+						<a class="page-link" href="#" @click.prevent="changePage(page.number)">{{page.number + 1}}</a>
+					</li>
+				</ul>
+			</nav>
+			</div>
+		`
+	});
+
+	const ListUsersView = {
+		data: function() {
+			return {
+			};
+		},
+		template: `
+			<div>
+				<router-link to="/users/create" class="btn btn-primary">Criar Usuário</router-link>
+				<data-grid :columns="['id', 'name']" :name="'users'" class="mt-4"/>
+			</div>
+		`
+	};
+	const FormUserView = {
+		data: function() {
+			return {
+				user: {}
+			}
+		},
+		methods: {
+			save: function(user) {
+				$.ajax({
+					url: (user.id ? '/users/' + user.id : '/users'),
+					data: JSON.stringify(user),
+					contentType: 'application/json',
+					method: (user.id ? 'patch' : 'post'),
+					success: function(data) {
+						router.push('/users/');
+					}
+				});
+			},
+			cancel: function() {
+				router.push('/users/');
+			}
+		},
+		mounted: function() {
+			var self = this;
+			if(this.$route.params.id) {
+				$.get('/users/' + this.$route.params.id, function(data) {
+					self.user = data;
+				});
+			} else {
+				self.user = {};
+			}
+		},
+		template: `
+			<div>
+				<h1>Novo usuário</h1>
+				<form v-customvalidation @validsubmit="save(user)">
+					<div class="form-group">
+						<label for="user_name">Nome </label>
+						<input type="text" id="user_name" v-model="user.name" class="form-control" placeholder="Nome" required="true"/>
+						<div class="invalid-feedback">
+				        	Obrigatório
+				      	</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+					<button type="button" class="btn btn-secondary" @click="cancel()">Cancelar</button>
+				</form>
+			</div>
+		`
+	};
+	
+	const NotFound = {
+			template: `<h1>{{window.location.pathname}}</h1>`
+	}
+	
+	const routes = [
+		{ path: '/users/', component: ListUsersView },	
+		{ path: '/users/create', component: FormUserView },
+		{ path: '/users/:id', component: FormUserView }	
+
+	];
+	const router = new VueRouter({
+		  routes // short for `routes: routes`
+		});
+
+	var app = new Vue({
+		router
+	}).$mount('#app');
+	
+	
+	</script>
+</body>
+</html>

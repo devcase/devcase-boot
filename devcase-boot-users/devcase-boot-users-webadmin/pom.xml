@@ -29,7 +29,15 @@
 		</dependency>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
+			<artifactId>devcase-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-users-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -41,5 +49,20 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>dev-h2</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 </project>
