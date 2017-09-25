@@ -1,10 +1,11 @@
-package br.com.devcase.boot.webcrud;
+package br.com.devcase.boot.webcrud.autoconfigure;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import br.com.devcase.boot.webcrud.criteria.CriteriaSourceArgumentResolver;
 
 @Configuration
+@PropertySource(value="classpath:/br/com/devcase/boot/webcrud/properties/web-crud.properties")
 public class WebCrudAutoConfiguration {
 
 	/**
