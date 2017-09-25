@@ -120,6 +120,16 @@
 				<artifactId>devcase-boot-htmldecorator</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-users-domain</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-users-oauth2</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- JAVAX -->
 			<dependency>
 				<groupId>javax.el</groupId>
