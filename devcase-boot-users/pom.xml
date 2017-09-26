@@ -12,38 +12,13 @@
 
 	<artifactId>devcase-boot-users</artifactId>
 	<packaging>pom</packaging>
-	<properties>
-		<spring.version>5.0.0.M4</spring.version>
-	</properties>
 
 
 	<modules>
 		<module>devcase-boot-users-domain</module>
-		<module>devcase-boot-users-oauth2</module>
 		<module>devcase-boot-users-webadmin</module>
 		<module>devcase-boot-users-samples</module>
+		<module>devcase-boot-users-security</module>
 	</modules>
 
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-framework-bom</artifactId>
-				<version>${spring.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>

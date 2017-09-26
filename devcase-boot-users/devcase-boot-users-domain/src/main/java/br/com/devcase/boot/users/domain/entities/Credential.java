@@ -1,16 +1,17 @@
 package br.com.devcase.boot.users.domain.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,18 +21,29 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype")
+public abstract class Credential {
+
+	public Credential(String dtype) {
+		super();
+		this.dtype = dtype;
+	}
 
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	private String id;
 
-	@Pattern(regexp="^[a-z0-9]{3,}")
-	@NaturalId(mutable = true)
-	private String name;
-	@ElementCollection(fetch=FetchType.EAGER)
-	private List<String> roles;
+	@ManyToOne(optional = false)
+	@JoinColumn(updatable = false)
+	@NaturalId(mutable = false)
+	private User user;
+
+	@Column(name = "dtype", updatable = false, insertable = false)
+	@NaturalId(mutable = false)
+	private String dtype;
+
 	@CreationTimestamp
 	@Column(updatable = false)
 	@JsonIgnore
@@ -40,31 +52,21 @@ public class User {
 	@JsonIgnore
 	private Date updateDate;
 	private Date validUntil;
-	private boolean locked = false;
-	private boolean enabled = true;
 
-	public String getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getName() {
-		return name;
+	public String getDtype() {
+		return dtype;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<String> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
+	public void setDtype(String dtype) {
+		this.dtype = dtype;
 	}
 
 	public Date getCreateDate() {
@@ -83,30 +85,6 @@ public class User {
 		this.updateDate = updateDate;
 	}
 
-	public Date getValidUntil() {
-		return validUntil;
-	}
-
-	public void setValidUntil(Date validUntil) {
-		this.validUntil = validUntil;
-	}
-
-	public boolean isLocked() {
-		return locked;
-	}
-
-	public void setLocked(boolean locked) {
-		this.locked = locked;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-	
 	@Transient
 	public boolean isExpired() {
 		return this.validUntil != null && validUntil.before(new Date());

@@ -1,0 +1,91 @@
+package br.com.devcase.boot.users.domain;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import br.com.devcase.boot.users.domain.entities.PasswordCredential;
+import br.com.devcase.boot.users.domain.entities.User;
+import br.com.devcase.boot.users.domain.repositories.CredentialRepository;
+import br.com.devcase.boot.users.domain.repositories.UserRepository;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest()
+@ContextConfiguration(classes = DevcaseUsersConfig.class)
+@EnableAutoConfiguration
+@ActiveProfiles({"test", "test-h2"})
+@DirtiesContext()
+public class CredentialRepositoryTest {
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private CredentialRepository credentialRepository;
+
+	
+	
+	@Test
+	public void testSaveUser() {
+		User user1 = new User();
+		user1.setName("hirata1");
+		userRepository.save(user1);
+	}
+	
+	@Test
+	public void testSaveUserWithInvalidUsername() {
+		User user1 = new User();
+		user1.setName("hirat a");
+		try {
+			userRepository.save(user1);
+			Assert.fail();
+		} catch (Exception ex) {
+		}
+	}
+	
+	@Test
+	public void testSavePassword() {
+		User user1 = new User();
+		user1.setName("hirata2");
+		userRepository.save(user1);
+		
+		PasswordCredential credential = new PasswordCredential();
+		credential.setUser(user1);
+		credential.setPassword("zode0s9812m!@#c90");
+		
+		credentialRepository.save(credential);
+		
+		Assert.assertEquals("zode0s9812m!@#c90", credentialRepository.findPasswordByUser(user1));
+	}
+	
+	@Test
+	public void testSaveTwoPasswordsForASingleUser() {
+		User user1 = new User();
+		user1.setName("hirata3");
+		userRepository.save(user1);
+		
+		PasswordCredential credential = new PasswordCredential();
+		credential.setUser(user1);
+		credential.setPassword("papapapapapa");
+		
+		credentialRepository.save(credential);
+
+		PasswordCredential credential2 = new PasswordCredential();
+		credential2.setUser(user1);
+		credential2.setPassword("papapapapapa2");
+		
+		try {
+			credentialRepository.save(credential2);
+			Assert.fail();
+		} catch (Exception ex) {
+			
+		}
+	}
+	
+}

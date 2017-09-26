@@ -75,7 +75,7 @@
 			},
 			loadData: function() {
 				var self = this;
-				$.get('/' + self.name + '?size=' + self.page.size + '&page=' + self.page.number, function(data) {
+				$.get('/api/' + self.name + '?size=' + self.page.size + '&page=' + self.page.number, function(data) {
 					self.results = data;
 					self.contents = data["_embedded"][self.name];
 					self.page = data['page'];
@@ -149,7 +149,7 @@
 		methods: {
 			save: function(user) {
 				$.ajax({
-					url: (user.id ? '/users/' + user.id : '/users'),
+					url: (user.id ? '/api/users/' + user.id : '/api/users'),
 					data: JSON.stringify(user),
 					contentType: 'application/json',
 					method: (user.id ? 'patch' : 'post'),
@@ -165,7 +165,7 @@
 		mounted: function() {
 			var self = this;
 			if(this.$route.params.id) {
-				$.get('/users/' + this.$route.params.id, function(data) {
+				$.get('/api/users/' + this.$route.params.id, function(data) {
 					self.user = data;
 				});
 			} else {

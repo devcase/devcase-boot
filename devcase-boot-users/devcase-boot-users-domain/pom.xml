@@ -21,4 +21,20 @@
 			<artifactId>spring-data-rest-core</artifactId>
 		</dependency>
 	</dependencies>
+
+
+	<profiles>
+		<profile>
+			<id>dev-h2</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>

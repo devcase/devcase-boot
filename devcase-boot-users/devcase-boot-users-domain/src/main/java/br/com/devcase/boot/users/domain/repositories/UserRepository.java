@@ -6,6 +6,8 @@ import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 import br.com.devcase.boot.users.domain.entities.User;
 
 @RepositoryRestResource(path="users", collectionResourceRel="users")
-public interface UserRepository extends CriteriaRepository<User, Long> {
+public interface UserRepository extends CriteriaRepository<User, String> {
+	User findByName(String name);
+	long countByName(String name);
 
 }
