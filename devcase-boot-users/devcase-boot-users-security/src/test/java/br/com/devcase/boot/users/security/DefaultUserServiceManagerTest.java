@@ -1,9 +1,11 @@
 package br.com.devcase.boot.users.security;
 
+import java.time.Instant;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.transaction.TransactionManager;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,10 +25,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.google.common.collect.Lists;
-
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
+import br.com.devcase.boot.users.domain.entities.UserPermission;
 import br.com.devcase.boot.users.security.autoconfigure.DevcaseUsersSecurityAutoConfiguration;
 
 @RunWith(SpringRunner.class)
@@ -46,24 +47,68 @@ public class DefaultUserServiceManagerTest {
 	private PasswordEncoder passwordEncoder;
 
 	final String password = "BatataUnicórnio1980";
-	final String login = "integrationtest1";
+	final String validUserLogin = "integrationtest1";
+	final String expiredUserLogin = "integrationtest2";
+	final String validRoleName = "USER";
+	final String validTemporaryRoleName = "TEMPORARY";
+	final String expiredRoleName = "ADMIN";
 
 	@Before
 	public void setup() throws Exception {
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
+		EntityManager em = null;
+		EntityTransaction tx = null;
 		try {
-			
+			em = emf.createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			em.createQuery("delete from UserPermission c").executeUpdate();
+			em.createQuery("delete from Credential c").executeUpdate();
+			em.createQuery("delete from User c").executeUpdate();
+			tx.commit();
+		} finally {
+			em.close();
+		}
+
+		try {
+			em = emf.createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
 			User user1 = new User();
-			user1.setName(login);
-			user1.setRoles(Lists.newArrayList("ROLE_USER", "ROLE_ADMIN"));
+			user1.setName(validUserLogin);
 			em.persist(user1);
-	
+
+			User user2 = new User();
+			user2.setName(expiredUserLogin);
+			user2.setValidUntil(Date.from(Instant.now().minusSeconds(60 * 60 * 24)));
+			em.persist(user2);
+
 			PasswordCredential credential = new PasswordCredential();
 			credential.setUser(user1);
 			credential.setPassword(passwordEncoder.encode(password));
 			em.persist(credential);
+
+			PasswordCredential credential2 = new PasswordCredential();
+			credential2.setUser(user2);
+			credential2.setPassword(passwordEncoder.encode(password));
+			em.persist(credential2);
+
+			UserPermission validRole = new UserPermission();
+			validRole.setUser(user1);
+			validRole.setRole(validRoleName);
+			em.persist(validRole);
+
+			UserPermission expiredRole = new UserPermission();
+			expiredRole.setUser(user1);
+			expiredRole.setRole(expiredRoleName);
+			expiredRole.setValidUntil(Date.from(Instant.now().minusSeconds(60 * 60 * 24)));
+			em.persist(expiredRole);
+
+			UserPermission validTemporaryRole = new UserPermission();
+			validTemporaryRole.setUser(user1);
+			validTemporaryRole.setRole(validTemporaryRoleName);
+			validTemporaryRole.setValidUntil(Date.from(Instant.now().plusSeconds(60 * 60 * 24)));
+			em.persist(validTemporaryRole);
 
 			em.flush();
 			tx.commit();
@@ -72,19 +117,38 @@ public class DefaultUserServiceManagerTest {
 		}
 
 	}
-	
+
 	@Test
 	public void testAuthentication() throws Exception {
-		
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, password));
+
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(validUserLogin, password));
 
 		Assert.assertNotNull(authentication);
 		Assert.assertTrue(authentication.isAuthenticated());
-		
+		Assert.assertTrue(authentication.getAuthorities().stream()
+				.filter(it -> it.getAuthority().equals("ROLE_" + validRoleName)).count() > 0);
+		Assert.assertTrue(authentication.getAuthorities().stream()
+				.filter(it -> it.getAuthority().equals("ROLE_" + validTemporaryRoleName)).count() > 0);
+		Assert.assertTrue(authentication.getAuthorities().stream()
+				.filter(it -> it.getAuthority().equals("ROLE_" + expiredRoleName)).count() == 0);
+
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, "DesertoEstacionamento"));
+			authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(validUserLogin, "DesertoEstacionamento"));
 			Assert.fail();
 		} catch (AuthenticationException ex) {
+		}
+	}
+
+	@Test
+	public void testAuthenticationExpiredUser() throws Exception {
+		try {
+			Authentication authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(expiredUserLogin, password));
+			Assert.fail();
+		} catch (AuthenticationException ex) {
+
 		}
 	}
 

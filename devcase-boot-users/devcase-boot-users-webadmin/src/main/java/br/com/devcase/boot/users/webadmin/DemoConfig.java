@@ -32,7 +32,7 @@ public class DemoConfig {
 		if(userRepository.countByName(login) == 0) {
 			User user1 = new User();
 			user1.setName(login);
-			user1.setRoles(Lists.newArrayList("ROLE_USER", "ROLE_SUPERUSER"));
+//			user1.setRoles(Lists.newArrayList("ROLE_USER", "ROLE_SUPERUSER"));
 			userRepository.save(user1);
 			PasswordCredential credential = new PasswordCredential();
 			credential.setUser(user1);
@@ -48,7 +48,7 @@ public class DemoConfig {
 		if(userRepository.countByName(login) == 0) {
 			User user1 = new User();
 			user1.setName(login);
-			user1.setRoles(Lists.newArrayList("ROLE_USER"));
+//			user1.setRoles(Lists.newArrayList("ROLE_USER"));
 			userRepository.save(user1);
 			PasswordCredential credential = new PasswordCredential();
 			credential.setUser(user1);

@@ -10,8 +10,6 @@ public class PasswordCredential extends Credential {
 
 	private String password;
 
-	
-	
 	public PasswordCredential() {
 		super(DTYPE);
 	}
@@ -23,6 +21,5 @@ public class PasswordCredential extends Credential {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
 }
