@@ -1,4 +1,4 @@
-package br.com.devcase.boot.users.domain.repositories;
+package br.com.devcase.boot.users.webadmin.repositories;
 
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

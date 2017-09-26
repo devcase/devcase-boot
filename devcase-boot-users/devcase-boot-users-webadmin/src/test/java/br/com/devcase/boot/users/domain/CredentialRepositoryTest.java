@@ -7,28 +7,33 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
-import br.com.devcase.boot.users.domain.repositories.CredentialRepository;
-import br.com.devcase.boot.users.domain.repositories.UserRepository;
+import br.com.devcase.boot.users.webadmin.UsersWebAdminApplication;
+import br.com.devcase.boot.users.webadmin.repositories.CredentialRepository;
+import br.com.devcase.boot.users.webadmin.repositories.UserRepository;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
-@ContextConfiguration(classes = DevcaseUsersConfig.class)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(classes = UsersWebAdminApplication.class)
 @EnableAutoConfiguration
 @ActiveProfiles({"test", "test-h2"})
-@DirtiesContext()
 public class CredentialRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
 	private CredentialRepository credentialRepository;
 
+	@Before
+	public void cleanDatabase() {
+		credentialRepository.deleteAll();
+		userRepository.deleteAll();
+	}
 	
 	
 	@Test

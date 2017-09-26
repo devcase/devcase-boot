@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+
+import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
 
 @SpringBootApplication
-@EnableAuthorizationServer
-@EnableOAuth2Client
+@EnableJpaRepositories(repositoryBaseClass=CriteriaJpaRepository.class)
 public class UsersWebAdminApplication {
 
 	public static void main(String[] args) {

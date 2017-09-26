@@ -2,13 +2,16 @@ package br.com.devcase.boot.users.security.autoconfigure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 
-import br.com.devcase.boot.users.security.DefaultUserDetailsManager;
+import br.com.devcase.boot.users.security.DefaultUserDetailsService;
+import br.com.devcase.boot.users.security.repositories.UserReadOnlyRepository;
 
 @Configuration
+@EnableJpaRepositories(basePackageClasses=UserReadOnlyRepository.class)
 public class DevcaseUsersSecurityAutoConfiguration {
 
 	@Configuration
@@ -19,8 +22,8 @@ public class DevcaseUsersSecurityAutoConfiguration {
 		}
 
 		@Bean
-		public UserDetailsManager defaultUserDetailsManager() {
-			return new DefaultUserDetailsManager();
+		public UserDetailsService defaultUserDetailsService() {
+			return new DefaultUserDetailsService();
 		}
 	}
 

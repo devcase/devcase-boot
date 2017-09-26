@@ -1,17 +1,16 @@
-package br.com.devcase.boot.users.domain.repositories;
+package br.com.devcase.boot.users.security.repositories;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 import br.com.devcase.boot.users.domain.entities.Credential;
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
 
 @Repository
-public interface CredentialRepository extends CriteriaRepository<Credential, String> {
+public interface CredentialReadOnlyRepository extends org.springframework.data.repository.Repository<Credential, String> {
 	List<Credential> findByUser(User user);
 	Credential findByUserAndDtype(User user, String dtype);
 	

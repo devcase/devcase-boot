@@ -11,8 +11,8 @@ import com.google.common.collect.Lists;
 
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
-import br.com.devcase.boot.users.domain.repositories.CredentialRepository;
-import br.com.devcase.boot.users.domain.repositories.UserRepository;
+import br.com.devcase.boot.users.webadmin.repositories.CredentialRepository;
+import br.com.devcase.boot.users.webadmin.repositories.UserRepository;
 
 @Component
 @Profile("demo")
@@ -40,4 +40,21 @@ public class DemoConfig {
 			credentialRepository.save(credential);
 		}
 	}
+	
+	@EventListener(ApplicationReadyEvent.class)
+	public void loadGuestUser() {
+		final String password = "guest";
+		final String login = "guest";
+		if(userRepository.countByName(login) == 0) {
+			User user1 = new User();
+			user1.setName(login);
+			user1.setRoles(Lists.newArrayList("ROLE_USER"));
+			userRepository.save(user1);
+			PasswordCredential credential = new PasswordCredential();
+			credential.setUser(user1);
+			credential.setPassword(passwordEncoder.encode(password));
+			credentialRepository.save(credential);
+		}
+	}
+
 }
