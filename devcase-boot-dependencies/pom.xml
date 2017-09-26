@@ -120,6 +120,16 @@
 				<artifactId>devcase-boot-htmldecorator</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-users-domain</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-users-security</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- JAVAX -->
 			<dependency>
 				<groupId>javax.el</groupId>
@@ -162,6 +172,11 @@
 				<artifactId>commons-io</artifactId>
 				<version>2.5</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+				<version>1.1</version>
+			</dependency>
 			<!-- SPRING -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -173,6 +188,12 @@
 						<artifactId>spring-boot-starter-tomcat</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<!-- HIBERNATE -->
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.1-api</artifactId>
+				<version>1.0.0.Final</version>
 			</dependency>
 			<!-- GOOGLE -->
 			<dependency>
