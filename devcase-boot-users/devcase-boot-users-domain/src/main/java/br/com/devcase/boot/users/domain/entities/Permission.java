@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 public abstract class Permission extends BasicEntity {
 
 	@Pattern(regexp = "^[A-Z0-9]{3,}")
-	private String role;
+	protected String role;
 
 	public String getRole() {
 		return role;

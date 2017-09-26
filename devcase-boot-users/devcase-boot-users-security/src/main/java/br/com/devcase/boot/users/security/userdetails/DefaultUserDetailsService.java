@@ -1,4 +1,4 @@
-package br.com.devcase.boot.users.security;
+package br.com.devcase.boot.users.security.userdetails;
 
 import java.util.List;
 
@@ -27,7 +27,6 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		logger.debug("loadUserByUsername: " + username);
 		User user = userRepository.findByName(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found");

@@ -1,4 +1,4 @@
-package br.com.devcase.boot.users.domain;
+package br.com.devcase.boot.users.webadmin;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +23,7 @@ import br.com.devcase.boot.users.webadmin.repositories.UserRepository;
 @ContextConfiguration(classes = UsersWebAdminApplication.class)
 @EnableAutoConfiguration
 @ActiveProfiles({"test", "test-h2"})
-public class CredentialRepositoryTest {
+public class WebAdminRepositoriesTest {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -34,7 +34,6 @@ public class CredentialRepositoryTest {
 		credentialRepository.deleteAll();
 		userRepository.deleteAll();
 	}
-	
 	
 	@Test
 	public void testSaveUser() {

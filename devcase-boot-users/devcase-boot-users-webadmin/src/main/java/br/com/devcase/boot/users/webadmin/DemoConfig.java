@@ -2,19 +2,22 @@ package br.com.devcase.boot.users.webadmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-
-import com.google.common.collect.Lists;
 
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
+import br.com.devcase.boot.users.domain.entities.UserPermission;
+import br.com.devcase.boot.users.security.config.CommonSecurityConfig;
 import br.com.devcase.boot.users.webadmin.repositories.CredentialRepository;
+import br.com.devcase.boot.users.webadmin.repositories.UserPermissionRepository;
 import br.com.devcase.boot.users.webadmin.repositories.UserRepository;
 
-@Component
+@Configuration
+@Import(CommonSecurityConfig.class)
 @Profile("demo")
 public class DemoConfig {
 	
@@ -22,6 +25,8 @@ public class DemoConfig {
 	private UserRepository userRepository;
 	@Autowired
 	private CredentialRepository credentialRepository;
+	@Autowired
+	private UserPermissionRepository userPermissionRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -32,12 +37,14 @@ public class DemoConfig {
 		if(userRepository.countByName(login) == 0) {
 			User user1 = new User();
 			user1.setName(login);
-//			user1.setRoles(Lists.newArrayList("ROLE_USER", "ROLE_SUPERUSER"));
 			userRepository.save(user1);
 			PasswordCredential credential = new PasswordCredential();
 			credential.setUser(user1);
 			credential.setPassword(passwordEncoder.encode(password));
 			credentialRepository.save(credential);
+			userPermissionRepository.save(UserPermission.builder().withRole("USER").withUser(user1).build());
+			userPermissionRepository.save(UserPermission.builder().withRole("ACTUATOR").withUser(user1).build());
+			userPermissionRepository.save(UserPermission.builder().withRole("SUPERUSER").withUser(user1).build());
 		}
 	}
 	
@@ -54,6 +61,7 @@ public class DemoConfig {
 			credential.setUser(user1);
 			credential.setPassword(passwordEncoder.encode(password));
 			credentialRepository.save(credential);
+			userPermissionRepository.save(UserPermission.builder().withRole("USER").withUser(user1).build());
 		}
 	}
 

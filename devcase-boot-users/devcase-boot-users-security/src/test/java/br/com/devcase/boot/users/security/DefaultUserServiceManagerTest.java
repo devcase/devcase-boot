@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
@@ -28,11 +29,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
 import br.com.devcase.boot.users.domain.entities.UserPermission;
-import br.com.devcase.boot.users.security.autoconfigure.DevcaseUsersSecurityAutoConfiguration;
+import br.com.devcase.boot.users.security.config.CommonSecurityConfig;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
-@ContextConfiguration(classes = DevcaseUsersSecurityAutoConfiguration.class)
+@SpringBootTest(webEnvironment=WebEnvironment.NONE)
+@ContextConfiguration(classes = CommonSecurityConfig.class)
 @EnableAutoConfiguration
 @EnableGlobalAuthentication
 @ActiveProfiles({ "test", "test-h2" })

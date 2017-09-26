@@ -1,4 +1,4 @@
-package br.com.devcase.boot.users.security;
+package br.com.devcase.boot.users.security.userdetails;
 
 import java.util.Collection;
 import java.util.List;

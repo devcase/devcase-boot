@@ -8,15 +8,20 @@ import javax.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
 import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
+import br.com.devcase.boot.users.security.config.EnableWebFormAuthentication;
 
 @SpringBootApplication
 @EnableJpaRepositories(repositoryBaseClass=CriteriaJpaRepository.class)
+@PropertySource("classpath:/br/com/devcase/boot/users/webadmin/webadmin.properties")
+@EnableWebFormAuthentication
 public class UsersWebAdminApplication {
 
 	public static void main(String[] args) {
