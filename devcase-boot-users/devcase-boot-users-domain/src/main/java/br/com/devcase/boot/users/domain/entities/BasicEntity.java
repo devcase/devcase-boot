@@ -11,17 +11,19 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
+@Audited
 class BasicEntity {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	private String id;
 
-	private Date validUntil;
+	protected Date validUntil;
 
 	@CreationTimestamp
 	@Column(updatable = false)
@@ -55,7 +57,7 @@ class BasicEntity {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 	public Date getValidUntil() {
 		return validUntil;
 	}

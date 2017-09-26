@@ -38,7 +38,7 @@ import br.com.devcase.boot.users.security.config.CommonSecurityConfig;
 @EnableGlobalAuthentication
 @ActiveProfiles({ "test", "test-h2" })
 @DirtiesContext()
-public class DefaultUserServiceManagerTest {
+public class DefaultUserDetailsServiceManagerTest {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;

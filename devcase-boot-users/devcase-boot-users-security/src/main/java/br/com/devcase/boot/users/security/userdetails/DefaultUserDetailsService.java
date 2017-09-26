@@ -1,5 +1,6 @@
 package br.com.devcase.boot.users.security.userdetails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,10 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.google.common.collect.Lists;
+
+import br.com.devcase.boot.users.domain.entities.GroupPermission;
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
+import br.com.devcase.boot.users.domain.entities.Permission;
 import br.com.devcase.boot.users.domain.entities.User;
 import br.com.devcase.boot.users.domain.entities.UserPermission;
 import br.com.devcase.boot.users.security.repositories.CredentialReadOnlyRepository;
+import br.com.devcase.boot.users.security.repositories.GroupPermissionsReadOnlyRepository;
 import br.com.devcase.boot.users.security.repositories.UserPermissionsReadOnlyRepository;
 import br.com.devcase.boot.users.security.repositories.UserReadOnlyRepository;
 
@@ -24,6 +30,8 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	CredentialReadOnlyRepository credentialRepository;
 	@Autowired
 	UserPermissionsReadOnlyRepository userPermissionsReadOnlyRepository;
+	@Autowired
+	GroupPermissionsReadOnlyRepository groupPermissionsReadOnlyRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,8 +41,11 @@ public class DefaultUserDetailsService implements UserDetailsService {
 		}
 		PasswordCredential passCred = credentialRepository.findPasswordCredentialByUser(user);
 		List<UserPermission> userPermissions = userPermissionsReadOnlyRepository.findValidByUser(user);
+		List<GroupPermission> groupPermissions = groupPermissionsReadOnlyRepository.findValidByUser(user);
+		ArrayList<Permission> permissions = Lists.newArrayList(userPermissions);
+		permissions.addAll(groupPermissions);
 		
-		return new DefaultUserDetails(user, passCred, userPermissions);
+		return new DefaultUserDetails(user, passCred, permissions);
 	}
 	//
 	// @Override

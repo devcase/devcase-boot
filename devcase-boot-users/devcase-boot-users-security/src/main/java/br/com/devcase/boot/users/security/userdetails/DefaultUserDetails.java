@@ -22,7 +22,7 @@ public class DefaultUserDetails extends User {
 
 	private static Collection<? extends GrantedAuthority> convertToAuthorities(List<? extends Permission> roles) {
 		return roles.stream().map(s -> new SimpleGrantedAuthority("ROLE_".concat(s.getRole())))
-				.collect(Collectors.toList());
+				.distinct().collect(Collectors.toList());
 	}
 
 }
