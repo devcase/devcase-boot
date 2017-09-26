@@ -127,7 +127,7 @@
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
-				<artifactId>devcase-boot-users-oauth2</artifactId>
+				<artifactId>devcase-boot-users-security</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
 			<!-- JAVAX -->

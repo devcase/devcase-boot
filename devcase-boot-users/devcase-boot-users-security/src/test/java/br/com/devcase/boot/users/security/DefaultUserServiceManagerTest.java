@@ -9,12 +9,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.google.common.collect.Lists;
 
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
@@ -46,6 +50,7 @@ public class DefaultUserServiceManagerTest {
 		final String login = "integrationtest1";
 		User user1 = new User();
 		user1.setName(login);
+		user1.setRoles(Lists.newArrayList("ROLE_USER", "ROLE_ADMIN"));
 		userRepository.save(user1);
 
 		PasswordCredential credential = new PasswordCredential();
@@ -53,8 +58,12 @@ public class DefaultUserServiceManagerTest {
 		credential.setPassword(passwordEncoder.encode(password));
 		credentialRepository.save(credential);
 		
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, password));
+		
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, password));
 
+		Assert.assertNotNull(authentication);
+		Assert.assertTrue(authentication.isAuthenticated());
+		
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, "DesertoEstacionamento"));
 			Assert.fail();

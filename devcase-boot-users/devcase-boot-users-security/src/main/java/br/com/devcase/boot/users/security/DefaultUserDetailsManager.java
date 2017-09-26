@@ -3,6 +3,8 @@ package br.com.devcase.boot.users.security;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ import br.com.devcase.boot.users.domain.repositories.CredentialRepository;
 import br.com.devcase.boot.users.domain.repositories.UserRepository;
 
 public class DefaultUserDetailsManager implements UserDetailsManager {
+	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -24,13 +27,18 @@ public class DefaultUserDetailsManager implements UserDetailsManager {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		logger.debug("loadUserByUsername: " + username);
 		User user = userRepository.findByName(username);
+		if(user == null) {
+			throw new UsernameNotFoundException("User not found");
+		}
 		PasswordCredential passCred = credentialRepository.findPasswordCredentialByUser(user);
 		return new DefaultUserDetails(user, passCred);
 	}
 
 	@Override
 	public boolean userExists(String username) {
+		logger.debug("userExists");
 		return userRepository.countByName(username) > 0;
 	}
 
