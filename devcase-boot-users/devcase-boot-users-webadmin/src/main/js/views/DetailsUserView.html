@@ -1,0 +1,18 @@
+<div>
+	<h1>Detalhes</h1>
+
+	<div class="form">
+		<div class="form-group row">
+			<label for="user_name" class="col-sm-2 col-form-label">Nome </label>
+			<div class="col">
+				<input readonly id="user_name" class="form-control-plaintext" v-model="user.name"></input>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" @click="edit()">Editar</button>
+		<button type="button" class="btn btn-secondary" @click="list()">Cancelar</button>
+	</div>
+
+	<footer>
+		<small class="text-muted" v-if="user.id != null">Id: {{user.id}}</small>
+	</footer>
+</div>

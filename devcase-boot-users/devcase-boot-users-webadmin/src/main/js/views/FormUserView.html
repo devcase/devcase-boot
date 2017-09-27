@@ -1,0 +1,18 @@
+<div>
+	<h1 v-if="user.id == null">Novo usuário</h1>
+	<h1 v-if="user.id != null">Editar usuário</h1>
+	<form v-customvalidation @validsubmit="save(user)">
+		<div class="form-group row">
+			<label for="user_name" class="col-sm-2 col-form-label">Nome </label>
+			<div class="col">
+				<input type="text" id="user_name" v-model="user.name" class="form-control" placeholder="Nome"
+					required="true"
+				/>
+			</div>
+			<div class="invalid-feedback">Obrigatório</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Salvar</button>
+		<button type="button" class="btn btn-secondary" @click="cancel()">Cancelar</button>
+	</form>
+	<small class="text-muted" v-if="user.id != null">Id: {{user.id}}</small>
+</div>
