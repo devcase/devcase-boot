@@ -19,10 +19,6 @@
 			<exclusions>
 				<exclusion>
 					<groupId>br.com.devcase.boot</groupId>
-					<artifactId>devcase-boot-starter-jsp</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>br.com.devcase.boot</groupId>
 					<artifactId>devcase-boot-dwftaglibs</artifactId>
 				</exclusion>
 			</exclusions>

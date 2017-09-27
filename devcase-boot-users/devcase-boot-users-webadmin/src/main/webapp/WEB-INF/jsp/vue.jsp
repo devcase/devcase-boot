@@ -22,5 +22,11 @@
 
 
 </body>
+<script type="text/javascript">
+	var csrftoken = {
+		name  : '${_csrf.headerName}',
+		token : '${_csrf.token}' 
+	};
+</script>
 <script src="/js/webadmin.bundle.js"></script>
 </html>

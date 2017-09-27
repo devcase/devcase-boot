@@ -4,6 +4,12 @@ import App from '@/App';
 import router from '@/router';
 import DataGrid from '@/components/DataGrid.vue';
 
+$(function() {
+	//setup jquery.ajax to send csrf token each post
+	$(document).ajaxSend(function( event, xhr, settings ) {
+		xhr.setRequestHeader(csrftoken.name, csrftoken.token);
+	});
+});
 
 Vue.directive('customvalidation', {
 	inserted: function(el, binding, vnode) {
