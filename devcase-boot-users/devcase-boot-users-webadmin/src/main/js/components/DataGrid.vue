@@ -15,7 +15,7 @@
 			</tbody>
 			</table>
 			<!-- PAGINATOR -->
-			<nav aria-label="Navegação por páginas" class="mt-3" v-if="page.totalPages > 1">
+			<nav aria-label="Paginador" class="mt-3" v-if="page.totalPages > 1">
 				<ul class="pagination justify-content-center">
 					<!-- previous page -->
 					<li class="page-item" v-bind:class="{ active : page.current }" v-for="page in pages" >

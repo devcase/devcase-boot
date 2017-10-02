@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+br.com.devcase.boot.web.server.autoconfigure.ContainerAutoConfiguration
