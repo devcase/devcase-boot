@@ -48,7 +48,7 @@ public class DemoConfig {
 			credentialRepository.save(credential);
 			userPermissionRepository.save(UserPermission.builder().withRole("USER").withUser(user1).build());
 			userPermissionRepository.save(UserPermission.builder().withRole("ACTUATOR").withUser(user1).build());
-			userPermissionRepository.save(UserPermission.builder().withRole("SUPERUSER").withUser(user1).build());
+			userPermissionRepository.save(UserPermission.builder().withRole("ADMIN_USERS").withUser(user1).build());
 		}
 	}
 	

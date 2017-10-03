@@ -81,6 +81,8 @@
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_OAuth2ClientListView___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_OAuth2ClientListView__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_OAuth2ClientFormView__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_OAuth2ClientDetailsView__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_MenuView__ = __webpack_require__(27);
+
 
 
 
@@ -93,7 +95,7 @@
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-	routes: [{ path: '/users/', component: __WEBPACK_IMPORTED_MODULE_2__views_UsersListView___default.a }, { path: '/users/create', component: __WEBPACK_IMPORTED_MODULE_3__views_UserFormView__["a" /* default */] }, { path: '/users/:id', component: __WEBPACK_IMPORTED_MODULE_4__views_UserDetailsView__["a" /* default */] }, { path: '/users/edit/:id', component: __WEBPACK_IMPORTED_MODULE_3__views_UserFormView__["a" /* default */] }, { path: '/oauth2clients/', component: __WEBPACK_IMPORTED_MODULE_5__views_OAuth2ClientListView___default.a }, { path: '/oauth2clients/create', component: __WEBPACK_IMPORTED_MODULE_6__views_OAuth2ClientFormView__["a" /* default */] }, { path: '/oauth2clients/:id', component: __WEBPACK_IMPORTED_MODULE_7__views_OAuth2ClientDetailsView__["a" /* default */] }, { path: '/oauth2clients/edit/:id', component: __WEBPACK_IMPORTED_MODULE_6__views_OAuth2ClientFormView__["a" /* default */] }, { path: '/', redirect: '/users/' }]
+	routes: [{ path: '/users/', component: __WEBPACK_IMPORTED_MODULE_2__views_UsersListView___default.a }, { path: '/users/create', component: __WEBPACK_IMPORTED_MODULE_3__views_UserFormView__["a" /* default */] }, { path: '/users/:id', component: __WEBPACK_IMPORTED_MODULE_4__views_UserDetailsView__["a" /* default */], props: true }, { path: '/users/:id/edit', component: __WEBPACK_IMPORTED_MODULE_3__views_UserFormView__["a" /* default */], props: true }, { path: '/oauth2clients/', component: __WEBPACK_IMPORTED_MODULE_5__views_OAuth2ClientListView___default.a }, { path: '/oauth2clients/create', component: __WEBPACK_IMPORTED_MODULE_6__views_OAuth2ClientFormView__["a" /* default */] }, { path: '/oauth2clients/:id', component: __WEBPACK_IMPORTED_MODULE_7__views_OAuth2ClientDetailsView__["a" /* default */], props: true }, { path: '/oauth2clients/:id/edit', component: __WEBPACK_IMPORTED_MODULE_6__views_OAuth2ClientFormView__["a" /* default */], props: true }, { path: '/', component: __WEBPACK_IMPORTED_MODULE_8__views_MenuView__["a" /* default */] }]
 }));
 
 /***/ }),
@@ -21076,6 +21078,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_DataGrid_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_DataGrid_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_DataGrid_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_CrudForm__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_CrudDetails__ = __webpack_require__(33);
+
+
 
 
 
@@ -21108,8 +21114,11 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].directive('customvalidation
 });
 
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].component('data-grid', __WEBPACK_IMPORTED_MODULE_4__components_DataGrid_vue___default.a);
+__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].component('crud-form', __WEBPACK_IMPORTED_MODULE_5__components_CrudForm__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].component('crud-details', __WEBPACK_IMPORTED_MODULE_6__components_CrudDetails__["a" /* default */]);
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
+
 	router: __WEBPACK_IMPORTED_MODULE_3__router__["a" /* default */],
 	render: h => h(__WEBPACK_IMPORTED_MODULE_2__App___default.a)
 }).$mount('#app');
@@ -21129,31 +21138,13 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_2__OAuth2ClientDetailsView_html___default()({
+	props: ['id'],
 	data: function () {
 		return {
-			entity: {},
-			entityName: 'oauth2client',
-			pathPrefix: '/oauth2clients'
+			fields: [{ name: 'name', label: 'Nome', required: true, type: 'text' }, { name: 'clientId', label: 'Client Id', required: true, type: 'text' }, { name: 'clientSecret', label: 'Client Secret', required: true, type: 'text' }, { name: 'authorizedGrantTypes', label: 'Authorized Grant Types', required: true, type: 'text' }, { name: 'authorities', label: 'Authorities', required: false, type: 'text' }, { name: 'accessTokenValidity', label: 'Access Token Validity', required: true, type: 'number' }, { name: 'refreshTokenValidity', label: 'Refresh Token Validity', required: true, type: 'number' }, { name: 'autoApprove', label: 'Aprovação automática', required: true, type: 'boolean' }, { name: 'scope', label: 'Escopo', required: true, type: 'text' }]
 		};
-	},
-	methods: {
-		list: function () {
-			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].push(this.pathPrefix);
-		},
-		edit: function () {
-			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].push(this.pathPrefix + '/edit/' + this.entity.id);
-		}
-	},
-	mounted: function () {
-		var self = this;
-		if (this.$route.params.id) {
-			__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get('/api' + self.pathPrefix + '/' + this.$route.params.id, function (data) {
-				self.entity = data;
-			});
-		} else {
-			self.entity = {};
-		}
 	}
+
 }));
 
 /***/ }),
@@ -21171,40 +21162,13 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_2__OAuth2ClientFormView_html___default()({
+	props: ['id'],
 	data: function () {
 		return {
-			entity: {},
-			entityName: 'oauth2client',
-			pathPrefix: '/oauth2clients'
+			fields: [{ name: 'name', label: 'Nome', required: true, type: 'text' }, { name: 'clientId', label: 'Client Id', required: true, type: 'text' }, { name: 'clientSecret', label: 'Client Secret', required: true, type: 'text' }, { name: 'authorizedGrantTypes', label: 'Authorized Grant Types', required: true, type: 'text' }, { name: 'authorities', label: 'Authorities', required: false, type: 'text' }, { name: 'accessTokenValidity', label: 'Access Token Validity', required: true, type: 'number' }, { name: 'refreshTokenValidity', label: 'Refresh Token Validity', required: true, type: 'number' }, { name: 'autoApprove', label: 'Aprovação automática', required: true, type: 'boolean' }, { name: 'scope', label: 'Escopo', required: true, type: 'text' }]
 		};
-	},
-	methods: {
-		save: function (entity) {
-			var self = this;
-			__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.ajax({
-				url: entity.id ? '/api' + self.pathPrefix + '/' + entity.id : '/api' + self.pathPrefix,
-				data: JSON.stringify(entity),
-				contentType: 'application/json',
-				method: entity.id ? 'patch' : 'post',
-				success: function (data) {
-					__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].push(self.pathPrefix + '/' + (entity.id ? entity.id : ''));
-				}
-			});
-		},
-		cancel: function () {
-			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].go(-1);
-		}
-	},
-	mounted: function () {
-		var self = this;
-		if (this.$route.params.id) {
-			__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get('/api' + self.pathPrefix + '/' + this.$route.params.id, function (data) {
-				self.entity = data;
-			});
-		} else {
-			self.entity = {};
-		}
 	}
+
 }));
 
 /***/ }),
@@ -21222,29 +21186,13 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_2__UserDetailsView_html___default()({
+	props: ['id'],
 	data: function () {
 		return {
-			user: {}
+			fields: [{ name: 'name', label: 'Nome', required: true, type: 'text' }, { name: 'locked', label: 'Bloqueado', required: true, type: 'boolean' }, { name: 'enabled', label: 'Habilitado', required: true, type: 'boolean' }]
 		};
-	},
-	methods: {
-		list: function () {
-			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].push('/users/');
-		},
-		edit: function () {
-			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].push('/users/edit/' + this.user.id);
-		}
-	},
-	mounted: function () {
-		var self = this;
-		if (this.$route.params.id) {
-			__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get('/api/users/' + this.$route.params.id, function (data) {
-				self.user = data;
-			});
-		} else {
-			self.user = {};
-		}
 	}
+
 }));
 
 /***/ }),
@@ -21262,37 +21210,13 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_2__UserFormView_html___default()({
+	props: ['id'],
 	data: function () {
 		return {
-			user: {}
+			fields: [{ name: 'name', label: 'Nome', required: true, type: 'text' }, { name: 'locked', label: 'Bloqueado', required: true, type: 'boolean' }, { name: 'enabled', label: 'Habilitado', required: true, type: 'boolean' }]
 		};
-	},
-	methods: {
-		save: function (user) {
-			__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.ajax({
-				url: user.id ? '/api/users/' + user.id : '/api/users',
-				data: JSON.stringify(user),
-				contentType: 'application/json',
-				method: user.id ? 'patch' : 'post',
-				success: function (data) {
-					__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].push('/users/');
-				}
-			});
-		},
-		cancel: function () {
-			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].go(-1);
-		}
-	},
-	mounted: function () {
-		var self = this;
-		if (this.$route.params.id) {
-			__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get('/api/users/' + this.$route.params.id, function (data) {
-				self.user = data;
-			});
-		} else {
-			self.user = {};
-		}
 	}
+
 }));
 
 /***/ }),
@@ -21384,7 +21308,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "app"
     }
-  }, [_c('router-view')], 1)
+  }, [_c('nav', {
+    staticClass: "navbar navbar-dark bg-dark navbar-expand-lg mb-3"
+  }, [_c('router-link', {
+    staticClass: "navbar-brand",
+    attrs: {
+      "to": '/'
+    }
+  }, [_vm._v("Users")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "container"
+  }, [_c('router-view')], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -24015,7 +23948,7 @@ if (inBrowser && window.Vue) {
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_vm._v("Detalhes")]),_vm._v(" "),_c('div',{staticClass:"form"},[_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"entity_name"}},[_vm._v("Nome ")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.name),expression:"entity.name"}],staticClass:"form-control-plaintext",attrs:{"readonly":"","id":"entity_name"},domProps:{"value":(_vm.entity.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.name=$event.target.value}}})])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"entity_secret"}},[_vm._v("Secret ")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.secret),expression:"entity.secret"}],staticClass:"form-control-plaintext",attrs:{"readonly":"","id":"entity_secret"},domProps:{"value":(_vm.entity.secret)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.secret=$event.target.value}}})])]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"},on:{"click":function($event){_vm.edit()}}},[_vm._v("Editar")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button"},on:{"click":function($event){_vm.list()}}},[_vm._v("Cancelar")])]),_vm._v(" "),_c('footer',[(_vm.entity.id != null)?_c('small',{staticClass:"text-muted"},[_vm._v("Id: "+_vm._s(_vm.entity.id))]):_vm._e()])])}
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('crud-details',{attrs:{"id":_vm.id,"repository-path":"/api/oauth2clients","entity-root-path":"/oauth2clients","fields":_vm.fields}})],1)}
 var staticRenderFns = []
 module.exports = function (_exports) {
   var options = typeof _exports === 'function'
@@ -24044,7 +23977,7 @@ if (false) {(function () {
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.entity.id == null)?_c('h1',[_vm._v("Novo")]):_vm._e(),_vm._v(" "),(_vm.entity.id != null)?_c('h1',[_vm._v("Editar")]):_vm._e(),_vm._v(" "),_c('form',{directives:[{name:"customvalidation",rawName:"v-customvalidation"}],on:{"validsubmit":function($event){_vm.save(_vm.entity)}}},[_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"field_name"}},[_vm._v("Nome ")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.name),expression:"entity.name"}],staticClass:"form-control",attrs:{"type":"text","id":"field_name","placeholder":"Nome","required":"true"},domProps:{"value":(_vm.entity.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.name=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"clientId"}},[_vm._v("Client Id")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.clientId),expression:"entity.clientId"}],staticClass:"form-control",attrs:{"type":"text","id":"clientSecret","placeholder":"Nome","required":"true"},domProps:{"value":(_vm.entity.clientId)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.clientId=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"clientSecret"}},[_vm._v("Client Secret")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.clientSecret),expression:"entity.clientSecret"}],staticClass:"form-control",attrs:{"type":"text","id":"clientSecret","placeholder":"Nome","required":"true"},domProps:{"value":(_vm.entity.clientSecret)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.clientSecret=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"field_authorized_grant_types"}},[_vm._v("authorized_grant_types")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.authorizedGrantTypes),expression:"entity.authorizedGrantTypes"}],staticClass:"form-control",attrs:{"type":"text","id":"field_authorized_grant_types","placeholder":"Nome","required":"true"},domProps:{"value":(_vm.entity.authorizedGrantTypes)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.authorizedGrantTypes=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"authorities"}},[_vm._v("authorities")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.authorities),expression:"entity.authorities"}],staticClass:"form-control",attrs:{"type":"text","id":"authorities","placeholder":"authorities","required":"true"},domProps:{"value":(_vm.entity.authorities)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.authorities=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"access_token_validity"}},[_vm._v("access_token_validity")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.accessTokenValidity),expression:"entity.accessTokenValidity"}],staticClass:"form-control",attrs:{"type":"number","id":"access_token_validity","placeholder":"access_token_validity","required":"true"},domProps:{"value":(_vm.entity.accessTokenValidity)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.accessTokenValidity=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"refreshTokenValidity"}},[_vm._v("refreshTokenValidity")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.refreshTokenValidity),expression:"entity.refreshTokenValidity"}],staticClass:"form-control",attrs:{"type":"number","id":"refreshTokenValidity","placeholder":"refreshTokenValidity","required":"true"},domProps:{"value":(_vm.entity.refreshTokenValidity)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.refreshTokenValidity=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('div',{staticClass:"form-check"},[_c('label',{staticClass:"form-check-label"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.autoApprove),expression:"entity.autoApprove"}],staticClass:"form-check-input",attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.entity.autoApprove)?_vm._i(_vm.entity.autoApprove,null)>-1:(_vm.entity.autoApprove)},on:{"__c":function($event){var $$a=_vm.entity.autoApprove,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.entity.autoApprove=$$a.concat([$$v]))}else{$$i>-1&&(_vm.entity.autoApprove=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.entity.autoApprove=$$c}}}}),_vm._v("\n\t\t      Auto Approve\n\t\t    ")])]),_vm._v(" "),_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"scope"}},[_vm._v("scope")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.entity.scope),expression:"entity.scope"}],staticClass:"form-control",attrs:{"type":"text","id":"scope","placeholder":"scope","required":"true"},domProps:{"value":(_vm.entity.scope)},on:{"input":function($event){if($event.target.composing){ return; }_vm.entity.scope=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"}},[_vm._v("Salvar")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button"},on:{"click":function($event){_vm.cancel()}}},[_vm._v("Cancelar")])]),_vm._v(" "),(_vm.entity.id != null)?_c('small',{staticClass:"text-muted"},[_vm._v("Id: "+_vm._s(_vm.entity.id))]):_vm._e()])}
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('crud-form',{attrs:{"id":_vm.id,"repository-path":"/api/oauth2clients","entity-root-path":"/oauth2clients","fields":_vm.fields}})],1)}
 var staticRenderFns = []
 module.exports = function (_exports) {
   var options = typeof _exports === 'function'
@@ -24073,7 +24006,7 @@ if (false) {(function () {
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_vm._v("Detalhes")]),_vm._v(" "),_c('div',{staticClass:"form"},[_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"user_name"}},[_vm._v("Nome ")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.user.name),expression:"user.name"}],staticClass:"form-control-plaintext",attrs:{"readonly":"","id":"user_name"},domProps:{"value":(_vm.user.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.user.name=$event.target.value}}})])]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"},on:{"click":function($event){_vm.edit()}}},[_vm._v("Editar")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button"},on:{"click":function($event){_vm.list()}}},[_vm._v("Cancelar")])]),_vm._v(" "),_c('footer',[(_vm.user.id != null)?_c('small',{staticClass:"text-muted"},[_vm._v("Id: "+_vm._s(_vm.user.id))]):_vm._e()])])}
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('crud-details',{attrs:{"id":_vm.id,"repository-path":"/api/users","entity-root-path":"/users","fields":_vm.fields}})],1)}
 var staticRenderFns = []
 module.exports = function (_exports) {
   var options = typeof _exports === 'function'
@@ -24102,7 +24035,7 @@ if (false) {(function () {
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.user.id == null)?_c('h1',[_vm._v("Novo usuário")]):_vm._e(),_vm._v(" "),(_vm.user.id != null)?_c('h1',[_vm._v("Editar usuário")]):_vm._e(),_vm._v(" "),_c('form',{directives:[{name:"customvalidation",rawName:"v-customvalidation"}],on:{"validsubmit":function($event){_vm.save(_vm.user)}}},[_c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":"user_name"}},[_vm._v("Nome ")]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.user.name),expression:"user.name"}],staticClass:"form-control",attrs:{"type":"text","id":"user_name","placeholder":"Nome","required":"true"},domProps:{"value":(_vm.user.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.user.name=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"}},[_vm._v("Salvar")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button"},on:{"click":function($event){_vm.cancel()}}},[_vm._v("Cancelar")])]),_vm._v(" "),(_vm.user.id != null)?_c('small',{staticClass:"text-muted"},[_vm._v("Id: "+_vm._s(_vm.user.id))]):_vm._e()])}
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('crud-form',{attrs:{"id":_vm.id,"repository-path":"/api/users","entity-root-path":"/users","fields":_vm.fields}})],1)}
 var staticRenderFns = []
 module.exports = function (_exports) {
   var options = typeof _exports === 'function'
@@ -24152,6 +24085,277 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MenuView_html__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MenuView_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__MenuView_html__);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_2__MenuView_html___default()({
+	data: function () {
+		return {
+			items: [{
+				label: "Usuários",
+				path: "/users"
+			}, {
+				label: "Clientes OAuth2",
+				path: "/oauth2clients"
+			}]
+		};
+	}
+}));
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"list-group"},_vm._l((_vm.items),function(item){return _c('router-link',{staticClass:"list-group-item list-group-item-action",attrs:{"to":item.path}},[_vm._v(_vm._s(item.label))])}))])}
+var staticRenderFns = []
+module.exports = function (_exports) {
+  var options = typeof _exports === 'function'
+    ? _exports.options
+    : _exports
+  options.render = render
+  options.staticRenderFns = staticRenderFns
+  if (false) {
+    api.createRecord("data-v-2371c4ea", options)
+  }
+  return _exports
+}
+var api = null
+if (false) {(function () {
+  api = require("vue-hot-reload-api")
+  api.install(require("vue"))
+  if (!api.compatible) return
+  module.hot.accept()
+  if (module.hot.data) {
+    api.rerender("data-v-2371c4ea", { render: render, staticRenderFns: staticRenderFns })
+  }
+})()}
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CrudForm_html__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CrudForm_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__CrudForm_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InputField__ = __webpack_require__(32);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_2__CrudForm_html___default()({
+	props: ['id', 'repositoryPath', 'entityRootPath', 'fields'],
+	data: function () {
+		return {
+			entity: {}
+		};
+	},
+	components: { 'input-field': __WEBPACK_IMPORTED_MODULE_3__InputField__["a" /* default */] },
+	mounted: function () {
+		this.loadData();
+	},
+	methods: {
+		loadData: function () {
+			var self = this;
+			if (this.$route.params.id) {
+				__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get(self.repositoryPath + '/' + this.id, function (data) {
+					self.entity = data;
+				});
+			} else {
+				self.entity = {};
+			}
+		},
+		cancel: function () {
+			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].go(-1);
+		},
+		save: function (entity) {
+			var self = this;
+			__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.ajax({
+				url: entity.id ? self.repositoryPath + '/' + entity.id : self.repositoryPath,
+				data: JSON.stringify(entity),
+				contentType: 'application/json',
+				method: entity.id ? 'patch' : 'post',
+				success: function (data) {
+					__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].go(-1);
+				}
+			});
+		}
+	}
+}));
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.entity.id == null)?_c('h1',[_vm._v("Novo")]):_vm._e(),_vm._v(" "),(_vm.entity.id != null)?_c('h1',[_vm._v("Editar")]):_vm._e(),_vm._v(" "),_c('form',{directives:[{name:"customvalidation",rawName:"v-customvalidation"}],on:{"validsubmit":function($event){_vm.save(_vm.entity)}}},[_vm._l((_vm.fields),function(field){return _c('input-field',{attrs:{"field":field},model:{value:(_vm.entity[field.name]),callback:function ($$v) {_vm.$set(_vm.entity, field.name, $$v)},expression:"entity[field.name]"}})}),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"}},[_vm._v("Salvar")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button"},on:{"click":function($event){_vm.cancel()}}},[_vm._v("Cancelar")])],2),_vm._v(" "),(_vm.entity.id != null)?_c('small',{staticClass:"text-muted"},[_vm._v("Id: "+_vm._s(_vm.entity.id))]):_vm._e()])}
+var staticRenderFns = []
+module.exports = function (_exports) {
+  var options = typeof _exports === 'function'
+    ? _exports.options
+    : _exports
+  options.render = render
+  options.staticRenderFns = staticRenderFns
+  if (false) {
+    api.createRecord("data-v-528ea327", options)
+  }
+  return _exports
+}
+var api = null
+if (false) {(function () {
+  api = require("vue-hot-reload-api")
+  api.install(require("vue"))
+  if (!api.compatible) return
+  module.hot.accept()
+  if (module.hot.data) {
+    api.rerender("data-v-528ea327", { render: render, staticRenderFns: staticRenderFns })
+  }
+})()}
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":'field' + _vm.field.name}},[_vm._v(_vm._s(_vm.field.label))]),_vm._v(" "),_c('div',{staticClass:"col"},[(_vm.field.type == 'number' || _vm.field.type == 'text')?_c('input',{staticClass:"form-control",attrs:{"type":_vm.field.type,"id":'field' + _vm.field.name,"placeholder":_vm.field.label,"required":_vm.field.required},domProps:{"value":_vm.value},on:{"input":function($event){_vm.updateValue($event.target.value)}}}):_vm._e(),_vm._v(" "),(_vm.field.type == 'boolean')?[_c('div',{staticClass:"form-check form-check-inline"},[_c('label',{staticClass:"form-check-label"},[_c('input',{staticClass:"form-check-input",attrs:{"type":"radio","name":'field' + _vm.field.name,"value":"true"},domProps:{"checked":_vm.value},on:{"change":function($event){_vm.updateValue(true)}}}),_vm._v(" Sim\n\t\t\t\t")])]),_vm._v(" "),_c('div',{staticClass:"form-check form-check-inline"},[_c('label',{staticClass:"form-check-label"},[_c('input',{staticClass:"form-check-input",attrs:{"type":"radio","name":'field' + _vm.field.name,"value":"false"},domProps:{"checked":!_vm.value},on:{"change":function($event){_vm.updateValue(false)}}}),_vm._v(" Não")])])]:_vm._e()],2),_vm._v(" "),_c('div',{staticClass:"invalid-feedback"},[_vm._v("Obrigatório")])])}
+var staticRenderFns = []
+module.exports = function (_exports) {
+  var options = typeof _exports === 'function'
+    ? _exports.options
+    : _exports
+  options.render = render
+  options.staticRenderFns = staticRenderFns
+  if (false) {
+    api.createRecord("data-v-4852c9b9", options)
+  }
+  return _exports
+}
+var api = null
+if (false) {(function () {
+  api = require("vue-hot-reload-api")
+  api.install(require("vue"))
+  if (!api.compatible) return
+  module.hot.accept()
+  if (module.hot.data) {
+    api.rerender("data-v-4852c9b9", { render: render, staticRenderFns: staticRenderFns })
+  }
+})()}
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__InputField_html__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__InputField_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__InputField_html__);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_1__InputField_html___default()({
+	props: ['field', 'value'],
+	data: function () {
+		return {};
+	},
+	methods: {
+		updateValue: function (value) {
+			if (this.field.type == "boolean") {
+				value = value == "true" || value == true;
+			}
+			this.$emit('input', value);
+		}
+	}
+}));
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CrudDetails_html__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CrudDetails_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__CrudDetails_html__);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_2__CrudDetails_html___default()({
+	props: ['id', 'repositoryPath', 'entityRootPath', 'fields', 'entityName'],
+	data: function () {
+		return {
+			entity: {}
+		};
+	},
+	mounted: function () {
+		this.loadData();
+	},
+	methods: {
+		loadData: function () {
+			var self = this;
+			if (this.$route.params.id) {
+				__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get(self.repositoryPath + '/' + this.id, function (data) {
+					self.entity = data;
+				});
+			} else {
+				self.entity = {};
+			}
+		},
+		cancel: function () {
+			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].go(-1);
+		},
+		edit: function () {
+			__WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */].push(this.entityRootPath + '/' + this.id + '/edit');
+		}
+	}
+}));
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_vm._v("Detalhes")]),_vm._v(" "),_c('form',[_vm._l((_vm.fields),function(field){return _c('div',{staticClass:"form-group row"},[_c('label',{staticClass:"col-sm-2 col-form-label",attrs:{"for":'field_' + field.name}},[_vm._v(_vm._s(field.label))]),_vm._v(" "),_c('div',{staticClass:"col"},[_c('input',{staticClass:"form-control-plaintext",attrs:{"readonly":"","id":'field_' + field.name},domProps:{"value":_vm.entity[field.name]}})])])}),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"},on:{"click":function($event){_vm.edit()}}},[_vm._v("Editar")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button"},on:{"click":function($event){_vm.cancel()}}},[_vm._v("Cancelar")])],2),_vm._v(" "),(_vm.entity.id != null)?_c('small',{staticClass:"text-muted"},[_vm._v("Id: "+_vm._s(_vm.entity.id))]):_vm._e()])}
+var staticRenderFns = []
+module.exports = function (_exports) {
+  var options = typeof _exports === 'function'
+    ? _exports.options
+    : _exports
+  options.render = render
+  options.staticRenderFns = staticRenderFns
+  if (false) {
+    api.createRecord("data-v-19393205", options)
+  }
+  return _exports
+}
+var api = null
+if (false) {(function () {
+  api = require("vue-hot-reload-api")
+  api.install(require("vue"))
+  if (!api.compatible) return
+  module.hot.accept()
+  if (module.hot.data) {
+    api.rerender("data-v-19393205", { render: render, staticRenderFns: staticRenderFns })
+  }
+})()}
 
 
 /***/ })

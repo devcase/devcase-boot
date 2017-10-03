@@ -14,14 +14,7 @@
 <title>Users Web Admin</title>
 </head>
 <body>
-	<nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-3">
-		<a class="navbar-brand" href="/">Devcase Users</a>
-	</nav>
-	<div class="container">
-		<div id="app"></div>
-	</div>
-
-
+	<div id="app"></div>
 </body>
 <script type="text/javascript">
 	var csrftoken = {

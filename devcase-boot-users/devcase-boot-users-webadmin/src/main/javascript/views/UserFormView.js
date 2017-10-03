@@ -3,36 +3,15 @@ import router from '@/router';
 import withRender from './UserFormView.html';
 
 export default withRender({
-		data: function() {
-			return {
-				user: {}
-			}
-		},
-		methods: {
-			save: function(user) {
-				$.ajax({
-					url: (user.id ? '/api/users/' + user.id : '/api/users'),
-					data: JSON.stringify(user),
-					contentType: 'application/json',
-					method: (user.id ? 'patch' : 'post'),
-					success: function(data) {
-						router.push('/users/');
-					}
-				});
-			},
-			cancel: function() {
-				router.go(-1);
-			}
-		},
-		mounted: function() {
-			var self = this;
-			if(this.$route.params.id) {
-				$.get('/api/users/' + this.$route.params.id, function(data) {
-					self.user = data;
-				});
-			} else {
-				self.user = {};
-			}
+	props: ['id'],
+	data: function() {
+		return {
+			fields: [
+				{ name: 'name', label: 'Nome', required: true, type: 'text' },
+				{ name: 'locked', label: 'Bloqueado', required: true, type: 'boolean' },
+				{ name: 'enabled', label: 'Habilitado', required: true, type: 'boolean' }
+			]
 		}
-	});
-	
+	}
+
+});

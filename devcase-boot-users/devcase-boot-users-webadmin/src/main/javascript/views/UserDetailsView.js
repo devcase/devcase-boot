@@ -3,28 +3,16 @@ import router from '@/router';
 import withRender from './UserDetailsView.html';
 
 
- export default withRender({
+export default withRender({
+	props: ['id'],
 	data: function() {
 		return {
-			user: {}
-		}
-	},
-	methods: {
-		list: function() {
-			router.push('/users/');
-		},
-		edit: function() {
-			router.push('/users/edit/' + this.user.id);
-		}
-	},
-	mounted: function() {
-		var self = this;
-		if(this.$route.params.id) {
-			$.get('/api/users/' + this.$route.params.id, function(data) {
-				self.user = data;
-			});
-		} else {
-			self.user = {};
+			fields: [
+				{ name: 'name', label: 'Nome', required: true, type: 'text' },
+				{ name: 'locked', label: 'Bloqueado', required: true, type: 'boolean' },
+				{ name: 'enabled', label: 'Habilitado', required: true, type: 'boolean' }
+			]
 		}
 	}
+
 });

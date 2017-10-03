@@ -1,24 +1,3 @@
 <div>
-	<h1>Detalhes</h1>
-
-	<div class="form">
-		<div class="form-group row">
-			<label for="entity_name" class="col-sm-2 col-form-label">Nome </label>
-			<div class="col">
-				<input readonly id="entity_name" class="form-control-plaintext" v-model="entity.name"></input>
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="entity_secret" class="col-sm-2 col-form-label">Secret </label>
-			<div class="col">
-				<input readonly id="entity_secret" class="form-control-plaintext" v-model="entity.secret"></input>
-			</div>
-		</div>
-		<button type="submit" class="btn btn-primary" @click="edit()">Editar</button>
-		<button type="button" class="btn btn-secondary" @click="list()">Cancelar</button>
-	</div>
-
-	<footer>
-		<small class="text-muted" v-if="entity.id != null">Id: {{entity.id}}</small>
-	</footer>
+	<crud-details v-bind:id="id" repository-path="/api/oauth2clients" entity-root-path="/oauth2clients" v-bind:fields="fields"></crud-details>
 </div>

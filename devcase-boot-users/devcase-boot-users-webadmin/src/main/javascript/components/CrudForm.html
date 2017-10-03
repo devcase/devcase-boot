@@ -1,0 +1,12 @@
+<div>
+	<h1 v-if="entity.id == null">Novo</h1>
+	<h1 v-if="entity.id != null">Editar</h1>
+	<form v-customvalidation @validsubmit="save(entity)">
+	
+		<input-field v-for="field in fields" v-bind:field="field" v-model="entity[field.name]"></input-field>
+		
+		<button type="submit" class="btn btn-primary">Salvar</button>
+		<button type="button" class="btn btn-secondary" @click="cancel()">Cancelar</button>
+	</form>
+	<small class="text-muted" v-if="entity.id != null">Id: {{entity.id}}</small>
+</div>
