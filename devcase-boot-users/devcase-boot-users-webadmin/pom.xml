@@ -43,6 +43,10 @@
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-users-security</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

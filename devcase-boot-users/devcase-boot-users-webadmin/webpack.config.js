@@ -2,7 +2,7 @@ const path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-	entry : './src/main/js/main.js',
+	entry : './src/main/javascript/main.js',
 	output : {
 		path : path.resolve(__dirname, 'src/main/webapp/js'),
 		filename : 'webadmin.bundle.js'
@@ -44,7 +44,7 @@ module.exports = {
 	    extensions: ['.js', '.vue', '.json'],
 	    alias: {
 	      'vue$': 'vue/dist/vue.esm.js',
-	      '@': path.resolve(__dirname, 'src/main/js'),
+	      '@': path.resolve(__dirname, 'src/main/javascript'),
 	    }
 	  },
 //	plugins : [ new webpack.DefinePlugin({

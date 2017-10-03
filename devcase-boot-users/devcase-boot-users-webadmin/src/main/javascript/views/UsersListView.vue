@@ -11,7 +11,6 @@ import router from '@/router';
 
 
 export default {
-	name: 'ListUsersView',
 	data: function() {
 		return {
 		};

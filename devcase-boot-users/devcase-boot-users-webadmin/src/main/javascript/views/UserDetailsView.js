@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import router from '@/router';
-import withRender from './DetailsUserView.html';
+import withRender from './UserDetailsView.html';
 
 
  export default withRender({

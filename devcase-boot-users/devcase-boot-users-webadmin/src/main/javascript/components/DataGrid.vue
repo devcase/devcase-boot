@@ -9,7 +9,7 @@
 			<tbody>
 				<tr v-for="entity in contents" >
 					<td v-for="column in columns">
-						<router-link :to="entity.id.toString()" >{{entity[column]}}</router-link>
+						<router-link :to="'/' + name + '/' + entity.id.toString()" >{{entity[column]}}</router-link>
 					</td>
 				</tr>
 			</tbody>
@@ -58,7 +58,7 @@ export default {
 				var self = this;
 				$.get('/api/' + self.name + '?size=' + self.page.size + '&page=' + self.page.number, function(data) {
 					self.results = data;
-					self.contents = data["_embedded"][self.name];
+					self.contents = Object.values(data["_embedded"])[0];
 					self.page = data['page'];
 				});
 			}

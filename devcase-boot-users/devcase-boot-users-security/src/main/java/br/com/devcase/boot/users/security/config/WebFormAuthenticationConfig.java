@@ -39,8 +39,9 @@ import com.google.common.primitives.Bytes;
 @Import({CommonSecurityConfig.class})
 @EnableWebSecurity()
 public class WebFormAuthenticationConfig  {
+	public static final int WEBFORM_SECURITY_ORDER = SecurityProperties.ACCESS_OVERRIDE_ORDER;
 	
-	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
 	static class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		

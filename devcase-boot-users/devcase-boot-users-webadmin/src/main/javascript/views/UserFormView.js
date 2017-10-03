@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import router from '@/router';
-import withRender from './FormUserView.html';
+import withRender from './UserFormView.html';
 
- export default withRender({
+export default withRender({
 		data: function() {
 			return {
 				user: {}
