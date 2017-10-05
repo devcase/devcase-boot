@@ -5,6 +5,8 @@ import router from '@/router';
 import DataGrid from '@/components/DataGrid.vue';
 import CrudForm from '@/components/CrudForm';
 import CrudDetails from '@/components/CrudDetails';
+import InputField from '@/components/InputField';
+import polyglot from '@/polyglot';
 
 $(function() {
 	//setup jquery.ajax to send csrf token each post
@@ -32,6 +34,8 @@ Vue.directive('customvalidation', {
 Vue.component('data-grid', DataGrid);
 Vue.component('crud-form', CrudForm);
 Vue.component('crud-details', CrudDetails);
+Vue.component('input-field', InputField);
+
 
 var app = new Vue({
 	

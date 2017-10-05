@@ -1,14 +1,13 @@
 import $ from 'jquery';
 import router from '@/router';
 import withRender from './CrudDetails.html';
-
-
+import polyglot from '@/polyglot';
 
 export default withRender({
-	props: ['id', 'repositoryPath', 'entityRootPath', 'fields', 'entityName'],
+	props: ['id', 'repositoryPath', 'entityRootPath', 'fields', 'value' ],
 	data: function() {
 		return {
-			entity : {}
+			polyglot : polyglot
 		};
 	},
 	mounted: function() {
@@ -17,12 +16,12 @@ export default withRender({
 	methods: {
 		loadData: function() {
 			var self = this;
-			if(this.$route.params.id) {
+			if(this.id) {
 				$.get(self.repositoryPath + '/' + this.id, function(data) {
-					self.entity = data;
+					self.$emit('input', data);
 				});
 			} else {
-				self.entity = {};
+				self.$emit('input', {});
 			}
 		},
 		cancel: function() {

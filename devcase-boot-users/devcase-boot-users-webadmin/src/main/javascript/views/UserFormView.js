@@ -6,10 +6,11 @@ export default withRender({
 	props: ['id'],
 	data: function() {
 		return {
+			entity: {},
 			fields: [
-				{ name: 'name', label: 'Nome', required: true, type: 'text' },
-				{ name: 'locked', label: 'Bloqueado', required: true, type: 'boolean' },
-				{ name: 'enabled', label: 'Habilitado', required: true, type: 'boolean' }
+				{ name: 'name', entityName: 'user', required: true, type: 'text' },
+				{ name: 'locked', entityName: 'user', required: true, type: 'boolean' },
+				{ name: 'enabled', entityName: 'user', required: true, type: 'boolean' }
 			]
 		}
 	}

@@ -1,18 +1,17 @@
 import $ from 'jquery';
 import router from '@/router';
+import polyglot from '@/polyglot';
 import withRender from './CrudForm.html';
-import InputField from './InputField';
 
 
 
 export default withRender({
-	props: ['id', 'repositoryPath', 'entityRootPath', 'fields'],
+	props: ['id', 'repositoryPath', 'entityRootPath', 'fields', 'value' ],
 	data: function() {
 		return {
-			entity : {}
+			polyglot: polyglot
 		};
 	},
-	components: { 'input-field':  InputField },
 	mounted: function() {
 		this.loadData();
 	},
@@ -21,10 +20,10 @@ export default withRender({
 			var self = this;
 			if(this.$route.params.id) {
 				$.get(self.repositoryPath + '/' + this.id, function(data) {
-					self.entity = data;
+					self.$emit('input', data);
 				});
 			} else {
-				self.entity = {};
+				self.$emit('input', {});
 			}
 		},
 		cancel: function() {
@@ -32,6 +31,7 @@ export default withRender({
 		},
 		save: function(entity) {
 			var self = this;
+			
 			$.ajax({
 				url: (entity.id ? self.repositoryPath + '/' + entity.id : self.repositoryPath),
 				data: JSON.stringify(entity),

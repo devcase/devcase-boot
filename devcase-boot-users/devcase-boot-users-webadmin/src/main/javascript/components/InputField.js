@@ -1,12 +1,13 @@
 import $ from 'jquery';
 import withRender from './InputField.html';
-
+import polyglot from "@/polyglot";
 
 
 export default withRender({
-	props: ['field', 'value'],
+	props: ['field', 'value' ],
 	data: function() {
 		return {
+			polyglot: polyglot
 		};
 	},
 	methods: {

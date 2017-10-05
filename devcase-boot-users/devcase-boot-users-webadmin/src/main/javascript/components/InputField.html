@@ -1,5 +1,5 @@
 <div class="form-group row">
-	<label v-bind:for="'field' + field.name" class="col-sm-2 col-form-label">{{field.label}}</label>
+	<label v-bind:for="'field' + field.name" class="col-sm-4 col-form-label">{{polyglot.t(field.entityName + '.' + field.name)}}</label>
 	<div class="col">
 		<input v-if="field.type == 'number' || field.type == 'text'" 
 			:type="field.type" 
