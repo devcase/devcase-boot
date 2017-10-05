@@ -25,6 +25,7 @@
 		<javax-validation.version>2.0.0.Final</javax-validation.version>
 		<glassfish-el.version>3.0.1-b08</glassfish-el.version>
 		<thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
+		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 	</properties>
 
 	<profiles>
@@ -260,4 +261,55 @@
 
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>${frontend-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<!-- optional: you don't really need execution ids, but it looks nice 
+								in your build log. -->
+							<id>install node and npm</id>
+							<goals>
+								<goal>install-node-and-npm</goal>
+							</goals>
+							<!-- optional: default phase is "generate-resources" -->
+							<phase>generate-resources</phase>
+						</execution>
+						<execution>
+							<id>npm install</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<!-- optional: default phase is "generate-resources" -->
+							<phase>generate-resources</phase>
+							<configuration>
+								<!-- optional: The default argument is actually "install", so unless 
+									you need to run some other npm command, you can remove this whole <configuration> 
+									section. -->
+								<arguments>install</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>webpack build</id>
+							<goals>
+								<goal>webpack</goal>
+							</goals>
+							<!-- optional: default phase is "generate-resources" -->
+							<phase>generate-resources</phase>
+						</execution>
+					</executions>
+					<configuration>
+						<nodeVersion>v6.11.3</nodeVersion>
+						<!-- optional: with node version greater than 4.0.0 will use npm provided 
+							by node distribution -->
+						<npmVersion>5.4.2</npmVersion>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

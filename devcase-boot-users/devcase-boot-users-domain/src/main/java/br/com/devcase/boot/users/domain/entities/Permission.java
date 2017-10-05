@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 @MappedSuperclass
 public abstract class Permission extends BasicEntity {
 
-	@Pattern(regexp = "^[A-Z0-9]{3,}")
+	@Pattern(regexp = "^[A-Z0-9_]{3,}")
 	protected String role;
 
 	public String getRole() {
