@@ -9,13 +9,9 @@ import org.springframework.web.servlet.view.InternalResourceView;
 
 @Controller
 public class VueController {
-	@RequestMapping("/")
-	public String index(HttpServletRequest request) {
-		return "redirect:/vue/";
-	}
 
-	@RequestMapping("/vue/**")
+	@RequestMapping("")
 	public View vue(HttpServletRequest request) {
-		return new InternalResourceView("/vue.html");
+		return new InternalResourceView("WEB-INF/jsp/vue.jsp");
 	}
 }

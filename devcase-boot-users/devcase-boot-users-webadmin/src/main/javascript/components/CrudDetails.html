@@ -1,0 +1,17 @@
+<div>
+	<h1>{{polyglot.t('action.view')}}</h1>
+	<form >
+		<div v-for="field in fields" class="form-group row">
+			<label v-bind:for="'field_' + field.name" class="col-sm-4 col-form-label">{{polyglot.t(field.entityName + '.' + field.name)}}</label>
+			<div class="col">
+				<input readonly v-bind:id="'field_' + field.name" class="form-control-plaintext" v-bind:value="value[field.name]"></input>
+			</div>
+		</div>
+		
+		<slot></slot>
+		
+		<button type="submit" class="btn btn-primary" @click="edit()">Editar</button>
+		<button type="button" class="btn btn-secondary" @click="cancel()">Cancelar</button>
+	</form>
+	<small class="text-muted" v-if="value.id != null">Id: {{value.id}}</small>
+</div>

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>br.com.devcase.boot</groupId>
-    <artifactId>devcase-boot-parent</artifactId>
-    <version>0.1-SNAPSHOT</version>
-    <relativePath>../devcase-boot-parent</relativePath>
-  </parent>
+    <parent>
+        <groupId>br.com.devcase.boot</groupId>
+        <artifactId>devcase-boot-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../devcase-boot-parent</relativePath>
+    </parent>
 
-  <artifactId>devcase-boot-libs</artifactId>
-  <packaging>pom</packaging>
+    <artifactId>devcase-boot-libs</artifactId>
+    <packaging>pom</packaging>
 
-  <modules>
-  	<module>devcase-boot-jsp</module>
-  	<module>devcase-boot-crud</module>
-  	<module>devcase-boot-webcrud</module>
-  	<module>devcase-boot-sitemesh</module>
-  	<module>devcase-boot-dwftaglibs</module>
-  	<module>devcase-boot-labels</module>
-  	<module>devcase-boot-ws-logging</module>
-  	<module>devcase-boot-htmldecorator</module>
-  	<module>devcase-boot-web</module>
-  </modules>
+    <modules>
+        <module>devcase-boot-jsp</module>
+        <module>devcase-boot-crud</module>
+        <module>devcase-boot-webcrud</module>
+        <module>devcase-boot-sitemesh</module>
+        <module>devcase-boot-dwftaglibs</module>
+        <module>devcase-boot-labels</module>
+        <module>devcase-boot-ws-logging</module>
+        <module>devcase-boot-htmldecorator</module>
+        <module>devcase-boot-web</module>
+    </modules>
 </project>

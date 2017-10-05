@@ -19,10 +19,6 @@
 			<exclusions>
 				<exclusion>
 					<groupId>br.com.devcase.boot</groupId>
-					<artifactId>devcase-boot-starter-jsp</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>br.com.devcase.boot</groupId>
 					<artifactId>devcase-boot-dwftaglibs</artifactId>
 				</exclusion>
 			</exclusions>
@@ -46,6 +42,10 @@
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-users-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
 		</dependency>
 	</dependencies>
 
