@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -41,7 +42,10 @@ public class MessageSourceController {
 	public void loadBundles(Locale locale) {
 		List<ResourceBundle> defaultLocaleBundles = new ArrayList<>();
 		for (String name : StringUtils.commaDelimitedListToStringArray(StringUtils.trimAllWhitespace(this.basename))) {
-			defaultLocaleBundles.add(ResourceBundle.getBundle(name, locale));
+			try {
+				defaultLocaleBundles.add(ResourceBundle.getBundle(name, locale));
+			} catch (MissingResourceException ignore) {
+			}
 		}
 		messages.put(locale, extractMap(defaultLocaleBundles));
 	}
