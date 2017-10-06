@@ -46,7 +46,7 @@ public class WebCrudListTest {
 
 	@After
 	public void cleanup() {
-		campanhaRepository.delete(campanhaRepository.findByNomeStartingWith("WebCrudListTest"));
+		campanhaRepository.deleteAll(campanhaRepository.findByNomeStartingWith("WebCrudListTest"));
 	}
 
 	@Test

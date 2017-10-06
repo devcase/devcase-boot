@@ -1,6 +1,7 @@
 package br.com.devcase.boot.crud.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -40,9 +41,9 @@ public class CriteriaRepositoryTest {
 		Publisher publisher = Publisher.builder().withName("Editora Devcase").build();
 		publisherRepository.save(publisher);
 		
-		Publisher p = publisherRepository.findOne(publisher.getId());
-		Assert.assertNotNull(p);
-		Assert.assertEquals("Editora Devcase", p.getName());
+		Optional<Publisher> p = publisherRepository.findById(publisher.getId());
+		Assert.assertTrue(p.isPresent());
+		Assert.assertEquals("Editora Devcase", p.get().getName());
 	}
 	
 	@Test
@@ -51,14 +52,14 @@ public class CriteriaRepositoryTest {
 		publisherRepository.save(publisher);
 		final Long id = publisher.getId();
 		
-		Publisher p = publisherRepository.findOne(id);
-		Assert.assertNotNull(p);
-		Assert.assertEquals("Editora Devcase", p.getName());
+		Optional<Publisher> p = publisherRepository.findById(id);
+		Assert.assertTrue(p.isPresent());
+		Assert.assertEquals("Editora Devcase", p.get().getName());
 		
 		publisherRepository.updateProperty(id, "name", "Editora Nova Devcase");
-		p = publisherRepository.findOne(id);
-		Assert.assertNotNull(p);
-		Assert.assertEquals("Editora Nova Devcase", p.getName());
+		p = publisherRepository.findById(id);
+		Assert.assertTrue(p.isPresent());
+		Assert.assertEquals("Editora Nova Devcase", p.get().getName());
 	}
 	
 	@Test
