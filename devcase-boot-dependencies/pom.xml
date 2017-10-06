@@ -26,6 +26,7 @@
 		<glassfish-el.version>3.0.1-b08</glassfish-el.version>
 		<thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+		<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
 	</properties>
 
 	<profiles>

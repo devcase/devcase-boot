@@ -7,12 +7,11 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.envers.Audited;
 
 @Entity
 public class User extends BasicEntity {
 
-	@Pattern(regexp = "^[a-z0-9]{3,}")
+	@Pattern(regexp = "^[?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+@]{3,}")
 	@NaturalId(mutable = true)
 	private String name;
 	@ManyToMany
