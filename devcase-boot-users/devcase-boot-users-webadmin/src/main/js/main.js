@@ -38,9 +38,11 @@ Vue.component('crud-form', CrudForm);
 Vue.component('crud-details', CrudDetails);
 Vue.component('input-field', InputField);
 
-
 var app = new Vue({
-	
 	router,
-	render: h => h(App)
-}).$mount('#app');
+	render: function(h) { return h(App); }
+});
+
+$(document).on('messagesource.loaded', function() {
+	app.$mount('#app');
+});
