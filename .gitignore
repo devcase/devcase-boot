@@ -1,4 +1,13 @@
+# eclipse
 target/
 .settings/
 .classpath
 .project
+
+# npm modules
+node_modules/
+
+# idea intellij
+.idea/
+*.iml
+

@@ -1,0 +1,25 @@
+<div class="form-group row">
+	<label v-bind:for="'field' + field.name" class="col-sm-4 col-form-label">{{polyglot.t(field.entityName + '.' + field.name)}}</label>
+	<div class="col">
+		<input v-if="field.type == 'number' || field.type == 'text'" 
+			:type="field.type" 
+			v-bind:id="'field' + field.name" 
+			v-bind:value="value" 
+			v-on:input="updateValue($event.target.value)" 
+			class="form-control" 
+			v-bind:placeholder="field.label" 
+			v-bind:required="field.required" />
+		<template v-if="field.type == 'boolean'">
+			<div class="form-check form-check-inline">
+				<label class="form-check-label"> <input class="form-check-input" type="radio" v-bind:name="'field' + field.name" 
+					 v-bind:checked="value" v-on:change="updateValue(true)" value="true"> Sim
+				</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<label class="form-check-label"> <input class="form-check-input" type="radio" v-bind:name="'field' + field.name" 
+					 v-bind:checked="!value" v-on:change="updateValue(false)" value="false" > Não</label>
+			</div>
+		</template>
+	</div>
+	<div class="invalid-feedback">Obrigatório</div>
+</div>

@@ -19,10 +19,6 @@
 			<exclusions>
 				<exclusion>
 					<groupId>br.com.devcase.boot</groupId>
-					<artifactId>devcase-boot-starter-jsp</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>br.com.devcase.boot</groupId>
 					<artifactId>devcase-boot-dwftaglibs</artifactId>
 				</exclusion>
 			</exclusions>
@@ -47,6 +43,10 @@
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-users-security</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -54,6 +54,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

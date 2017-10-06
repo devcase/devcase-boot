@@ -16,13 +16,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
@@ -36,11 +36,11 @@ import com.google.common.primitives.Bytes;
 
 @Configuration
 @ConditionalOnWebApplication
-@Import({CommonSecurityConfig.class})
-@EnableWebSecurity()
+@Import({CommonSecurityConfig.class, SpringBootWebSecurityConfiguration.class})
 public class WebFormAuthenticationConfig  {
+	public static final int WEBFORM_SECURITY_ORDER = SecurityProperties.ACCESS_OVERRIDE_ORDER;
 	
-	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
 	static class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
