@@ -9,7 +9,6 @@ export default withRender({
 	props: ['id', 'repositoryPath', 'entityRootPath', 'fields', 'value' ],
 	data: function() {
 		return {
-			polyglot: polyglot
 		};
 	},
 	mounted: function() {

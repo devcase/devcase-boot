@@ -1,5 +1,5 @@
 <div class="form-group row">
-	<label v-bind:for="'field' + field.name" class="col-sm-4 col-form-label">{{polyglot.t(field.entityName + '.' + field.name)}}</label>
+	<label v-bind:for="'field' + field.name" class="col-sm-4 col-form-label">{{$polyglot.t(field.entityName + '.' + field.name)}}</label>
 	<div class="col">
 		<input v-if="field.type == 'number' || field.type == 'text'" 
 			:type="field.type" 
@@ -12,12 +12,12 @@
 		<template v-if="field.type == 'boolean'">
 			<div class="form-check form-check-inline">
 				<label class="form-check-label"> <input class="form-check-input" type="radio" v-bind:name="'field' + field.name" 
-					 v-bind:checked="value" v-on:change="updateValue(true)" value="true"> Sim
+					 v-bind:checked="value" v-on:change="updateValue(true)" value="true"> {{$polyglot.t('Boolean.YES')}}
 				</label>
 			</div>
 			<div class="form-check form-check-inline">
 				<label class="form-check-label"> <input class="form-check-input" type="radio" v-bind:name="'field' + field.name" 
-					 v-bind:checked="!value" v-on:change="updateValue(false)" value="false" > Não</label>
+					 v-bind:checked="!value" v-on:change="updateValue(false)" value="false" > {{$polyglot.t('Boolean.NO')}}</label>
 			</div>
 		</template>
 	</div>

@@ -1,17 +1,19 @@
 import $ from 'jquery';
 import router from '@/router';
 import withRender from './CrudDetails.html';
-import polyglot from '@/polyglot';
+import OutputField from './OutputField';
 
 export default withRender({
 	props: ['id', 'repositoryPath', 'entityRootPath', 'fields', 'value' ],
 	data: function() {
 		return {
-			polyglot : polyglot
 		};
 	},
 	mounted: function() {
 		this.loadData();
+	},
+	components: {
+		'output-field' : OutputField
 	},
 	methods: {
 		loadData: function() {

@@ -6,7 +6,7 @@ import DataGrid from '@/components/DataGrid.vue';
 import CrudForm from '@/components/CrudForm';
 import CrudDetails from '@/components/CrudDetails';
 import InputField from '@/components/InputField';
-import polyglot from '@/polyglot';
+import PolyglotPlugin from '@/plugins/PolyglotPlugin';
 
 $(function() {
 	//setup jquery.ajax to send csrf token each post
@@ -31,6 +31,8 @@ Vue.directive('customvalidation', {
 	}
 });
 
+Vue.use(PolyglotPlugin);
+
 Vue.component('data-grid', DataGrid);
 Vue.component('crud-form', CrudForm);
 Vue.component('crud-details', CrudDetails);
@@ -42,4 +44,3 @@ var app = new Vue({
 	router,
 	render: h => h(App)
 }).$mount('#app');
-	

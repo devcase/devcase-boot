@@ -1,6 +1,6 @@
 <div>
-	<h1 v-if="value.id == null">{{polyglot.t('action.create')}}</h1>
-	<h1 v-if="value.id != null">{{polyglot.t('action.edit')}}</h1>
+	<h1 v-if="value.id == null">{{$polyglot.t('action.create')}}</h1>
+	<h1 v-if="value.id != null">{{$polyglot.t('action.edit')}}</h1>
 	<form v-customvalidation @validsubmit="save(value)">
 	
 		<input-field v-for="field in fields" v-bind:field="field" v-model="value[field.name]"></input-field>
