@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.7.RELEASE</version>
+		<version>2.0.0.M4</version>
 	</parent>
 
 	<groupId>br.com.devcase.boot</groupId>
@@ -25,7 +25,7 @@
 	<developers>
 		<developer>
 			<id>thiagohirata</id>
-			<name>Thiag Massao Kuraoka Hirata</name>
+			<name>Thiago Massao Kuraoka Hirata</name>
 			<email>hirata at devcase.com.br</email>
 			<roles>
 				<role>Project lead</role>
@@ -78,6 +78,14 @@
 			<url>http://repo.devcase.com.br/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 	</repositories>

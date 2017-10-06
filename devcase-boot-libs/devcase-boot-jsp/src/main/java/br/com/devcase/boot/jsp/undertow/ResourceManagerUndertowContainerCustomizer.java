@@ -5,12 +5,11 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.websocket.WebSocketContainerCustomizer;
-import org.springframework.boot.context.embedded.undertow.UndertowDeploymentInfoCustomizer;
-import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
+import org.springframework.boot.web.embedded.undertow.UndertowDeploymentInfoCustomizer;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.ApplicationContext;
 
-import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.server.handlers.resource.Resource;
 import io.undertow.server.handlers.resource.ResourceChangeListener;
 import io.undertow.server.handlers.resource.ResourceManager;
@@ -25,14 +24,14 @@ import io.undertow.servlet.api.DeploymentInfo;
  *
  */
 public class ResourceManagerUndertowContainerCustomizer
-		extends WebSocketContainerCustomizer<UndertowEmbeddedServletContainerFactory> {
+		implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 
 	@Autowired
 	private ApplicationContext applicationContext;
 
 	@Override
-	protected void doCustomize(UndertowEmbeddedServletContainerFactory container) {
-		container.addDeploymentInfoCustomizers(new UndertowDeploymentInfoCustomizer() {
+	public void customize(UndertowServletWebServerFactory server) {
+		server.addDeploymentInfoCustomizers(new UndertowDeploymentInfoCustomizer() {
 			@Override
 			public void customize(DeploymentInfo deploymentInfo) {
 				deploymentInfo.setResourceManager(getCustomResourceManager(deploymentInfo.getResourceManager()));
