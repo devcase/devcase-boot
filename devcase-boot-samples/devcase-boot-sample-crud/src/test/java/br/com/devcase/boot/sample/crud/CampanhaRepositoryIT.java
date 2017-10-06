@@ -45,8 +45,7 @@ public class CampanhaRepositoryIT {
 			Assert.assertNotNull(c);
 			Assert.assertNotNull(c.getId());
 
-			Campanha c2 = campanhaRepository.findOne(c.getId());
-			Assert.assertNotNull(c2);
+			Campanha c2 = campanhaRepository.findById(c.getId()).get();
 			Assert.assertEquals(c.getId(), c2.getId());
 		} finally {
 			campanhaRepository.delete(c);

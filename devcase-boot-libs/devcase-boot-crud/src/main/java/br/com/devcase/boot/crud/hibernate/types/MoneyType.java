@@ -9,6 +9,7 @@ import java.sql.Types;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.BigDecimalType;
 import org.hibernate.type.StringType;
 import org.hibernate.usertype.UserType;
@@ -37,9 +38,12 @@ public class MoneyType implements UserType {
 	public int hashCode(Object x) throws HibernateException {
 		return x.hashCode();
 	}
+	
+	
+
 
 	@Override
-	public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner)
+	public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner)
 			throws HibernateException, SQLException {
 		String currencyCode = StringType.INSTANCE.nullSafeGet(rs, names[0], session);
 		BigDecimal value = BigDecimalType.INSTANCE.nullSafeGet(rs, names[1], session);
@@ -49,7 +53,7 @@ public class MoneyType implements UserType {
 	}
 
 	@Override
-	public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session)
+	public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
 			throws HibernateException, SQLException {
 		Money money = (Money) value;
 		final String currencyValue = money != null ? money.getCurrency().getCurrencyCode() : null;

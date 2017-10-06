@@ -45,7 +45,7 @@ public class AnuncioRepositoryTest {
 				.withTitulo("você já conheceu o produto X?").build();
 		anuncioRepository.save(anuncio1);
 		
-		Assert.assertEquals(campanha.getId(), anuncioRepository.findOne(anuncio1.getId()).getCampanha().getId());
+		Assert.assertEquals(campanha.getId(), anuncioRepository.findById(anuncio1.getId()).get().getCampanha().getId());
 		
 		Assert.assertTrue(anuncioRepository.findByCampanha(campanha).stream().filter(a -> a.getId().equals(anuncio1.getId())).count() == 1);
 	}

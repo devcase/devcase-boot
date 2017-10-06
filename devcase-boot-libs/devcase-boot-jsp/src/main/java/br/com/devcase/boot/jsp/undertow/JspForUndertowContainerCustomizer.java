@@ -5,10 +5,11 @@ import java.util.HashMap;
 
 import org.apache.jasper.deploy.JspPropertyGroup;
 import org.apache.jasper.deploy.TagLibraryInfo;
-import org.springframework.boot.autoconfigure.websocket.WebSocketContainerCustomizer;
-import org.springframework.boot.context.embedded.undertow.UndertowDeploymentInfoCustomizer;
-import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
+import org.springframework.boot.web.embedded.undertow.UndertowDeploymentInfoCustomizer;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 
+import io.undertow.Undertow;
 import io.undertow.jsp.HackInstanceManager;
 import io.undertow.jsp.JspServletBuilder;
 import io.undertow.servlet.api.DeploymentInfo;
@@ -19,11 +20,12 @@ import io.undertow.servlet.api.DeploymentInfo;
  *
  */
 public class JspForUndertowContainerCustomizer
-		extends WebSocketContainerCustomizer<UndertowEmbeddedServletContainerFactory> {
+		implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 
+	
 	@Override
-	protected void doCustomize(UndertowEmbeddedServletContainerFactory container) {
-		container.addDeploymentInfoCustomizers(new UndertowDeploymentInfoCustomizer() {
+	public void customize(UndertowServletWebServerFactory server) {
+		server.addDeploymentInfoCustomizers(new UndertowDeploymentInfoCustomizer() {
 
 			@Override
 			public void customize(DeploymentInfo deploymentInfo) {
@@ -40,6 +42,5 @@ public class JspForUndertowContainerCustomizer
 						tagLibraryInfo, new HackInstanceManager());
 			}
 		});
-
 	}
 }

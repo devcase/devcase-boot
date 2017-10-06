@@ -42,6 +42,7 @@ public class DefaultUserDetailsServiceManagerTest {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
 	@Autowired
 	private EntityManagerFactory emf;
 	@Autowired
@@ -54,8 +55,10 @@ public class DefaultUserDetailsServiceManagerTest {
 	final String validTemporaryRoleName = "TEMPORARY";
 	final String expiredRoleName = "ADMIN";
 
+	
 	@Before
 	public void setup() throws Exception {
+		
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		try {
@@ -121,7 +124,7 @@ public class DefaultUserDetailsServiceManagerTest {
 
 	@Test
 	public void testAuthentication() throws Exception {
-
+		
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(validUserLogin, password));
 

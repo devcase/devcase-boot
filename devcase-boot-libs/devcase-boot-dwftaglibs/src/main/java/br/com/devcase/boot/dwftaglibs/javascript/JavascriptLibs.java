@@ -12,8 +12,11 @@ import javax.servlet.jsp.JspException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.bind.PropertiesConfigurationFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.BindResult;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySource;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
@@ -98,11 +101,17 @@ public class JavascriptLibs implements InitializingBean {
 			String libName = libs.get(i);
 			
 			//build JavascriptLib instance from environment properties
-			JavascriptLib lib = new JavascriptLib();
-			PropertiesConfigurationFactory<JavascriptLib> configFactory = new PropertiesConfigurationFactory<>(lib);
-			configFactory.setPropertySources(propertySource());
-			configFactory.setTargetName("javascript-libs.".concat(libName));
-			configFactory.bindPropertiesToTarget();
+			Iterable<ConfigurationPropertySource> ps = ConfigurationPropertySources.from(propertySource());
+			Binder binder = new Binder(ps);
+			
+//			JavascriptLib lib = new JavascriptLib();
+//			PropertiesConfigurationFactory<JavascriptLib> configFactory = new PropertiesConfigurationFactory<>(lib);
+//			configFactory.setPropertySources(propertySource());
+//			configFactory.setTargetName("javascript-libs.".concat(libName));
+//			configFactory.bindPropertiesToTarget();
+			
+			BindResult<JavascriptLib> bind = binder.bind("javascript-libs.".concat(libName), JavascriptLib.class);
+			JavascriptLib lib = bind.get();
 
 			if(lib.order == null) lib.order = i;
 			lib.name = libName;

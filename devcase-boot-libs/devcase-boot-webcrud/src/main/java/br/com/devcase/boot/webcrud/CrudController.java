@@ -1,6 +1,7 @@
 package br.com.devcase.boot.webcrud;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import javax.validation.groups.Default;
 
@@ -71,20 +72,20 @@ public abstract class CrudController<E, ID extends Serializable> {
 
 	@GetMapping("/{id}")
 	public String details(@PathVariable(name="id") ID id, Model model) {
-		E entity = repository.findOne(id);
-		if(entity == null) {
+		Optional<E> entity = repository.findById(id);
+		if(!entity.isPresent()) {
 			throw new EntityNotFoundException();
 		}
-		model.addAttribute("entity", entity);
+		model.addAttribute("entity", entity.get());
 		model.addAttribute("pathPrefix", viewNamePrefix);
-		loadDetailsData(entity, model);
+		loadDetailsData(entity.get(), model);
 		return viewNamePrefix + "/details";
 	}
 	
 	@GetMapping("/{id}.json")
 	@ResponseBody
 	public ResponseEntity<E> getJson(@PathVariable(name="id") ID id, Model model) {
-		return new ResponseEntity<E>(repository.findOne(id), HttpStatus.OK);
+		return new ResponseEntity<E>(repository.findById(id).get(), HttpStatus.OK);
 	}
 	
 	@GetMapping({"list.json", "json"})
@@ -95,7 +96,7 @@ public abstract class CrudController<E, ID extends Serializable> {
 
 	@GetMapping("/{id}/edit")
 	public String edit(@PathVariable(name="id") ID id, Model model) {
-		E entity = repository.findOne(id);
+		E entity = repository.findById(id).get();
 		model.addAttribute("entity", entity);
 		model.addAttribute("pathPrefix", viewNamePrefix);
 		loadFormData(entity, model);
@@ -113,7 +114,7 @@ public abstract class CrudController<E, ID extends Serializable> {
 	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable ID id, Model model) {
-		repository.delete(id);
+		repository.deleteById(id);
 		return "redirect:/" + viewNamePrefix;
 	}
 	

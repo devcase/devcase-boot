@@ -16,13 +16,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
@@ -36,15 +37,16 @@ import com.google.common.primitives.Bytes;
 
 @Configuration
 @ConditionalOnWebApplication
-@Import({CommonSecurityConfig.class, SpringBootWebSecurityConfiguration.class})
+@EnableWebSecurity()
+@Import({CommonSecurityConfig.class})
 public class WebFormAuthenticationConfig  {
-	public static final int WEBFORM_SECURITY_ORDER = SecurityProperties.ACCESS_OVERRIDE_ORDER;
+	public static final int WEBFORM_SECURITY_ORDER = SecurityProperties.BASIC_AUTH_ORDER + 1;
 	
 	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
-	static class SecurityConfigurer extends WebSecurityConfigurerAdapter {
+	static class WebFormSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
-		public SecurityConfigurer() {
+		public WebFormSecurityConfigurer() {
 			super(false);
 		}
 
@@ -58,6 +60,14 @@ public class WebFormAuthenticationConfig  {
 					.loginPage("/login")
 					.permitAll();
 		}
+
+		@Override
+		public void init(WebSecurity web) throws Exception {
+			super.init(web);
+			web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/**/favicon.ico");
+		}
+		
+		
 	}
 	
 	@Controller
