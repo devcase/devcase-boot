@@ -3,6 +3,7 @@ package br.com.devcase.boot.users.webadmin.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,7 @@ import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
 
 @Repository
+@RepositoryRestResource(path="credentials", collectionResourceRel="credentials")
 @PreAuthorize("hasRole('ROLE_ADMIN_USERS')")
 public interface CredentialRepository extends CriteriaRepository<Credential, String> {
 	List<Credential> findByUser(User user);

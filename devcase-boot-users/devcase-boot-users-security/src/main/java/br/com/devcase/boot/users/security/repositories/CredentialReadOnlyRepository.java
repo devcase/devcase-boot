@@ -3,6 +3,7 @@ package br.com.devcase.boot.users.security.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 import br.com.devcase.boot.users.domain.entities.Credential;
@@ -10,6 +11,7 @@ import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
 
 @Repository
+@RepositoryRestResource(exported=false)
 public interface CredentialReadOnlyRepository extends org.springframework.data.repository.Repository<Credential, String> {
 	List<Credential> findByUser(User user);
 	Credential findByUserAndDtype(User user, String dtype);

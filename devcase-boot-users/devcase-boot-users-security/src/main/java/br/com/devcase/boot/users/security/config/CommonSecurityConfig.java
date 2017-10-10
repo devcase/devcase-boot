@@ -15,11 +15,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
 import br.com.devcase.boot.users.security.repositories.UserReadOnlyRepository;
 import br.com.devcase.boot.users.security.userdetails.DefaultUserDetailsService;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = UserReadOnlyRepository.class)
+@EnableJpaRepositories(basePackageClasses = UserReadOnlyRepository.class, repositoryBaseClass=CriteriaJpaRepository.class)
 @EnableGlobalAuthentication
 public class CommonSecurityConfig {
 

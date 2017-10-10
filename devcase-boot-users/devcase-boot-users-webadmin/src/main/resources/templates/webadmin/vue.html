@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8" />
@@ -16,11 +16,13 @@
 <body>
 	<div id="app"></div>
 </body>
-<script type="text/javascript">
+<script type="text/javascript" th:if="${_csrf != null}">
 	var csrftoken = {
 		name  : '[(${_csrf.headerName})]',
 		token : '[(${_csrf.token})]' 
 	};
 </script>
 <script src="/js/webadmin.bundle.js"></script>
+
+
 </html>
