@@ -145,6 +145,7 @@ class SingleUserConnectionRepositoryJpaDataImpl implements ConnectionRepository 
 		final ConnectionData cd = connection.createData();
 		UserSocialConnection c = userSocialConnectionRepository.findByUserIdAndProviderIdAndProviderUserId(userId,
 				cd.getProviderId(), cd.getProviderUserId());
+
 		c = UserSocialConnection.builder().withId(c.getId()).withUserId(userId).withProviderId(cd.getProviderId())
 				.withProviderUserId(cd.getProviderUserId()).withDisplayName(cd.getDisplayName())
 				.withProfileUrl(cd.getProfileUrl()).withImageUrl(cd.getImageUrl())

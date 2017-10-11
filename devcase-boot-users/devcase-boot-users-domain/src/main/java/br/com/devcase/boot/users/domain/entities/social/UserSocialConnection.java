@@ -1,9 +1,11 @@
 package br.com.devcase.boot.users.domain.entities.social;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -16,24 +18,26 @@ public class UserSocialConnection {
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	private String id;
 	@NaturalId
+	@NotNull
 	private String userId;
 	@NaturalId
+	@NotNull
 	private String providerId;
 	@NaturalId
+	@NotNull
 	private String providerUserId;
 	private int rank;
 	private String displayName;
 	private String profileUrl;
 	private String imageUrl;
+	@Column(length=2000)
 	private String accessToken;
+	@Column(length=500)
 	private String secret;
+	@Column(length=2000)
 	private String refreshToken;
 	private Long expireTime;
 
-	
-	public UserSocialConnection() {
-		super();
-	}
 
 	private UserSocialConnection(Builder builder) {
 		this.id = builder.id;
@@ -48,6 +52,11 @@ public class UserSocialConnection {
 		this.secret = builder.secret;
 		this.refreshToken = builder.refreshToken;
 		this.expireTime = builder.expireTime;
+	}
+
+	
+	public UserSocialConnection() {
+		super();
 	}
 
 	public String getId() {

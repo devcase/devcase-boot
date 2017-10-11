@@ -13,10 +13,12 @@ import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter
 import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactory;
+import org.springframework.social.connect.web.GenericConnectionStatusView;
 import org.springframework.social.oauth2.GenericOAuth2ConnectionFactory;
 import org.springframework.social.oauth2.TokenStrategy;
 
@@ -51,6 +53,13 @@ public class AzureADSocialAutoConfiguration {
 					new MicrosoftGraphAdapter() 
 					);
 			return connectionFactory;
+		}
+		
+
+		@Bean(name = { "connect/azure-adConnect", "connect/azure-adConnected" })
+		@ConditionalOnProperty(prefix = "spring.social", name = "auto-connection-views")
+		public GenericConnectionStatusView facebookConnectView() {
+			return new GenericConnectionStatusView("azure-ad", "Azure AD");
 		}
 
 	}

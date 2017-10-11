@@ -1,5 +1,6 @@
 package br.com.devcase.boot.social.azure.connect;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.social.connect.ApiAdapter;
@@ -22,9 +23,15 @@ public class MicrosoftGraphAdapter implements ApiAdapter<RestOperations> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void setConnectionValues(RestOperations api, ConnectionValues values) {
-		// TODO Auto-generated method stub
-		
+		HashMap<String, String> uriParams = new HashMap<>();
+		uriParams.put("$select", "displayName,id,mySite");
+		Map<String, String> r = api.getForObject("https://graph.microsoft.com/v1.0/me", Map.class, uriParams);
+
+		values.setProviderUserId(r.get("id"));
+		values.setDisplayName(r.get("displayName"));
+		values.setProfileUrl(r.get("mySite"));
 	}
 
 	@Override
