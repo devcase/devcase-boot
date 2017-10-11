@@ -4,8 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.text.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +29,8 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import br.com.devcase.boot.users.security.social.SocialLoginConfiguration.SocialWebSecurityConfigurer;
+
 @Configuration
 @ConditionalOnWebApplication
 @EnableWebSecurity()
@@ -35,7 +40,9 @@ public class WebFormAuthenticationConfig {
 
 	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
+	@ConditionalOnMissingBean(SocialWebSecurityConfigurer.class)
 	public static class WebFormSecurityConfigurer extends WebSecurityConfigurerAdapter {
+		private Logger logger = LoggerFactory.getLogger(getClass());
 
 		public WebFormSecurityConfigurer() {
 			super(false);
@@ -43,6 +50,7 @@ public class WebFormAuthenticationConfig {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+			logger.debug("Configuring http for webform ");
 			http.authorizeRequests()
 				.anyRequest().authenticated().and()
 				.formLogin().loginPage("/login").permitAll().and()
@@ -50,8 +58,7 @@ public class WebFormAuthenticationConfig {
 		}
 
 		@Override
-		public void init(WebSecurity web) throws Exception {
-			super.init(web);
+		public void configure(WebSecurity web) throws Exception {
 			web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/**/favicon.ico");
 		}
 

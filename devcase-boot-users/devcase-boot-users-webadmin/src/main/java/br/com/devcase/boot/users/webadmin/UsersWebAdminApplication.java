@@ -58,11 +58,14 @@ public class UsersWebAdminApplication {
 		public String execute(Connection<?> connection) {
 			UserProfile up = connection.fetchUserProfile();
 			
-			User user = userRepository.findByName(up.getEmail());
+			String username = up.getEmail() == null ? up.getUsername() : up.getEmail();
+			
+			User user = userRepository.findByName(username);
+			
 			ConnectionData cd = connection.createData();
 			if(user == null) {
 				user = new User();
-				user.setName(up.getEmail());
+				user.setName(username);
 				user.setEnabled(true);
 				user.setLocked(false);
 				user.setValidUntil(cd.getExpireTime() == null ? null : new Date(cd.getExpireTime()));

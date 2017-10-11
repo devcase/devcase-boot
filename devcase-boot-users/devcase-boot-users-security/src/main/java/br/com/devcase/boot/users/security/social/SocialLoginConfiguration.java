@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,17 +57,25 @@ public class SocialLoginConfiguration {
 		return new UsersConnectionRepositoryJpaDataImpl();
 	}
 
-	@Order(WebFormAuthenticationConfig.WEBFORM_SECURITY_ORDER + 1)
+	@Order(WebFormAuthenticationConfig.WEBFORM_SECURITY_ORDER)
 	@Configuration
 	public static class SocialWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
-
-		public SocialWebSecurityConfigurer() {
-			super(false);
+		private Logger logger = LoggerFactory.getLogger(getClass());
+		
+		@Override
+		public void configure(WebSecurity web) throws Exception {
+			web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/**/favicon.ico");
 		}
+
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.apply(new SpringSocialConfigurer());
+			logger.debug("Configuring http for social ");
+			http.authorizeRequests()
+				.anyRequest().authenticated().and()
+				.formLogin().loginPage("/login").permitAll().and()
+				.logout().permitAll().and()
+				.apply(new SpringSocialConfigurer());
 		}
 	}
 

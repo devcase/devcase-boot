@@ -23,5 +23,6 @@
         <module>devcase-boot-ws-logging</module>
         <module>devcase-boot-htmldecorator</module>
         <module>devcase-boot-web</module>
+        <module>devcase-boot-spring-social</module>
     </modules>
 </project>
