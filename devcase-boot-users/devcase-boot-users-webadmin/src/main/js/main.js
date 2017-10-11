@@ -11,7 +11,7 @@ import PolyglotPlugin from '@/plugins/PolyglotPlugin';
 $(function() {
 	//setup jquery.ajax to send csrf token each post
 	$(document).ajaxSend(function( event, xhr, settings ) {
-		xhr.setRequestHeader(csrftoken.name, csrftoken.token);
+		xhr.setRequestHeader(csrftoken.headerName, csrftoken.token);
 	});
 });
 
@@ -30,6 +30,8 @@ Vue.directive('customvalidation', {
 		$(el).find('input:first').each(function() {this.focus()});
 	}
 });
+
+Vue.prototype.$csrftoken = csrftoken;
 
 Vue.use(PolyglotPlugin);
 

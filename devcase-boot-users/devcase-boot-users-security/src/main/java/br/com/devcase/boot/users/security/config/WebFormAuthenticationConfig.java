@@ -40,7 +40,7 @@ public class WebFormAuthenticationConfig {
 
 	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
-	@ConditionalOnMissingBean(SocialWebSecurityConfigurer.class)
+	@ConditionalOnMissingBean(value= { SocialWebSecurityConfigurer.class })
 	public static class WebFormSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		private Logger logger = LoggerFactory.getLogger(getClass());
 

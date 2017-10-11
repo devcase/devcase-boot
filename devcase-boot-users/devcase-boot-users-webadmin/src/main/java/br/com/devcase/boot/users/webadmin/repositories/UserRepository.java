@@ -6,7 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 import br.com.devcase.boot.users.domain.entities.User;
 
-@PreAuthorize("hasRole('ROLE_ADMIN_USERS')")
+@PreAuthorize("hasRole('ADMIN_USERS')")
 @RepositoryRestResource(path="users", collectionResourceRel="users")
 public interface UserRepository extends CriteriaRepository<User, String> {
 	User findByName(String name);

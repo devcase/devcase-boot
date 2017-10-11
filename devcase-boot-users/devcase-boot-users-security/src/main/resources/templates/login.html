@@ -6,18 +6,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" crossorigin="anonymous"/>
 <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 	<div class="container">
-		<div class="card card-body mt-5 mb-5">
-			<form th:action="@{/login}" method="POST" class="form-signin" accept-charset="ISO-8859-1">
-				<h1 class="form-signin-heading">Login</h1>
+		<div class="card card-body mt-5 mx-auto card-login">
+			<form th:action="@{/login}" method="POST" class="form-login mb-5" accept-charset="ISO-8859-1">
+				<h1 class="form-login-heading">Login</h1>
 				<div id="errormessagecontainer" class="text-danger" th:if="${!#strings.isEmpty(authenticationErrorMessage)}" th:text="${authenticationErrorMessage}"></div>
 				<div class="form-group">
+					<label for="username" class="sr-only">Login</label>
 					<input type="text" id="username" name="username" class="form-control" placeholder="Login" autofocus />
 				</div>
 				<div class="form-group">
+					<label for="password" class="sr-only">Senha</label>
 					<input type="password" name="password" class="form-control" placeholder="Senha" />
 				</div>
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
@@ -27,12 +30,12 @@
 			<form th:action="@{/auth/facebook}" method="POST" class="mt-3">
 				<input type="hidden" th:name="${csrfToken.parameterName}" th:value="${csrfToken.token}" />
 				<input type="hidden" name="scope" value="email,public_profile" />
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Login with Facebook</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="ion-social-facebook mr-3"></i> Login with Facebook</button>
 			</form>
 			<form th:action="@{/auth/azure-ad}" method="POST" class="mt-3">
 				<input type="hidden" th:name="${csrfToken.parameterName}" th:value="${csrfToken.token}" />
 				<input type="hidden" name="scope" value="User.Read" />
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Login with Office 365</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="ion-social-windows mr-3"></i> Login with Office 365</button>
 			</form>
 
 		</div>

@@ -2,17 +2,12 @@ body {
 	background-color: #eee;
 }
 
-
-
-.form-signin .logo {
-	margin-bottom: 50px;
-	max-width: 80%;
-	display: block;
-    margin-right: auto;
-    margin-left: auto;
+.card-login {
+	max-width: 400px;
 }
 
-.form-signin-heading {
+.form-login-heading {
 	text-align: center;
+	margin-top: 50px;
 	margin-bottom: 100px;
 }

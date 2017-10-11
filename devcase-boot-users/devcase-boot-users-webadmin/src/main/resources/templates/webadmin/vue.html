@@ -18,8 +18,9 @@
 </body>
 <script type="text/javascript" th:if="${_csrf != null}">
 	var csrftoken = {
-		name  : '[(${_csrf.headerName})]',
-		token : '[(${_csrf.token})]' 
+		parameterName  : 	'[(${_csrf.parameterName})]',
+		headerName  : 		'[(${_csrf.headerName})]',
+		token : 			'[(${_csrf.token})]' 
 	};
 </script>
 <script src="/js/webadmin.bundle.js"></script>

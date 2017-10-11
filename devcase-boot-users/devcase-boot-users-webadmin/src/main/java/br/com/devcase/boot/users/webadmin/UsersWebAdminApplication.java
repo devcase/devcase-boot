@@ -48,32 +48,4 @@ public class UsersWebAdminApplication {
 		}
 	}
 	
-	@Component
-	public static class SocialSignUp implements ConnectionSignUp 
-	{
-		@Autowired
-		private UserRepository userRepository;
-
-		@Override
-		public String execute(Connection<?> connection) {
-			UserProfile up = connection.fetchUserProfile();
-			
-			String username = up.getEmail() == null ? up.getUsername() : up.getEmail();
-			
-			User user = userRepository.findByName(username);
-			
-			ConnectionData cd = connection.createData();
-			if(user == null) {
-				user = new User();
-				user.setName(username);
-				user.setEnabled(true);
-				user.setLocked(false);
-				user.setValidUntil(cd.getExpireTime() == null ? null : new Date(cd.getExpireTime()));
-				userRepository.save(user);
-			}
-			
-			return user.getId();
-		}
-		
-	}
 }

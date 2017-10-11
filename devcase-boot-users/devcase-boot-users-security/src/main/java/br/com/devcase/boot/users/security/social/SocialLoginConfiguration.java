@@ -1,8 +1,13 @@
 package br.com.devcase.boot.users.security.social;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +29,9 @@ import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionData;
+import org.springframework.social.connect.ConnectionSignUp;
+import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.social.security.SocialUserDetails;
@@ -57,6 +65,11 @@ public class SocialLoginConfiguration {
 		return new UsersConnectionRepositoryJpaDataImpl();
 	}
 
+	/**
+	 * Replaces {@link WebFormAuthenticationConfig.WebFormSecurityConfigurer}
+	 * @author hirata
+	 *
+	 */
 	@Order(WebFormAuthenticationConfig.WEBFORM_SECURITY_ORDER)
 	@Configuration
 	public static class SocialWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -70,7 +83,7 @@ public class SocialLoginConfiguration {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			logger.debug("Configuring http for social ");
+			logger.debug("Configuring http for social login ");
 			http.authorizeRequests()
 				.anyRequest().authenticated().and()
 				.formLogin().loginPage("/login").permitAll().and()
@@ -118,8 +131,8 @@ public class SocialLoginConfiguration {
 			if (authentication == null) {
 				throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
 			}
-			if(authentication.getDetails() != null && authentication.getDetails() instanceof DefaultUserDetails) {
-				return ((DefaultUserDetails) authentication.getDetails()).getUserId();
+			if(authentication.getPrincipal() != null && authentication.getPrincipal() instanceof DefaultUserDetails) {
+				return ((DefaultUserDetails) authentication.getPrincipal()).getUserId();
 			}
 			return authentication.getName();		
 		}
@@ -153,6 +166,40 @@ public class SocialLoginConfiguration {
 			return new DefaultUserDetails(user, passCred, permissions);
 		}
 
+	}
+
+	@Component
+	@Transactional
+	public static class SocialSignUp implements ConnectionSignUp 
+	{
+		@Autowired
+		private EntityManager em;
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public String execute(Connection<?> connection) {
+			UserProfile up = connection.fetchUserProfile();
+			
+			String username = up.getEmail() == null ? up.getUsername() : up.getEmail();
+			
+			List<User> users = em.createQuery("select u from User u where u.name = :name").setParameter("name", username).setLockMode(LockModeType.NONE).getResultList();
+			
+			ConnectionData cd = connection.createData();
+			User user;
+			if(users.size() == 0) {
+				user = new User();
+				user.setName(username);
+				user.setEnabled(true);
+				user.setLocked(false);
+				user.setValidUntil(cd.getExpireTime() == null ? null : new Date(cd.getExpireTime()));
+				em.persist(user);
+			} else {
+				user = users.get(0);
+			}
+			
+			return user.getId();
+		}
+		
 	}
 
 }
