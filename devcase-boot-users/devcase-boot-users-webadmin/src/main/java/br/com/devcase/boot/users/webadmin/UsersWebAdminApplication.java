@@ -18,7 +18,6 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UserProfile;
-import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.stereotype.Component;
 
 import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
@@ -54,8 +53,6 @@ public class UsersWebAdminApplication {
 	{
 		@Autowired
 		private UserRepository userRepository;
-		@Autowired
-		private UsersConnectionRepository usersConnectionRepository;
 
 		@Override
 		public String execute(Connection<?> connection) {
@@ -72,8 +69,7 @@ public class UsersWebAdminApplication {
 				userRepository.save(user);
 			}
 			
-			usersConnectionRepository.createConnectionRepository(user.getName());
-			return user.getName();
+			return user.getId();
 		}
 		
 	}

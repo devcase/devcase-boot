@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
@@ -27,18 +26,15 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
-import br.com.devcase.boot.users.security.social.SocialLoginConfiguration;
-
 @Configuration
 @ConditionalOnWebApplication
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity()
 @Import({ CommonSecurityConfig.class })
 public class WebFormAuthenticationConfig {
 	public static final int WEBFORM_SECURITY_ORDER = SecurityProperties.BASIC_AUTH_ORDER + 1;
 
 	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
-	@ConditionalOnMissingBean(value=SocialLoginConfiguration.SocialWebSecurityConfigurer.class)
 	public static class WebFormSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 		public WebFormSecurityConfigurer() {

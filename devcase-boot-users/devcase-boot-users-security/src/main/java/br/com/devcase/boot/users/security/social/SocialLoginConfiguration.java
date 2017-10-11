@@ -1,12 +1,11 @@
 package br.com.devcase.boot.users.security.social;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,19 +13,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.web.SignInAdapter;
-import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -45,6 +41,8 @@ import br.com.devcase.boot.users.security.repositories.CredentialReadOnlyReposit
 import br.com.devcase.boot.users.security.repositories.GroupPermissionsReadOnlyRepository;
 import br.com.devcase.boot.users.security.repositories.UserPermissionsReadOnlyRepository;
 import br.com.devcase.boot.users.security.repositories.UserReadOnlyRepository;
+import br.com.devcase.boot.users.security.userdetails.DefaultUserDetails;
+import br.com.devcase.boot.users.security.userdetails.DefaultUserDetailsService;
 
 @Configuration
 @EnableSocial
@@ -66,16 +64,8 @@ public class SocialLoginConfiguration {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
-					.and().logout().permitAll().and().apply(new SpringSocialConfigurer());
+			http.apply(new SpringSocialConfigurer());
 		}
-
-		@Override
-		public void init(WebSecurity web) throws Exception {
-			super.init(web);
-			web.ignoring().antMatchers("/css/**", "/js/**", "/images/**", "/**/favicon.ico");
-		}
-
 	}
 
 	@Component
@@ -84,7 +74,6 @@ public class SocialLoginConfiguration {
 		@Override
 		public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
 			
-			System.out.println("SIGNIN!!!!!!!!!!!!");
 			SecurityContextHolder.getContext()
 					.setAuthentication(new UsernamePasswordAuthenticationToken(userId, null, null));
 			return null;
@@ -107,6 +96,24 @@ public class SocialLoginConfiguration {
 		
 	}
 	
+	
+	@Component
+	@ConditionalOnBean(DefaultUserDetailsService.class)
+	public static class SocialLoginUserSource implements UserIdSource {
+
+		@Override
+		public String getUserId() {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if (authentication == null) {
+				throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
+			}
+			if(authentication.getDetails() != null && authentication.getDetails() instanceof DefaultUserDetails) {
+				return ((DefaultUserDetails) authentication.getDetails()).getUserId();
+			}
+			return authentication.getName();		
+		}
+		
+	}
 
 	@Component
 	public static class SocialDetailsService implements SocialUserDetailsService {
@@ -132,14 +139,7 @@ public class SocialLoginConfiguration {
 			ArrayList<Permission> permissions = Lists.newArrayList(userPermissions);
 			permissions.addAll(groupPermissions);
 
-			return new SocialUser(user.getName(), passCred != null ? passCred.getPassword() : null, user.isEnabled(),
-					!user.isExpired(), passCred != null ? !passCred.isExpired() : true, !user.isLocked(),
-					convertToAuthorities(permissions));
-		}
-
-		private static Collection<? extends GrantedAuthority> convertToAuthorities(List<? extends Permission> roles) {
-			return roles.stream().map(s -> new SimpleGrantedAuthority("ROLE_".concat(s.getRole()))).distinct()
-					.collect(Collectors.toList());
+			return new DefaultUserDetails(user, passCred, permissions);
 		}
 
 	}

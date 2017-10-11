@@ -5,14 +5,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.stereotype.Component;
 
 import br.com.devcase.boot.users.security.repositories.UserSocialConnectionRepository;
 
@@ -23,13 +21,13 @@ class UsersConnectionRepositoryJpaDataImpl implements UsersConnectionRepository 
 	private ConnectionFactoryLocator connectionFactoryLocator;
 	@Autowired
 	private TextEncryptor textEncryptor;
+	@Autowired(required=false)
 	private ConnectionSignUp connectionSignUp;
 
 	@Override
 	public List<String> findUserIdsWithConnection(Connection<?> connection) {
 		List<String> localUserIds = userSocialConnectionRepository.findUserIdsByProviderIdAndProviderUserId(
 				connection.getKey().getProviderId(), connection.getKey().getProviderUserId());
-		
 		if (localUserIds.size() == 0 && connectionSignUp != null) {
 			String newUserId = connectionSignUp.execute(connection);
 			if (newUserId != null) {
