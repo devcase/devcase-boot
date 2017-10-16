@@ -28,12 +28,12 @@
 			</form>
 
 			<form th:action="@{/auth/facebook}" method="POST" class="mt-3">
-				<input type="hidden" th:name="${csrfToken.parameterName}" th:value="${csrfToken.token}" />
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<input type="hidden" name="scope" value="email,public_profile" />
 				<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="ion-social-facebook mr-3"></i> Login with Facebook</button>
 			</form>
 			<form th:action="@{/auth/azure-ad}" method="POST" class="mt-3">
-				<input type="hidden" th:name="${csrfToken.parameterName}" th:value="${csrfToken.token}" />
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<input type="hidden" name="scope" value="User.Read" />
 				<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="ion-social-windows mr-3"></i> Login with Office 365</button>
 			</form>
