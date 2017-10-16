@@ -1,7 +1,6 @@
 package br.com.devcase.boot.users.webadmin;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;

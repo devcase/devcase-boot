@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import br.com.devcase.boot.users.domain.entities.UserPermission;
 
 @Repository
+@PreAuthorize("hasRole('ADMIN_USERS')")
 @RepositoryRestResource(path="user-permissions", collectionResourceRel="user-permissions")
-@PreAuthorize("hasRole('ROLE_ADMIN_USERS')")
 public interface UserPermissionRepository extends CrudRepository<UserPermission, String> {
 
 }
