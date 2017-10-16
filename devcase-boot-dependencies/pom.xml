@@ -18,15 +18,12 @@
 		<jboss-metadata.version>8.0.0.Final</jboss-metadata.version>
 		<jastow.version>2.0.2.Final</jastow.version>
 		<sitemesh.version>3.0.1</sitemesh.version>
-		<spring-boot.version>2.0.0.M4</spring-boot.version>
+		<spring-boot.version>2.0.0.M5</spring-boot.version>
 		<guava.version>23.0</guava.version>
 		<kotlin.version>1.1.4-3</kotlin.version>
-		<hibernate-validator.version>6.0.2.Final</hibernate-validator.version>
 		<javax-validation.version>2.0.0.Final</javax-validation.version>
 		<glassfish-el.version>3.0.1-b08</glassfish-el.version>
-		<thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
-		<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
 		<spring.version>5.0.0.RELEASE</spring.version>
 		<spring-data-releasetrain.version>Kay-RELEASE</spring-data-releasetrain.version>
 	    <spring-security.version>5.0.0.M5</spring-security.version>

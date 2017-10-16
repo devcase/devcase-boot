@@ -56,11 +56,16 @@ export default {
 			},
 			loadData: function() {
 				var self = this;
-				$.get('/api/' + self.name + '?size=' + self.page.size + '&page=' + self.page.number, function(data) {
-					self.results = data;
-					self.contents = Object.values(data["_embedded"])[0];
-					self.page = data['page'];
-				});
+				$.ajax({
+					url: '/api/' + self.name + '?size=' + self.page.size + '&page=' + self.page.number,
+					success: function(data) {
+						self.results = data;
+						self.contents = Object.values(data["_embedded"])[0];
+						self.page = data['page'];
+					},
+					error: function() {
+					}
+				});, 
 			}
 		}, 
 		computed: {
