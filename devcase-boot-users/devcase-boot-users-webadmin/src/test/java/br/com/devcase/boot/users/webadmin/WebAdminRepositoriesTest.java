@@ -8,14 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
-import br.com.devcase.boot.users.webadmin.UsersWebAdminApplication;
 import br.com.devcase.boot.users.webadmin.repositories.CredentialRepository;
+import br.com.devcase.boot.users.webadmin.repositories.UserPermissionRepository;
 import br.com.devcase.boot.users.webadmin.repositories.UserRepository;
 
 @RunWith(SpringRunner.class)
@@ -28,14 +29,19 @@ public class WebAdminRepositoriesTest {
 	private UserRepository userRepository;
 	@Autowired
 	private CredentialRepository credentialRepository;
+	@Autowired
+	private UserPermissionRepository userPermissionRepository;
 
 	@Before
+	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void cleanDatabase() {
+		userPermissionRepository.deleteAll();
 		credentialRepository.deleteAll();
 		userRepository.deleteAll();
 	}
 	
 	@Test
+	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSaveUser() {
 		User user1 = new User();
 		user1.setName("hirata1");
@@ -43,6 +49,7 @@ public class WebAdminRepositoriesTest {
 	}
 	
 	@Test
+	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSaveUserWithInvalidUsername() {
 		User user1 = new User();
 		user1.setName("hirat a");
@@ -54,6 +61,7 @@ public class WebAdminRepositoriesTest {
 	}
 	
 	@Test
+	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSavePassword() {
 		User user1 = new User();
 		user1.setName("hirata2");
@@ -69,6 +77,7 @@ public class WebAdminRepositoriesTest {
 	}
 	
 	@Test
+	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSaveTwoPasswordsForASingleUser() {
 		User user1 = new User();
 		user1.setName("hirata3");
