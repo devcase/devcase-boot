@@ -84,7 +84,8 @@ public class SocialLoginConfiguration {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			logger.debug("Configuring http for social login ");
-			http.authorizeRequests()
+			http
+				.authorizeRequests()
 				.anyRequest().authenticated().and()
 				.formLogin().loginPage("/login").permitAll().and()
 				.logout().permitAll().and()

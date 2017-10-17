@@ -27,6 +27,7 @@
 		<spring.version>5.0.0.RELEASE</spring.version>
 		<spring-data-releasetrain.version>Kay-RELEASE</spring-data-releasetrain.version>
 		<spring-security.version>5.0.0.M5</spring-security.version>
+		<spring-security-oauth.version>2.2.0.RELEASE</spring-security-oauth.version>
 	</properties>
 
 	<profiles>
@@ -143,6 +144,11 @@
 				<artifactId>devcase-boot-users-webadmin</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-users-oauth2client</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- JAVAX -->
 			<dependency>
 				<groupId>javax.el</groupId>
@@ -205,7 +211,7 @@
 			<dependency>
 				<groupId>org.springframework.security.oauth</groupId>
 				<artifactId>spring-security-oauth2</artifactId>
-				<version>2.2.0.RELEASE</version>
+				<version>${spring-security-oauth.version}</version>
 			</dependency>
 			<!-- HIBERNATE -->
 			<dependency>

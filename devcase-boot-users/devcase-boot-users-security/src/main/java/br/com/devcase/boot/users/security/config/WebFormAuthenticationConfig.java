@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
@@ -36,7 +35,10 @@ import br.com.devcase.boot.users.security.social.SocialLoginConfiguration.Social
 @EnableWebSecurity()
 @Import({ CommonSecurityConfig.class })
 public class WebFormAuthenticationConfig {
-	public static final int WEBFORM_SECURITY_ORDER = SecurityProperties.BASIC_AUTH_ORDER + 1;
+	/**
+	 * Após {@link org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerSecurityConfiguration}
+	 */
+	public static final int WEBFORM_SECURITY_ORDER = 5; 
 
 	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
@@ -50,7 +52,7 @@ public class WebFormAuthenticationConfig {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			logger.debug("Configuring http for webform ");
+			logger.debug("Configuring http for webform");
 			http.authorizeRequests()
 				.anyRequest().authenticated().and()
 				.formLogin().loginPage("/login").permitAll().and()
