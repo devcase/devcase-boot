@@ -1,9 +1,7 @@
 package br.com.devcase.boot.users.security.web;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.LocalHostUriTemplateHandler;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,6 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import br.com.devcase.boot.users.security.config.WebFormAuthenticationConfig;
 
@@ -40,8 +42,16 @@ public class DefaultLoginFormTest {
 
 	@Test
 	public void testDefaultLoginForm() throws Exception {
-		mockMvc.perform(get("/login"))
-			.andExpect(content().string(containsString("<title>Login</title>")))
-			.andExpect(status().isOk());
+		LocalHostUriTemplateHandler t = new LocalHostUriTemplateHandler(ctx.getEnvironment());
+		
+		try (WebClient webClient = new WebClient()) {
+			webClient.getOptions().setJavaScriptEnabled(false);
+			webClient.getOptions().setCssEnabled(false);
+			
+			HtmlPage page = webClient.getPage(t.expand("/login").toString());
+			assertEquals("Login", page.getTitleText());
+			assertTrue(page.getBody().getElementsByAttribute("input", "name", "_csrf").size() > 0);
+		}
+
 	}
 }

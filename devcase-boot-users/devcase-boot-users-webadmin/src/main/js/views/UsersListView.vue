@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<router-link to="/users/create" class="btn btn-primary">Criar Usuário</router-link>
+		<router-link to="/users/create" class="btn btn-primary">{{$polyglot.t('action.create')}}</router-link>
 		<data-grid :columns="['name']" :name="'users'" class="mt-4"/>
 	</div>
 </template>

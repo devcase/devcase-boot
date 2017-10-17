@@ -29,6 +29,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -39,13 +44,12 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>**/application*.properties</include>
-					<include>**/application*.properties</include>
 				</includes>
 			</resource>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
+				<filtering>false</filtering>
 				<excludes>
-					<exclude>**/application*.properties</exclude>
 					<exclude>**/application*.properties</exclude>
 				</excludes>
 			</resource>
@@ -82,6 +86,53 @@
 							</goals>
 						</execution>
 					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>${frontend-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<!-- optional: you don't really need execution ids, but it looks nice 
+								in your build log. -->
+							<id>install node and npm</id>
+							<goals>
+								<goal>install-node-and-npm</goal>
+							</goals>
+							<!-- optional: default phase is "generate-resources" -->
+							<phase>generate-resources</phase>
+						</execution>
+						<execution>
+							<id>npm install</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<!-- optional: default phase is "generate-resources" -->
+							<phase>generate-resources</phase>
+							<configuration>
+								<!-- optional: The default argument is actually "install", so unless 
+									you need to run some other npm command, you can remove this whole <configuration> 
+									section. -->
+								<arguments>install</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm run build</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<!-- optional: default phase is "generate-resources" -->
+							<phase>generate-resources</phase>
+							<configuration>
+								<arguments>run build</arguments>
+							</configuration>
+						</execution>
+					</executions>
+					<configuration>
+						<nodeVersion>v6.11.3</nodeVersion>
+						<npmVersion>5.4.2</npmVersion>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>

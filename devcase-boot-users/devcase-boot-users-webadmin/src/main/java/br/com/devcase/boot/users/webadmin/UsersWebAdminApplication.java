@@ -1,41 +1,41 @@
 package br.com.devcase.boot.users.webadmin;
 
-import java.util.Set;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.metamodel.EntityType;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import br.com.devcase.boot.crud.jpa.repository.support.CriteriaJpaRepository;
-import br.com.devcase.boot.users.security.config.EnableWebFormAuthentication;
+import br.com.devcase.boot.users.security.config.WebFormAuthenticationConfig;
+import br.com.devcase.boot.users.security.social.EnableSocialLogin;
 
 @SpringBootApplication
-@EnableJpaRepositories(repositoryBaseClass=CriteriaJpaRepository.class)
-@PropertySource("classpath:/br/com/devcase/boot/users/webadmin/webadmin.properties")
-@EnableWebFormAuthentication
+//@EnableWebFormAuthentication
+@EnableSocialLogin
+@Import(UsersWebAdminConfiguration.class)
 public class UsersWebAdminApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UsersWebAdminApplication.class, args);
 	}
 
+	@Order(WebFormAuthenticationConfig.WEBFORM_SECURITY_ORDER - 1)
 	@Configuration
-	static class ExposeIds extends RepositoryRestConfigurerAdapter {
-		@Autowired
-		private EntityManagerFactory emf;
+	public static class ApiWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 		@Override
-		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-			Set<EntityType<?>> entities = emf.getMetamodel().getEntities();
-			config.exposeIdsFor(entities.stream().map(e -> e.getJavaType()).toArray(size -> new Class<?>[size]));
+		protected void configure(HttpSecurity http) throws Exception {
+			http.antMatcher("/api/**")
+				.authorizeRequests().anyRequest().hasRole("ADMIN_USERS").and()
+				.formLogin().disable()
+				.httpBasic().disable();
 		}
 	}
+	
+
 }

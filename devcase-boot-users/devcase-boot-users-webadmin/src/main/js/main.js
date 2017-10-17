@@ -6,12 +6,12 @@ import DataGrid from '@/components/DataGrid.vue';
 import CrudForm from '@/components/CrudForm';
 import CrudDetails from '@/components/CrudDetails';
 import InputField from '@/components/InputField';
-import polyglot from '@/polyglot';
+import PolyglotPlugin from '@/plugins/PolyglotPlugin';
 
 $(function() {
 	//setup jquery.ajax to send csrf token each post
 	$(document).ajaxSend(function( event, xhr, settings ) {
-		xhr.setRequestHeader(csrftoken.name, csrftoken.token);
+		xhr.setRequestHeader(csrftoken.headerName, csrftoken.token);
 	});
 });
 
@@ -31,15 +31,20 @@ Vue.directive('customvalidation', {
 	}
 });
 
+Vue.prototype.$csrftoken = csrftoken;
+
+Vue.use(PolyglotPlugin);
+
 Vue.component('data-grid', DataGrid);
 Vue.component('crud-form', CrudForm);
 Vue.component('crud-details', CrudDetails);
 Vue.component('input-field', InputField);
 
-
 var app = new Vue({
-	
 	router,
-	render: h => h(App)
-}).$mount('#app');
-	
+	render: function(h) { return h(App); }
+});
+
+$(document).on('messagesource.loaded', function() {
+	app.$mount('#app');
+});

@@ -4,17 +4,15 @@ import java.io.Serializable;
 import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Root;
 
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
+import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
 import org.springframework.data.querydsl.EntityPathResolver;
 
 import com.querydsl.core.types.EntityPath;
@@ -27,7 +25,7 @@ import com.querydsl.core.types.dsl.PathBuilder;
 import br.com.devcase.boot.crud.repository.criteria.Criteria;
 import br.com.devcase.boot.crud.repository.criteria.CriteriaRepository;
 
-public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJpaRepository<T, ID>
+public class CriteriaJpaRepository<T, ID extends Serializable> extends QuerydslJpaRepository<T, ID>
 		implements CriteriaRepository<T, ID> {
 
 	static EntityPathResolver resolver;
@@ -185,9 +183,12 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QueryDslJ
 //		criteria.where(cb.equal(root.get("id"), id));
 //		return em.createQuery(criteria).executeUpdate();
 		
-		T entity = findOne(id);
-		PropertyAccessorFactory.forBeanPropertyAccess(entity).setPropertyValue(propertyName, value);
-		em.flush();
+		Optional<T> optional = findById(id);
+		if(optional.isPresent()) {
+			PropertyAccessorFactory.forBeanPropertyAccess(optional.get()).setPropertyValue(propertyName, value);
+			em.flush();
+			
+		}
 	}
 
 }

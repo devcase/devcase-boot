@@ -7,7 +7,6 @@ export default withRender({
 	props: ['field', 'value' ],
 	data: function() {
 		return {
-			polyglot: polyglot
 		};
 	},
 	methods: {

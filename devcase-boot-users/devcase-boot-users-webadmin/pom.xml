@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>devcase-boot-users-webadmin</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
@@ -20,6 +20,10 @@
 				<exclusion>
 					<groupId>br.com.devcase.boot</groupId>
 					<artifactId>devcase-boot-dwftaglibs</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>br.com.devcase.boot</groupId>
+					<artifactId>devcase-boot-starter-jsp</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -46,6 +50,27 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
 		</dependency>
 	</dependencies>
 

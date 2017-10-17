@@ -1,6 +1,6 @@
 package br.com.devcase.boot.crud.jpa.repository.query;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 
 import com.google.common.collect.Lists;
@@ -52,10 +52,10 @@ public class CriteriaJpaRepositoryTest {
 	public void setUp() {
 		when(information.getJavaType()).thenReturn(ExampleDomainClass.class);
 
-		when(em.getMetamodel()).thenReturn(metamodel);
+//		when(em.getMetamodel()).thenReturn(metamodel);
 		when(em.getDelegate()).thenReturn(em);
 		when(em.getEntityManagerFactory()).thenReturn(emf);
-		when(emf.createEntityManager()).thenReturn(em);
+//		when(emf.createEntityManager()).thenReturn(em);
 		when(em.createQuery(anyString())).thenReturn(query);
 		
 		criteriaJpaRepository = spy(new CriteriaJpaRepository<>(information, em));

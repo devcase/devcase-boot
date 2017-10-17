@@ -8,6 +8,7 @@ $.ajax({
 	method: "GET",
 	success: function(messages) {
 		p.extend(messages);
+		$(document).trigger('messagesource.loaded');
 	}
 });
 

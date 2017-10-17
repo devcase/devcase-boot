@@ -22,7 +22,10 @@ public class SimplestSampleIT {
 
 	@Test
 	public void testApplicationProperties() throws Exception {
+		
+		Assert.assertNotEquals("@project.artifactId@", applicationContext.getEnvironment().getProperty("controleacesso.testefiltering"));
+		Assert.assertEquals("devcase-boot-sample-simplest", applicationContext.getEnvironment().getProperty("controleacesso.testefiltering"));
+		Assert.assertEquals("ááééç'`prकperties", applicationContext.getEnvironment().getProperty("testutf8"));
 		Assert.assertEquals("áéçdçáskj1'dfoapaêô", applicationContext.getEnvironment().getProperty("controleacesso.testeencoding"));
-		Assert.assertNotEquals("@project.version@", applicationContext.getEnvironment().getProperty("controleacesso.testefiltering"));
 	}
 }
