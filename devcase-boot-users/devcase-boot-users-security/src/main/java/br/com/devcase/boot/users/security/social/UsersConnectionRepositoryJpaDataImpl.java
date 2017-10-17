@@ -12,7 +12,7 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 
-import br.com.devcase.boot.users.security.repositories.UserSocialConnectionRepository;
+import br.com.devcase.boot.users.repositories.social.UserSocialConnectionRepository;
 
 class UsersConnectionRepositoryJpaDataImpl implements UsersConnectionRepository {
 	@Autowired

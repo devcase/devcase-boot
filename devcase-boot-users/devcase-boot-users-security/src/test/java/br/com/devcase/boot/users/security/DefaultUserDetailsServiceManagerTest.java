@@ -148,7 +148,7 @@ public class DefaultUserDetailsServiceManagerTest {
 	@Test
 	public void testAuthenticationExpiredUser() throws Exception {
 		try {
-			Authentication authentication = authenticationManager
+			authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(expiredUserLogin, password));
 			Assert.fail();
 		} catch (AuthenticationException ex) {

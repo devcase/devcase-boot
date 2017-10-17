@@ -16,7 +16,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import br.com.devcase.boot.users.domain.entities.social.UserSocialConnection;
-import br.com.devcase.boot.users.security.repositories.UserSocialConnectionRepository;
+import br.com.devcase.boot.users.repositories.social.UserSocialConnectionRepository;
 
 class SingleUserConnectionRepositoryJpaDataImpl implements ConnectionRepository {
 	private final UserSocialConnectionRepository userSocialConnectionRepository;

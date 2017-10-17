@@ -1,4 +1,4 @@
-package br.com.devcase.boot.users.security.repositories;
+package br.com.devcase.boot.users.repositories.social;
 
 import java.util.List;
 import java.util.Set;
@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import br.com.devcase.boot.users.domain.entities.social.UserSocialConnection;
 
-@RepositoryRestResource(exported=true)
+@RepositoryRestResource(path="user-social-connection")
 public interface UserSocialConnectionRepository extends CrudRepository<UserSocialConnection, String> {
 	
 	@Query(value="select u.userId from UserSocialConnection u where u.providerId = :providerId and u.providerUserId = :providerUserId  order by rank")

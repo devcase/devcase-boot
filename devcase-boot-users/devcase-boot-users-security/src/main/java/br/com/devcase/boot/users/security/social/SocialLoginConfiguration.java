@@ -47,11 +47,11 @@ import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.Permission;
 import br.com.devcase.boot.users.domain.entities.User;
 import br.com.devcase.boot.users.domain.entities.UserPermission;
+import br.com.devcase.boot.users.repositories.CredentialRepository;
+import br.com.devcase.boot.users.repositories.GroupPermissionRepository;
+import br.com.devcase.boot.users.repositories.UserPermissionRepository;
+import br.com.devcase.boot.users.repositories.UserRepository;
 import br.com.devcase.boot.users.security.config.WebFormAuthenticationConfig;
-import br.com.devcase.boot.users.security.repositories.CredentialReadOnlyRepository;
-import br.com.devcase.boot.users.security.repositories.GroupPermissionsReadOnlyRepository;
-import br.com.devcase.boot.users.security.repositories.UserPermissionsReadOnlyRepository;
-import br.com.devcase.boot.users.security.repositories.UserReadOnlyRepository;
 import br.com.devcase.boot.users.security.userdetails.DefaultUserDetails;
 import br.com.devcase.boot.users.security.userdetails.DefaultUserDetailsService;
 
@@ -142,13 +142,13 @@ public class SocialLoginConfiguration {
 	@Component
 	public static class SocialDetailsService implements SocialUserDetailsService {
 		@Autowired
-		UserReadOnlyRepository userRepository;
+		UserRepository userRepository;
 		@Autowired
-		CredentialReadOnlyRepository credentialRepository;
+		CredentialRepository credentialRepository;
 		@Autowired
-		UserPermissionsReadOnlyRepository userPermissionsReadOnlyRepository;
+		UserPermissionRepository userPermissionReadOnlyRepository;
 		@Autowired
-		GroupPermissionsReadOnlyRepository groupPermissionsReadOnlyRepository;
+		GroupPermissionRepository groupPermissionReadOnlyRepository;
 
 		@Override
 		public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
@@ -158,8 +158,8 @@ public class SocialLoginConfiguration {
 			}
 			User user = u.get();
 			PasswordCredential passCred = credentialRepository.findPasswordCredentialByUser(user);
-			List<UserPermission> userPermissions = userPermissionsReadOnlyRepository.findValidByUser(user);
-			List<GroupPermission> groupPermissions = groupPermissionsReadOnlyRepository.findValidByUser(user);
+			List<UserPermission> userPermissions = userPermissionReadOnlyRepository.findValidByUser(user);
+			List<GroupPermission> groupPermissions = groupPermissionReadOnlyRepository.findValidByUser(user);
 			ArrayList<Permission> permissions = Lists.newArrayList(userPermissions);
 			permissions.addAll(groupPermissions);
 

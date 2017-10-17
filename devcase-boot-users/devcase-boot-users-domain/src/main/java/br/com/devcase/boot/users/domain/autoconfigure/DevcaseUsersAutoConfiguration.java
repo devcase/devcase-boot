@@ -7,6 +7,7 @@ import br.com.devcase.boot.users.domain.DevcaseUsersConfig;
 
 @Configuration
 @Import(DevcaseUsersConfig.class)
+
 public class DevcaseUsersAutoConfiguration {
 
 }

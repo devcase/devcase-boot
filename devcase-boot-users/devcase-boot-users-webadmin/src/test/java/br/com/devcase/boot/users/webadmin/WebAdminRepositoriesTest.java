@@ -15,9 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
-import br.com.devcase.boot.users.webadmin.repositories.CredentialRepository;
-import br.com.devcase.boot.users.webadmin.repositories.UserPermissionRepository;
-import br.com.devcase.boot.users.webadmin.repositories.UserRepository;
+import br.com.devcase.boot.users.repositories.CredentialRepository;
+import br.com.devcase.boot.users.repositories.UserPermissionRepository;
+import br.com.devcase.boot.users.repositories.UserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
@@ -33,7 +33,6 @@ public class WebAdminRepositoriesTest {
 	private UserPermissionRepository userPermissionRepository;
 
 	@Before
-	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void cleanDatabase() {
 		userPermissionRepository.deleteAll();
 		credentialRepository.deleteAll();
@@ -41,7 +40,6 @@ public class WebAdminRepositoriesTest {
 	}
 	
 	@Test
-	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSaveUser() {
 		User user1 = new User();
 		user1.setName("hirata1");
@@ -49,7 +47,6 @@ public class WebAdminRepositoriesTest {
 	}
 	
 	@Test
-	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSaveUserWithInvalidUsername() {
 		User user1 = new User();
 		user1.setName("hirat a");
@@ -61,7 +58,6 @@ public class WebAdminRepositoriesTest {
 	}
 	
 	@Test
-	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSavePassword() {
 		User user1 = new User();
 		user1.setName("hirata2");
@@ -77,7 +73,6 @@ public class WebAdminRepositoriesTest {
 	}
 	
 	@Test
-	@WithMockUser(value="root", roles="ADMIN_USERS")
 	public void testSaveTwoPasswordsForASingleUser() {
 		User user1 = new User();
 		user1.setName("hirata3");

@@ -17,21 +17,21 @@ import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.Permission;
 import br.com.devcase.boot.users.domain.entities.User;
 import br.com.devcase.boot.users.domain.entities.UserPermission;
-import br.com.devcase.boot.users.security.repositories.CredentialReadOnlyRepository;
-import br.com.devcase.boot.users.security.repositories.GroupPermissionsReadOnlyRepository;
-import br.com.devcase.boot.users.security.repositories.UserPermissionsReadOnlyRepository;
-import br.com.devcase.boot.users.security.repositories.UserReadOnlyRepository;
+import br.com.devcase.boot.users.repositories.CredentialRepository;
+import br.com.devcase.boot.users.repositories.GroupPermissionRepository;
+import br.com.devcase.boot.users.repositories.UserPermissionRepository;
+import br.com.devcase.boot.users.repositories.UserRepository;
 
 public class DefaultUserDetailsService implements UserDetailsService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
-	UserReadOnlyRepository userRepository;
+	UserRepository userRepository;
 	@Autowired
-	CredentialReadOnlyRepository credentialRepository;
+	CredentialRepository credentialRepository;
 	@Autowired
-	UserPermissionsReadOnlyRepository userPermissionsReadOnlyRepository;
+	UserPermissionRepository userPermissionReadOnlyRepository;
 	@Autowired
-	GroupPermissionsReadOnlyRepository groupPermissionsReadOnlyRepository;
+	GroupPermissionRepository groupPermissionReadOnlyRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,8 +40,8 @@ public class DefaultUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("User not found");
 		}
 		PasswordCredential passCred = credentialRepository.findPasswordCredentialByUser(user);
-		List<UserPermission> userPermissions = userPermissionsReadOnlyRepository.findValidByUser(user);
-		List<GroupPermission> groupPermissions = groupPermissionsReadOnlyRepository.findValidByUser(user);
+		List<UserPermission> userPermissions = userPermissionReadOnlyRepository.findValidByUser(user);
+		List<GroupPermission> groupPermissions = groupPermissionReadOnlyRepository.findValidByUser(user);
 		ArrayList<Permission> permissions = Lists.newArrayList(userPermissions);
 		permissions.addAll(groupPermissions);
 		
