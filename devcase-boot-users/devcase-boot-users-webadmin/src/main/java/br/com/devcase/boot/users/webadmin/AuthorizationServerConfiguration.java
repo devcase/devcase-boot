@@ -27,10 +27,12 @@ import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.social.security.SocialUserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.common.collect.Maps;
+
+import br.com.devcase.boot.users.domain.entities.User;
+import br.com.devcase.boot.users.repositories.UserRepository;
 
 @Configuration
 @EnableAuthorizationServer
@@ -74,6 +76,9 @@ public class AuthorizationServerConfiguration {
 	@FrameworkEndpoint
 	public static class UserInfoController {
 
+		@Autowired
+		private UserRepository userRepository;
+		
 		@RequestMapping("/userinfo")
 		public ResponseEntity<Map<String, Object>> userInfo() {
 
@@ -82,46 +87,43 @@ public class AuthorizationServerConfiguration {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
-			Object authenticationDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-			UserDetails userDetails = authenticationDetails instanceof UserDetails ? (UserDetails) authenticationDetails
-					: null;
-			
-			SocialUserDetails defaultUserDetails = authenticationDetails instanceof SocialUserDetails ? (SocialUserDetails) authenticationDetails : null;
+			String username = authentication.getPrincipal() instanceof String ? (String) authentication.getPrincipal()
+					: authentication.getDetails() instanceof String ? (String) authentication.getDetails()
+							: authentication.getDetails() instanceof UserDetails
+									? ((UserDetails) authentication.getDetails()).getUsername()
+									: null;
 
 			Map<String, Object> claims = Maps.newHashMap();
-			if(userDetails != null) {
-				claims.put("sub", defaultUserDetails != null ?  defaultUserDetails.getUserId() : userDetails.getUsername());
-				claims.put("username", userDetails.getUsername());
+			claims.put("username", username);
+			if (username != null) {
+				User user = userRepository.findByName(username);
+				claims.put("sub", user.getId());
 			}
 			return new ResponseEntity<>(claims, HttpStatus.OK);
 		}
 	}
-	
+
 	@Order(4)
 	@Configuration
 	public static class UserInfoSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		@Autowired
 		private TokenStore tokenStore;
-		
+
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			ResourceServerSecurityConfigurer resources = new ResourceServerSecurityConfigurer();
 			if (tokenStore != null) {
 				resources.tokenStore(tokenStore);
 			}
-			
+
 			// @formatter:off
-			http.requestMatchers().antMatchers("/userinfo").and()
-				.authorizeRequests().anyRequest().permitAll().and()
-				.exceptionHandling().accessDeniedHandler(resources.getAccessDeniedHandler()).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.csrf().disable()
-				.apply(resources);
+			http.requestMatchers().antMatchers("/userinfo").and().authorizeRequests().anyRequest().permitAll().and()
+					.exceptionHandling().accessDeniedHandler(resources.getAccessDeniedHandler()).and()
+					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
+					.apply(resources);
 			// @formatter:on
 		}
-		
-		
+
 	}
-	
+
 }
