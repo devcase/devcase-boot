@@ -28,6 +28,7 @@
 		<spring-data-releasetrain.version>Kay-RELEASE</spring-data-releasetrain.version>
 		<spring-security.version>5.0.0.M5</spring-security.version>
 		<spring-security-oauth.version>2.2.0.RELEASE</spring-security-oauth.version>
+		<firebase-admin.version>5.2.0</firebase-admin.version>
 	</properties>
 
 	<profiles>
@@ -230,6 +231,11 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
+			</dependency>
+			<dependency>
+			  <groupId>com.google.firebase</groupId>
+			  <artifactId>firebase-admin</artifactId>
+			  <version>${firebase-admin.version}</version>
 			</dependency>
 			<!-- JBOSS -->
 			<dependency>

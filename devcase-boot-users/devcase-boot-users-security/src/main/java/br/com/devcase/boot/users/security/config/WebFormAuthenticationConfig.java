@@ -1,5 +1,7 @@
 package br.com.devcase.boot.users.security.config;
 
+import java.util.Collections;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,6 +78,8 @@ public class WebFormAuthenticationConfig {
 		private ThymeleafViewResolver viewResolver;
 		@Autowired
 		private LocaleResolver localeResolver;
+		@Autowired(required=false)
+		private ConnectionFactoryLocator connectionFactoryLocator;
 
 		@RequestMapping("/login")
 		View loginForm(HttpServletRequest request, Model model) throws Exception {
@@ -88,6 +93,12 @@ public class WebFormAuthenticationConfig {
 				String errorMsg = ex != null ? ex.getMessage() : "";
 				errorMsg = StringEscapeUtils.escapeEcmaScript(errorMsg);
 				model.addAttribute("authenticationErrorMessage", errorMsg);
+			}
+			
+			if(connectionFactoryLocator != null) {
+				model.addAttribute("registeredProviderIds", connectionFactoryLocator.registeredProviderIds());
+			} else {
+				model.addAttribute("registeredProviderIds", Collections.EMPTY_SET);
 			}
 			return viewResolver.resolveViewName("login", localeResolver.resolveLocale(request));
 		}

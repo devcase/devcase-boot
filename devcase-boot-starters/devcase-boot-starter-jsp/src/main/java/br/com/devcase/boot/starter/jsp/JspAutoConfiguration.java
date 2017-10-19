@@ -18,7 +18,7 @@ public class JspAutoConfiguration {
 	public InternalResourceViewResolver jstlViewResolver() {
 		InternalResourceViewResolver v = new InternalResourceViewResolver("/WEB-INF/jsp/", ".jsp");
 		v.setViewClass(JstlView.class);
-		v.setOrder(Ordered.LOWEST_PRECEDENCE - 6);
+		v.setOrder(Ordered.LOWEST_PRECEDENCE - 6); //before thymeleafViewResolver
 		return v;
 	}
 }
