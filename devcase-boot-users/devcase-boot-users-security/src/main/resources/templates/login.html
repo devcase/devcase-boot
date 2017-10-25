@@ -13,7 +13,7 @@
 	<div class="container">
 		<div class="card card-body mt-5 mx-auto card-login">
 			<form th:action="@{/login}" method="POST" class="form-login " accept-charset="ISO-8859-1">
-				<h1 class="form-login-heading">Login</h1>
+				<h1 class="form-login-heading"></h1>
 				<div id="errormessagecontainer" class="text-danger" th:if="${!#strings.isEmpty(authenticationErrorMessage)}" th:text="${authenticationErrorMessage}"></div>
 				<div class="form-group">
 					<label for="username" class="sr-only">Login</label>
