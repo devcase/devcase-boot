@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.metamodel.EntityType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -48,6 +49,7 @@ public class WebCrudAutoConfiguration {
 	}
 	
 	@Configuration
+	@ConditionalOnBean(value=EntityManagerFactory.class)
 	static class ExposeIds extends RepositoryRestConfigurerAdapter {
 		@Autowired
 		private EntityManagerFactory emf;
