@@ -1,13 +1,20 @@
 package br.com.devcase.boot.webcrud.autoconfigure;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.metamodel.EntityType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import br.com.devcase.boot.webcrud.criteria.CriteriaSourceArgumentResolver;
 
@@ -29,7 +36,7 @@ public class WebCrudAutoConfiguration {
 		}
 
 		@Configuration
-		static class WebMvcConfigurer extends WebMvcConfigurerAdapter {
+		static class WebMvcCriteriaConfigurer implements WebMvcConfigurer {
 
 			@Autowired
 			private CriteriaSourceArgumentResolver criteriaSourceArgumentResolver;
@@ -38,6 +45,19 @@ public class WebCrudAutoConfiguration {
 			public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 				argumentResolvers.add(criteriaSourceArgumentResolver);
 			}
+		}
+	}
+	
+	@Configuration
+	@ConditionalOnBean(value=EntityManagerFactory.class)
+	static class ExposeIds extends RepositoryRestConfigurerAdapter {
+		@Autowired
+		private EntityManagerFactory emf;
+
+		@Override
+		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+			Set<EntityType<?>> entities = emf.getMetamodel().getEntities();
+			config.exposeIdsFor(entities.stream().map(e -> e.getJavaType()).toArray(size -> new Class<?>[size]));
 		}
 	}
 

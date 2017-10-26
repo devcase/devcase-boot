@@ -3,7 +3,8 @@ body {
 }
 
 .card-login {
-	max-width: 400px;
+    max-width: 360px;
+    box-shadow: rgba(0,0,0,0.3) 0px 2px 2px;
 }
 
 .form-login-heading {

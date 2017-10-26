@@ -19,6 +19,8 @@
 		<module>devcase-boot-users-webadmin</module>
 		<module>devcase-boot-users-samples</module>
 		<module>devcase-boot-users-security</module>
+		<module>devcase-boot-users-oauth2client</module>
+		<module>devcase-boot-users-dbmigrations</module>
 	</modules>
 
 </project>
