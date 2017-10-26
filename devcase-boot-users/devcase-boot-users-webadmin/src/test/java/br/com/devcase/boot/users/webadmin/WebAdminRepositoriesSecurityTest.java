@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(classes = { UsersWebAdminApplication.class, TestUsersConfig.class } )
+@ContextConfiguration(classes = { UsersWebAdminApplication.class, TestDataSetup.class } )
 @EnableAutoConfiguration
 @ActiveProfiles({ "test", "test-h2" })
 public class WebAdminRepositoriesSecurityTest {

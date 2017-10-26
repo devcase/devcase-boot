@@ -9,7 +9,7 @@ import br.com.devcase.boot.users.domain.entities.User;
 @Repository
 @RepositoryRestResource(path="users", collectionResourceRel="users")
 public interface UserRepository extends CriteriaRepository<User, String> {
-	User findByName(String name);
-	long countByName(String name);
+	User findByUsername(String username);
+	long countByUsername(String username);
 
 }

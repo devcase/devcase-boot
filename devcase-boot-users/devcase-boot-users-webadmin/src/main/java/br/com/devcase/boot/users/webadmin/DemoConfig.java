@@ -33,9 +33,9 @@ public class DemoConfig {
 	public void loadRootUser() {
 		final String password = "root";
 		final String login = "root";
-		if(em.createQuery("select e from User e where e.name = :name").setParameter("name", login).getResultList().isEmpty()) {
+		if(em.createQuery("select e from User e where e.username = :username").setParameter("username", login).getResultList().isEmpty()) {
 			User user1 = new User();
-			user1.setName(login);
+			user1.setUsername(login);
 			em.persist(user1);
 			PasswordCredential credential = new PasswordCredential();
 			credential.setUser(user1);
@@ -52,9 +52,9 @@ public class DemoConfig {
 	public void loadGuestUser() {
 		final String password = "guest";
 		final String login = "guest";
-		if(em.createQuery("select e from User e where e.name = :name").setParameter("name", login).getResultList().isEmpty()) {
+		if(em.createQuery("select e from User e where e.username = :username").setParameter("username", login).getResultList().isEmpty()) {
 			User user1 = new User();
-			user1.setName(login);
+			user1.setUsername(login);
 //			user1.setRoles(Lists.newArrayList("ROLE_USER"));
 			em.persist(user1);
 			PasswordCredential credential = new PasswordCredential();

@@ -183,13 +183,13 @@ public class SocialLoginConfiguration {
 			
 			String username = up.getEmail() == null ? up.getUsername() : up.getEmail();
 			
-			List<User> users = em.createQuery("select u from User u where u.name = :name").setParameter("name", username).setLockMode(LockModeType.NONE).getResultList();
+			List<User> users = em.createQuery("select u from User u where u.username = :username").setParameter("username", username).setLockMode(LockModeType.NONE).getResultList();
 			
 			ConnectionData cd = connection.createData();
 			User user;
 			if(users.size() == 0) {
 				user = new User();
-				user.setName(username);
+				user.setUsername(username);
 				user.setEnabled(true);
 				user.setLocked(false);
 				user.setValidUntil(cd.getExpireTime() == null ? null : new Date(cd.getExpireTime()));

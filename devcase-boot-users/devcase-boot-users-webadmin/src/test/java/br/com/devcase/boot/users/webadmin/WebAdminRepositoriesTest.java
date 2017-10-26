@@ -41,14 +41,14 @@ public class WebAdminRepositoriesTest {
 	@Test
 	public void testSaveUser() {
 		User user1 = new User();
-		user1.setName("hirata1");
+		user1.setUsername("hirata1");
 		userRepository.save(user1);
 	}
 	
 	@Test
 	public void testSaveUserWithInvalidUsername() {
 		User user1 = new User();
-		user1.setName("hirat a");
+		user1.setUsername("hirat a");
 		try {
 			userRepository.save(user1);
 			Assert.fail();
@@ -59,7 +59,7 @@ public class WebAdminRepositoriesTest {
 	@Test
 	public void testSavePassword() {
 		User user1 = new User();
-		user1.setName("hirata2");
+		user1.setUsername("hirata2");
 		userRepository.save(user1);
 		
 		PasswordCredential credential = new PasswordCredential();
@@ -74,7 +74,7 @@ public class WebAdminRepositoriesTest {
 	@Test
 	public void testSaveTwoPasswordsForASingleUser() {
 		User user1 = new User();
-		user1.setName("hirata3");
+		user1.setUsername("hirata3");
 		userRepository.save(user1);
 		
 		PasswordCredential credential = new PasswordCredential();

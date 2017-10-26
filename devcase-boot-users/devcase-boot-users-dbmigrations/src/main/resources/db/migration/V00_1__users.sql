@@ -44,7 +44,7 @@
         valid_until datetime(6),
         enabled bit not null,
         locked bit not null,
-        name varchar(255),
+        username varchar(255),
         primary key (id)
     );
 
@@ -95,7 +95,7 @@
        add constraint UK_1xrh0ea69lj5eat0l1umx8ukk unique (client_id);
 
     alter table user 
-       add constraint UK_t8tbwelrnviudxdaggwr1kd9b unique (name);
+       add constraint UK_t8tbwelrnviudxdaggwr1kd9b unique (username);
 
     alter table user_social_connection 
        add constraint UK_r5oe69d8wnxcqcrqj8y7440bf unique (provider_id, provider_user_id, user_id);

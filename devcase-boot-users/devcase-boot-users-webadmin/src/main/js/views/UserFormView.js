@@ -8,7 +8,7 @@ export default withRender({
 		return {
 			entity: {},
 			fields: [
-				{ name: 'name', entityName: 'user', required: true, type: 'text' },
+				{ name: 'username', entityName: 'user', required: true, type: 'text' },
 				{ name: 'locked', entityName: 'user', required: true, type: 'boolean' },
 				{ name: 'enabled', entityName: 'user', required: true, type: 'boolean' }
 			]

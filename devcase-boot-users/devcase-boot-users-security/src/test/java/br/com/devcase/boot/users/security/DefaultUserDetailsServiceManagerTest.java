@@ -79,11 +79,11 @@ public class DefaultUserDetailsServiceManagerTest {
 			tx = em.getTransaction();
 			tx.begin();
 			User user1 = new User();
-			user1.setName(validUserLogin);
+			user1.setUsername(validUserLogin);
 			em.persist(user1);
 
 			User user2 = new User();
-			user2.setName(expiredUserLogin);
+			user2.setUsername(expiredUserLogin);
 			user2.setValidUntil(Date.from(Instant.now().minusSeconds(60 * 60 * 24)));
 			em.persist(user2);
 

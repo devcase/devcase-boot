@@ -13,18 +13,18 @@ public class User extends BasicEntity {
 
 	@Pattern(regexp = "^[?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+@]{3,}")
 	@NaturalId(mutable = true)
-	private String name;
+	private String username;
 	@ManyToMany
 	private List<UserGroup> groups;
 	private boolean locked = false;
 	private boolean enabled = true;
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public boolean isLocked() {
