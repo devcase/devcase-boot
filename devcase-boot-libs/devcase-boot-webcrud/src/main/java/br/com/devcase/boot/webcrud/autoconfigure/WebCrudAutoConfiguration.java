@@ -7,12 +7,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.metamodel.EntityType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -20,6 +23,7 @@ import br.com.devcase.boot.webcrud.criteria.CriteriaSourceArgumentResolver;
 
 @Configuration
 @PropertySource(value="classpath:/br/com/devcase/boot/webcrud/properties/web-crud.properties")
+@AutoConfigureAfter(value=RepositoryRestMvcAutoConfiguration.class)
 public class WebCrudAutoConfiguration {
 
 	/**
@@ -49,8 +53,8 @@ public class WebCrudAutoConfiguration {
 	}
 	
 	@Configuration
-	@ConditionalOnBean(value=EntityManagerFactory.class)
-	static class ExposeIds extends RepositoryRestConfigurerAdapter {
+	@ConditionalOnBean(value=RepositoryRestMvcConfiguration.class)
+	public static class ExposeIds extends RepositoryRestConfigurerAdapter {
 		@Autowired
 		private EntityManagerFactory emf;
 
