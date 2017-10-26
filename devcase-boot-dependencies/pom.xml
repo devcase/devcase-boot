@@ -150,6 +150,11 @@
 				<artifactId>devcase-boot-users-oauth2client</artifactId>
 				<version>0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>br.com.devcase.boot</groupId>
+				<artifactId>devcase-boot-users-dbmigrations</artifactId>
+				<version>0.1-SNAPSHOT</version>
+			</dependency>
 			
 			<!-- JAVAX -->
 			<dependency>
@@ -214,6 +219,11 @@
 				<groupId>org.springframework.security.oauth</groupId>
 				<artifactId>spring-security-oauth2</artifactId>
 				<version>${spring-security-oauth.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-jwt</artifactId>
+				<version>1.0.8.RELEASE</version>
 			</dependency>
 			<!-- HIBERNATE -->
 			<dependency>
