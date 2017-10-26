@@ -11,9 +11,9 @@ import br.com.devcase.boot.crud.repository.IdentifierExtractor;
 import br.com.devcase.boot.crud.repository.PropertyUpdate;
 
 public interface CriteriaRepository<T, ID extends Serializable> extends PagingAndSortingRepository<T, ID>, IdentifierExtractor<T, ID>, PropertyUpdate<ID> {
-	Page<T> findAll(List<Criteria> criteria, Pageable pageable);
-	List<T> findAll(List<Criteria> criteria);
-	Page<T> findAll(Pageable pageable, Criteria... criteria);
-	List<T> findAll(Criteria... criteria);
+	Page<T> findAll(@SuppressWarnings("rawtypes") List<Criteria> criteria, Pageable pageable);
+	List<T> findAll(@SuppressWarnings("rawtypes") List<Criteria> criteria);
+	Page<T> findAll(Pageable pageable, @SuppressWarnings("rawtypes") Criteria... criteria);
+	List<T> findAll(@SuppressWarnings("rawtypes") Criteria... criteria);
 	
 }
