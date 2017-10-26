@@ -20,8 +20,8 @@ public class WebAutoConfiguration {
 	static class I18nConfiguration {
 		@Bean
 		@Autowired
-		public FilterRegistrationBean localeChangeFilter(final LocaleResolver localeResolver) {
-			return new FilterRegistrationBean(new LocaleChangeFilter(localeResolver));
+		public FilterRegistrationBean<LocaleChangeFilter> localeChangeFilter(final LocaleResolver localeResolver) {
+			return new FilterRegistrationBean<>(new LocaleChangeFilter(localeResolver));
 		}
 
 		@Bean

@@ -53,6 +53,7 @@ public class CampanhaRepositoryIT {
 	}
 
 	@Test
+	@SuppressWarnings({"rawtypes"})
 	public void testFindByFilter() throws Exception {
 		final LocalDate today = LocalDate.now();
 		for (int i = 0; i < 30; i++) {

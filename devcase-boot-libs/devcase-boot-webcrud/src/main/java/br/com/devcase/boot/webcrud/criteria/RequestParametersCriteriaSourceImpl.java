@@ -26,6 +26,7 @@ public class RequestParametersCriteriaSourceImpl implements CriteriaSource {
 	}
 
 	@Override
+	@SuppressWarnings("rawtypes")
 	public <T> List<Criteria> getCriteria(Class<T> domainClass) {
 		
 		List<Criteria> criteriaList = Lists.newArrayList();
@@ -56,7 +57,8 @@ public class RequestParametersCriteriaSourceImpl implements CriteriaSource {
 		}
 		return criteriaList;
 	}
-
+	
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private void createCriteria(List<Criteria> criteriaList, Class<?> propertyType, String propertyName) {
 		String[] values = webRequest.getParameterValues(propertyName);
 		if(values != null && values.length == 1) {
