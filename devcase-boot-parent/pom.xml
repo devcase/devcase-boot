@@ -118,21 +118,19 @@
 							</configuration>
 						</execution>
 						<execution>
-							<id>npm run build</id>
+							<id>webpack</id>
 							<goals>
-								<goal>npm</goal>
+								<goal>webpack</goal>
 							</goals>
 							<!-- optional: default phase is "generate-resources" -->
 							<phase>generate-resources</phase>
-							<configuration>
-								<arguments>run build</arguments>
-							</configuration>
 						</execution>
 					</executions>
 					<configuration>
 						<nodeVersion>v6.11.3</nodeVersion>
 						<npmVersion>5.4.2</npmVersion>
-					</configuration>
+    					<installDirectory>.frontend-maven-plugin</installDirectory>
+    				</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>

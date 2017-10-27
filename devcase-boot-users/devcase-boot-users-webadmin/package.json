@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.conf.js",
+    "build": "webpack",
     "watch": "webpack --config webpack.dev.conf.js --watch"
   },
   "keywords": [],
