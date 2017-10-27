@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>br.com.devcase.boot</groupId>
-    <artifactId>devcase-boot-parent</artifactId>
-    <version>0.1-SNAPSHOT</version>
-    <relativePath>../devcase-boot-parent</relativePath>
-  </parent>
+	<parent>
+		<groupId>br.com.devcase.boot</groupId>
+		<artifactId>devcase-boot-parent</artifactId>
+		<version>0.1-SNAPSHOT</version>
+		<relativePath>../devcase-boot-parent</relativePath>
+	</parent>
 
-  <artifactId>devcase-boot-samples</artifactId>
-  <packaging>pom</packaging>
+	<artifactId>devcase-boot-samples</artifactId>
+	<packaging>pom</packaging>
 
-  <modules>
-  	<module>devcase-boot-sample-simplest</module>
-  	<module>devcase-boot-sample-webapp</module>
-  	<module>devcase-boot-sample-crud</module>
-  	<module>devcase-boot-sample-webcrud</module>
-  	<module>devcase-boot-sample-taglib</module>
-  	<module>devcase-boot-sample-sitemesh</module>
-  	<module>devcase-boot-sample-dwftaglibs</module>
-  	<module>devcase-boot-sample-oauth-sso</module>
-  	<module>devcase-boot-sample-kotlin</module>
-  	<module>devcase-boot-sample-validation</module>
-  </modules>
+	<modules>
+		<module>devcase-boot-sample-simplest</module>
+		<module>devcase-boot-sample-webapp</module>
+		<module>devcase-boot-sample-crud</module>
+		<module>devcase-boot-sample-webcrud</module>
+		<module>devcase-boot-sample-taglib</module>
+		<module>devcase-boot-sample-sitemesh</module>
+		<module>devcase-boot-sample-dwftaglibs</module>
+		<module>devcase-boot-sample-oauth-sso</module>
+		<module>devcase-boot-sample-kotlin</module>
+		<module>devcase-boot-sample-validation</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 </project>
