@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
 import br.com.devcase.boot.users.domain.entities.social.UserSocialConnection;
 
-@RepositoryRestResource(path="user-social-connection")
+@Repository
+@RepositoryRestResource(exported=false)
 public interface UserSocialConnectionRepository extends CrudRepository<UserSocialConnection, String> {
 	
 	@Query(value="select u.userId from UserSocialConnection u where u.providerId = :providerId and u.providerUserId = :providerUserId  order by rank")

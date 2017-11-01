@@ -13,8 +13,12 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +35,11 @@ public class MessageSourceController {
 	private int cacheSeconds = -1;
 	@Autowired
 	private LocaleResolver localeResolver;
+	@Value("${devcase.messages.client-cache:true}")
+	private boolean clientCache;
 	
 	private final Map<Locale, Map<String, String>> messages = new HashMap<>();
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 
 	@PostConstruct
@@ -52,6 +59,8 @@ public class MessageSourceController {
 	public Map<String, String> getMessagesMap(Locale locale) {
 		//TODO - expiração de mensagens
 		if(!messages.containsKey(locale) || cacheSeconds == 0) {
+			logger.info("Loading bundles");
+			ResourceBundle.clearCache();
 			loadBundles(locale);
 		} 
 		return messages.get(locale);
@@ -70,8 +79,12 @@ public class MessageSourceController {
 	}
 
 	@RequestMapping("/messagesource")
-	public Map<String, String> messageSource(HttpServletRequest request) {
+	public ResponseEntity<Map<String, String>> messageSource(HttpServletRequest request) {
 		Locale locale = localeResolver.resolveLocale(request);
-		return getMessagesMap(locale);
+		Map<String, String> messagesMap = getMessagesMap(locale);
+		
+		//monta response entity
+		ResponseEntity<Map<String, String>> response = new ResponseEntity<>(messagesMap, HttpStatus.OK);
+		return response;
 	}
 }
