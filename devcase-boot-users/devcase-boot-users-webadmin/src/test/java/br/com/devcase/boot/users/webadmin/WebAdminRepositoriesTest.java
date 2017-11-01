@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,6 +24,7 @@ import br.com.devcase.boot.users.repositories.UserRepository;
 @ContextConfiguration(classes = UsersWebAdminApplication.class)
 @EnableAutoConfiguration
 @ActiveProfiles({"test", "test-h2"})
+@DirtiesContext
 public class WebAdminRepositoriesTest {
 	@Autowired
 	private UserRepository userRepository;
@@ -41,14 +43,14 @@ public class WebAdminRepositoriesTest {
 	@Test
 	public void testSaveUser() {
 		User user1 = new User();
-		user1.setName("hirata1");
+		user1.setUsername("hirata1");
 		userRepository.save(user1);
 	}
 	
 	@Test
 	public void testSaveUserWithInvalidUsername() {
 		User user1 = new User();
-		user1.setName("hirat a");
+		user1.setUsername("hirat a");
 		try {
 			userRepository.save(user1);
 			Assert.fail();
@@ -59,7 +61,7 @@ public class WebAdminRepositoriesTest {
 	@Test
 	public void testSavePassword() {
 		User user1 = new User();
-		user1.setName("hirata2");
+		user1.setUsername("hirata2");
 		userRepository.save(user1);
 		
 		PasswordCredential credential = new PasswordCredential();
@@ -74,7 +76,7 @@ public class WebAdminRepositoriesTest {
 	@Test
 	public void testSaveTwoPasswordsForASingleUser() {
 		User user1 = new User();
-		user1.setName("hirata3");
+		user1.setUsername("hirata3");
 		userRepository.save(user1);
 		
 		PasswordCredential credential = new PasswordCredential();

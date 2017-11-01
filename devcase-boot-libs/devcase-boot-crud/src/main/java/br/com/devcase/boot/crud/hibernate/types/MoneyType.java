@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.BigDecimalType;
 import org.hibernate.type.StringType;
@@ -23,6 +22,7 @@ public class MoneyType implements UserType {
 		return SQL_TYPES;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Class returnedClass() {
 		return Money.class;

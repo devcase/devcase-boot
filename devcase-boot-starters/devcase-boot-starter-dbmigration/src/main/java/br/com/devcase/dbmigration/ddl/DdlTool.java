@@ -40,6 +40,7 @@ public class DdlTool {
 	@Autowired
 	private DataSource dataSource;
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public String generateUpdateScript() {
 		List<Class> annotatedClasses = entityManagerFactoryBean.getPersistenceUnitInfo().getManagedClassNames().stream()
 				.map(v -> {
@@ -81,7 +82,7 @@ public class DdlTool {
 		config.put(AvailableSettings.HBM2DDL_DELIMITER, ";");
 		config.put(AvailableSettings.FORMAT_SQL, true);
 
-		final SchemaManagementTool tool = serviceRegistry.getService(SchemaManagementTool.class);
+//		final SchemaManagementTool tool = serviceRegistry.getService(SchemaManagementTool.class);
 
 		final ExceptionHandlerCollectingImpl exceptionHandler = new ExceptionHandlerCollectingImpl();
 		final ExecutionOptions executionOptions = SchemaManagementToolCoordinator.buildExecutionOptions(config,

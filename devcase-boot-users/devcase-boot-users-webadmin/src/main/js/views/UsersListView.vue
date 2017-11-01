@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<router-link to="/users/create" class="btn btn-primary">{{$polyglot.t('action.create')}}</router-link>
-		<data-grid :columns="['name']" :name="'users'" class="mt-4"/>
+		<data-grid :columns="['username']" :name="'users'" class="mt-4"/>
 	</div>
 </template>
 

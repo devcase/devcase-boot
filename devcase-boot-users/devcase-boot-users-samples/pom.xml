@@ -14,4 +14,18 @@
   <modules>
   	<module>devcase-boot-users-sample-webapp</module>
   </modules>
+  
+  <build>
+  
+  	<plugins>
+  				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+  	
+  	</plugins>
+  </build>
 </project>

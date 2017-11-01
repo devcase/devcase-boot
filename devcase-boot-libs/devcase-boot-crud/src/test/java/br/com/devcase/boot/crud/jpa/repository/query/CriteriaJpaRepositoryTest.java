@@ -62,6 +62,7 @@ public class CriteriaJpaRepositoryTest {
 	}
 	
 	@Test
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void testFilterJpaRepository() {
 		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
 					new Criteria("name", Operation.EQ, "Fulano de tal", String.class),
@@ -80,6 +81,7 @@ public class CriteriaJpaRepositoryTest {
 	}
 	
 	@Test
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void testStringOperations() {
 		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
 					new Criteria("name", Operation.EQ, "Fulano de tal", String.class),
@@ -100,6 +102,7 @@ public class CriteriaJpaRepositoryTest {
 	}
 	
 	@Test
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void testNumericOperations() {
 		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
 				new Criteria("weight", Operation.EQ, 1L, Long.class),
@@ -127,6 +130,7 @@ public class CriteriaJpaRepositoryTest {
 	}
 
 	@Test
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void testLocalDateOperations() {
 		LocalDate ld = LocalDate.of(2017, 9, 16);
 		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(
@@ -155,6 +159,7 @@ public class CriteriaJpaRepositoryTest {
 	}
 
 	@Test
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void testDateOperations() {
 		ZonedDateTime ld = LocalDate.of(2017, 9, 16).atStartOfDay(ZoneId.of("America/Sao_Paulo"));
 		List<Criteria> sampleCriteria = (List<Criteria>) Lists.newArrayList(

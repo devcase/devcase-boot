@@ -22,7 +22,7 @@ public class DefaultUserDetails extends User implements SocialUserDetails  {
 
 	public DefaultUserDetails(br.com.devcase.boot.users.domain.entities.User user,
 			PasswordCredential passwordCredential, List<? extends Permission> permissions) {
-		super(user.getName(), passwordCredential != null ? passwordCredential.getPassword() : "", user.isEnabled(),
+		super(user.getUsername(), passwordCredential != null ? passwordCredential.getPassword() : "", user.isEnabled(),
 				!user.isExpired(), passwordCredential != null ? !passwordCredential.isExpired() : true,
 				!user.isLocked(), convertToAuthorities(permissions));
 		this.userId = user.getId();

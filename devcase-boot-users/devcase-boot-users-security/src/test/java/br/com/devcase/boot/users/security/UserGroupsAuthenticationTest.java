@@ -83,7 +83,7 @@ public class UserGroupsAuthenticationTest {
 			tx = em.getTransaction();
 			tx.begin();
 			User user1 = new User();
-			user1.setName(validUserLogin);
+			user1.setUsername(validUserLogin);
 			user1.setGroups(Lists.newArrayList());
 			em.persist(user1);
 

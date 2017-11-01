@@ -96,7 +96,7 @@ public class AuthorizationServerConfiguration {
 			Map<String, Object> claims = Maps.newHashMap();
 			claims.put("username", username);
 			if (username != null) {
-				User user = userRepository.findByName(username);
+				User user = userRepository.findByUsername(username);
 				claims.put("sub", user.getId());
 			}
 			return new ResponseEntity<>(claims, HttpStatus.OK);

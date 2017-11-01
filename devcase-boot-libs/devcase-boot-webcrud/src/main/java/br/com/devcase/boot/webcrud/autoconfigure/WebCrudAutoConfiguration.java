@@ -7,7 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.metamodel.EntityType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import br.com.devcase.boot.webcrud.criteria.CriteriaSourceArgumentResolver;
 
 @Configuration
-@PropertySource(value="classpath:/br/com/devcase/boot/webcrud/properties/web-crud.properties")
+@PropertySource(value = "classpath:/br/com/devcase/boot/webcrud/properties/web-crud.properties")
 public class WebCrudAutoConfiguration {
 
 	/**
@@ -29,14 +30,15 @@ public class WebCrudAutoConfiguration {
 	 *
 	 */
 	@Configuration
-	static class CriteriaRepositorySupportConfiguration {
+	@AutoConfigureBefore(WebMvcAutoConfiguration.class)
+	public static class CriteriaRepositorySupportConfiguration {
 		@Bean
 		public CriteriaSourceArgumentResolver criteriaSourceArgumentResolver() {
 			return new CriteriaSourceArgumentResolver();
 		}
 
 		@Configuration
-		static class WebMvcCriteriaConfigurer implements WebMvcConfigurer {
+		public static class WebMvcCriteriaConfigurer implements WebMvcConfigurer {
 
 			@Autowired
 			private CriteriaSourceArgumentResolver criteriaSourceArgumentResolver;
@@ -47,26 +49,24 @@ public class WebCrudAutoConfiguration {
 			}
 		}
 	}
-	
-	@Configuration
-	@ConditionalOnBean(value=EntityManagerFactory.class)
-	static class ExposeIds extends RepositoryRestConfigurerAdapter {
-		@Autowired
-		private EntityManagerFactory emf;
 
-		@Override
-		public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-			Set<EntityType<?>> entities = emf.getMetamodel().getEntities();
-			config.exposeIdsFor(entities.stream().map(e -> e.getJavaType()).toArray(size -> new Class<?>[size]));
+	@Configuration
+	static class ExposeIdsRestMvcConfiguration {
+
+		@Configuration
+		public static class ExposeIdsConfigurer extends RepositoryRestConfigurerAdapter {
+			@Autowired(required=false)
+			private EntityManagerFactory emf;
+
+			@Override
+			public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+				if(emf == null) return;
+				Set<EntityType<?>> entities = emf.getMetamodel().getEntities();
+				config.exposeIdsFor(entities.stream().map(e -> e.getJavaType()).toArray(size -> new Class<?>[size]));
+			}
+
 		}
+
 	}
 
-//	@Configuration
-//	static class JsonFormatCustomizerConfiguration {
-//		@Bean
-//		public Jackson2ObjectMapperBuilder objectMapperBuilder() {
-//			Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-//			return builder;
-//		}
-//	}
 }

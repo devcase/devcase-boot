@@ -12,7 +12,7 @@ import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.User;
 
 @Repository
-@RepositoryRestResource(path="credentials", collectionResourceRel="credentials")
+@RepositoryRestResource(exported=false)
 public interface CredentialRepository extends CriteriaRepository<Credential, String> {
 	List<Credential> findByUser(User user);
 	Credential findByUserAndDtype(User user, String dtype);
@@ -23,7 +23,7 @@ public interface CredentialRepository extends CriteriaRepository<Credential, Str
 	@Query(value="select p from PasswordCredential p where p.user = ?1")
 	PasswordCredential findPasswordCredentialByUser(User user);
 
-	@Query(value="select p from PasswordCredential p where p.user.name = ?1")
+	@Query(value="select p from PasswordCredential p where p.user.username = ?1")
 	PasswordCredential findPasswordCredentialByUsername(String username);
 
 }

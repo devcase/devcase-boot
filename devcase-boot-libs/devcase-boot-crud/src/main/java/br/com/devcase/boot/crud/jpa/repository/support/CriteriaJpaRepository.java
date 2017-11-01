@@ -53,29 +53,30 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QuerydslJ
 	}
 
 	@Override
-	public Page<T> findAll(Pageable pageable, Criteria... criteria) {
+	public Page<T> findAll(Pageable pageable, @SuppressWarnings("rawtypes") Criteria... criteria) {
 		Predicate predicate = createPredicate(criteria);
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
 
 	@Override
-	public List<T> findAll(List<Criteria> criteria) {
+	public List<T> findAll(@SuppressWarnings("rawtypes") List<Criteria> criteria) {
 		Predicate predicate = createPredicate(criteria.toArray(new Criteria[0]));
 		return predicate == null ? findAll() : findAll(predicate);
 	}
 
 	@Override
-	public Page<T> findAll(List<Criteria> criteria, Pageable pageable) {
+	public Page<T> findAll(@SuppressWarnings("rawtypes") List<Criteria> criteria, Pageable pageable) {
 		Predicate predicate = createPredicate(criteria.toArray(new Criteria[0]));
 		return predicate == null ? findAll(pageable) : findAll(predicate, pageable);
 	}
 
 	@Override
-	public List<T> findAll(Criteria... criteria) {
+	public List<T> findAll(@SuppressWarnings("rawtypes") Criteria... criteria) {
 		Predicate predicate = createPredicate(criteria);
 		return predicate == null ? findAll() : findAll(predicate);
 	}
-
+	
+	@SuppressWarnings("rawtypes") 
 	protected BooleanExpression createPredicate(Criteria... criteria) {
 
 		// translate the criteria into predicates for QueryDSL
@@ -91,7 +92,7 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QuerydslJ
 		return predicate;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes") 
 	protected BooleanExpression createPredicate(PathBuilder<T> pathBuilder, Criteria criteria) {
 		if (Number.class.isAssignableFrom(criteria.getPropertyType())) {
 			return createNumberPredicate(pathBuilder, (Criteria) criteria);
@@ -116,7 +117,7 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QuerydslJ
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	protected <P extends Number & Comparable> BooleanExpression createNumberPredicate(PathBuilder<T> pathBuilder,
 			Criteria criteria) {
 		NumberPath path = pathBuilder.getNumber(criteria.getProperty(), criteria.getPropertyType());
@@ -142,7 +143,7 @@ public class CriteriaJpaRepository<T, ID extends Serializable> extends QuerydslJ
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	protected <P extends Comparable> BooleanExpression createTemporalPredicate(PathBuilder<T> pathBuilder,
 			Criteria criteria) {
 		DatePath path = pathBuilder.getDate(criteria.getProperty(), criteria.getPropertyType());

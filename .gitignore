@@ -7,6 +7,9 @@ target/
 # npm modules
 node_modules/
 
+#frontend-maven-plugin
+.frontend-maven-plugin
+
 # idea intellij
 .idea/
 *.iml
