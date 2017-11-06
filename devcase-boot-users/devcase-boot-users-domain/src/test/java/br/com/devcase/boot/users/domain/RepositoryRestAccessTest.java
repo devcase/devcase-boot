@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.rest.RepositoryRestProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.annotation.DirtiesContext;
@@ -29,6 +30,8 @@ import org.springframework.web.context.WebApplicationContext;
 @DirtiesContext
 public class RepositoryRestAccessTest {
 	@Autowired
+	private RepositoryRestProperties repositoryRestProperties;
+	@Autowired
 	private WebApplicationContext context;
 	private MockMvc mockMvc;
 	
@@ -40,7 +43,7 @@ public class RepositoryRestAccessTest {
 
 	@Test
 	public void testCredentialRepositoryShouldntBeExported() throws Exception {
-		mockMvc.perform(get("/api/profile"))
+		mockMvc.perform(get(repositoryRestProperties.getBasePath() + "/profile"))
 			.andDo(log())
 			.andDo(print())
 			.andExpect(jsonPath("$._links").exists())
