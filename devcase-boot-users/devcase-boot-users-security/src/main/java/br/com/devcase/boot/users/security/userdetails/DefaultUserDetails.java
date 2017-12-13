@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.social.security.SocialUserDetails;
+//import org.springframework.social.security.SocialUserDetails;
 
 import br.com.devcase.boot.users.domain.entities.PasswordCredential;
 import br.com.devcase.boot.users.domain.entities.Permission;
 
-public class DefaultUserDetails extends User implements SocialUserDetails  {
+public class DefaultUserDetails extends User {
 	
 	/**
 	 * 
@@ -36,9 +36,9 @@ public class DefaultUserDetails extends User implements SocialUserDetails  {
 				.distinct().collect(Collectors.toList());
 	}
 
-	@Override
-	public String getUserId() {
-		return userId;
-	}
+//	@Override
+//	public String getUserId() {
+//		return userId;
+//	}
 
 }
