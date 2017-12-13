@@ -132,6 +132,35 @@
     					<installDirectory>.frontend-maven-plugin</installDirectory>
     				</configuration>
 				</plugin>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.github.eirslett</groupId>
+										<artifactId>frontend-maven-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>webpack</goal>
+											<goal>npm</goal>
+											<goal>install-node-and-npm</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore>
+											<message>Desaconselhável o uso do plugin frontend com o m2e</message>
+										</ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
