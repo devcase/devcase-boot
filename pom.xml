@@ -11,7 +11,7 @@
 
 	<groupId>br.com.devcase.boot</groupId>
 	<artifactId>devcase-boot-build</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.1-M1</version>
 	<packaging>pom</packaging>
 
 	<url>https://bitbucket.org/devcase/devcase-boot</url>

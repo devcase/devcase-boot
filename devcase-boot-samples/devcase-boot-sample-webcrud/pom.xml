@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>br.com.devcase.boot</groupId>
 		<artifactId>devcase-boot-starter-parent</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1-M1</version>
 		<relativePath>../../devcase-boot-starters/devcase-boot-starter-parent</relativePath>
 	</parent>
 
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-sample-crud</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1-M1</version>
 		</dependency>
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
