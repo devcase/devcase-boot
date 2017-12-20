@@ -13,10 +13,11 @@ import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
 import org.javamoney.moneta.Money;
+import org.springframework.hateoas.Identifiable;
 
 @Entity
 @Audited
-public class Campanha {
+public class Campanha implements Identifiable<String> {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
