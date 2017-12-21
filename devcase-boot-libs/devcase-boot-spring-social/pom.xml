@@ -8,6 +8,6 @@
   <artifactId>devcase-boot-spring-social</artifactId>
   <packaging>pom</packaging>
   <modules>
-  	<module>devcase-boot-spring-social-azure-ad</module>
+<!--  	<module>devcase-boot-spring-social-azure-ad</module> -->
   </modules>
 </project>

@@ -42,14 +42,14 @@ public class OAuth2ClientAutoConfiguration {
 	public ClientRegistrationRepository defaultClientRegistrationRepository () {
 		OAuth2ClientProperties.Registration registration = properties.getRegistration().get("default");
 		OAuth2ClientProperties.Provider provider = properties.getProvider().get(registration.getProvider());
-		ClientRegistration.Builder builder = new ClientRegistration.Builder("default");
+		ClientRegistration.Builder builder = ClientRegistration.withRegistrationId("default");
 		copyIfNotNull(registration::getClientId, builder::clientId);
 		copyIfNotNull(registration::getClientSecret, builder::clientSecret);
 		copyIfNotNull(registration::getClientAuthenticationMethod,
 				builder::clientAuthenticationMethod, ClientAuthenticationMethod::new);
 		copyIfNotNull(registration::getAuthorizationGrantType,
 				builder::authorizationGrantType, AuthorizationGrantType::new);
-		copyIfNotNull(registration::getRedirectUri, builder::redirectUri);
+		copyIfNotNull(registration::getRedirectUriTemplate, builder::redirectUriTemplate);
 		copyIfNotNull(registration::getScope, builder::scope,
 				(scope) -> scope.toArray(new String[scope.size()]));
 		copyIfNotNull(registration::getClientName, builder::clientName);
@@ -112,7 +112,7 @@ public class OAuth2ClientAutoConfiguration {
 				.servletApi().and()
 				.formLogin().loginPage("/oauth2/authorization/code/default").and()
 				.authorizeRequests().anyRequest().authenticated().and()
-				.oauth2Login().clients(clientRegistrationRepository).and()
+				.oauth2Login().clientRegistrationRepository(clientRegistrationRepository).and()
 				.logout();
 		}
 	}

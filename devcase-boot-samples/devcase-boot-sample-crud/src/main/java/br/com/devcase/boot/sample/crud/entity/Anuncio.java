@@ -9,10 +9,11 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
+import org.springframework.hateoas.Identifiable;
 
 @Entity
 @Audited
-public class Anuncio {
+public class Anuncio implements Identifiable<String> {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")

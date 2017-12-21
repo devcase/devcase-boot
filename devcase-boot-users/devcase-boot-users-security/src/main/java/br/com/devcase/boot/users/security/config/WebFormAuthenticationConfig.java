@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -23,15 +22,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.social.connect.ConnectionFactoryLocator;
+//import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-
-import br.com.devcase.boot.users.security.social.SocialLoginConfiguration.SocialWebSecurityConfigurer;
 
 @Configuration
 @ConditionalOnWebApplication
@@ -45,7 +42,7 @@ public class WebFormAuthenticationConfig {
 
 	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
-	@ConditionalOnMissingBean(value= { SocialWebSecurityConfigurer.class })
+//	@ConditionalOnMissingBean(value= { SocialWebSecurityConfigurer.class })
 	public static class WebFormSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -78,8 +75,8 @@ public class WebFormAuthenticationConfig {
 		private ThymeleafViewResolver viewResolver;
 		@Autowired
 		private LocaleResolver localeResolver;
-		@Autowired(required=false)
-		private ConnectionFactoryLocator connectionFactoryLocator;
+//		@Autowired(required=false)
+//		private ConnectionFactoryLocator connectionFactoryLocator;
 
 		@RequestMapping("/login")
 		View loginForm(HttpServletRequest request, Model model) throws Exception {
@@ -95,11 +92,11 @@ public class WebFormAuthenticationConfig {
 				model.addAttribute("authenticationErrorMessage", errorMsg);
 			}
 			
-			if(connectionFactoryLocator != null) {
-				model.addAttribute("registeredProviderIds", connectionFactoryLocator.registeredProviderIds());
-			} else {
+//			if(connectionFactoryLocator != null) {
+//				model.addAttribute("registeredProviderIds", connectionFactoryLocator.registeredProviderIds());
+//			} else {
 				model.addAttribute("registeredProviderIds", Collections.EMPTY_SET);
-			}
+//			}
 			return viewResolver.resolveViewName("login", localeResolver.resolveLocale(request));
 		}
 

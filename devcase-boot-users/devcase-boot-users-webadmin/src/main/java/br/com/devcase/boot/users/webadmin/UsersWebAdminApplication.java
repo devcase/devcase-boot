@@ -8,12 +8,12 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import br.com.devcase.boot.users.security.config.EnableWebFormAuthentication;
 import br.com.devcase.boot.users.security.config.WebFormAuthenticationConfig;
-import br.com.devcase.boot.users.security.social.EnableSocialLogin;
 
 @SpringBootApplication
-//@EnableWebFormAuthentication
-@EnableSocialLogin
+@EnableWebFormAuthentication
+//@EnableSocialLogin
 @Import(UsersWebAdminConfiguration.class)
 public class UsersWebAdminApplication {
 
