@@ -29,7 +29,7 @@ public class LinksFromCustomControllerTest {
 	@Test
 	public void testLinks() throws Exception {
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-		mockMvc.perform(get("/api/mydata2.json"))
+		mockMvc.perform(get("/api/mydata2"))
 			.andDo(print())
 			.andExpect(jsonPath("$._embedded.anuncios[0]._links.campanha").exists());
 	}
