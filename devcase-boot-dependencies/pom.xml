@@ -18,7 +18,7 @@
 		<jboss-metadata.version>8.0.0.Final</jboss-metadata.version>
 		<jastow.version>2.0.2.Final</jastow.version>
 		<sitemesh.version>3.0.1</sitemesh.version>
-		<spring-boot.version>2.0.0.M6</spring-boot.version>
+		<spring-boot.version>2.0.0.RC1</spring-boot.version>
 		<guava.version>23.0</guava.version>
 		<kotlin.version>1.1.4-3</kotlin.version>
 		<javax-validation.version>2.0.0.Final</javax-validation.version>
