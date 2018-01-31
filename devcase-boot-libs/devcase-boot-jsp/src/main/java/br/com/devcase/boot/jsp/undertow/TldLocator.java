@@ -98,6 +98,7 @@ public class TldLocator {
 				
 				String path = resourceName.substring(resourceName.indexOf("/META-INF/"));
 				TagLibraryInfo taglibInfo = getTagLibraryInfo(tldMetadata, path);
+//				taglibInfo.setLocation(resource.getURL().toString().split("!")[0]);
 				if (!tagLibInfos.containsKey(taglibInfo.getUri())) {
 					tagLibInfos.put(taglibInfo.getUri(), taglibInfo);
 				}

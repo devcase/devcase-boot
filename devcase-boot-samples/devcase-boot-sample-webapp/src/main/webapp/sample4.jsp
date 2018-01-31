@@ -10,6 +10,7 @@
 </head>
 <body>
 	<h1>Teste projeto taglib com tagfiles</h1>
+	<c:if test="true">Hi</c:if>
 	<sample:example1 value="Carregado com sucesso!"/>
 </body>
 </html>
