@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>br.com.devcase.boot</groupId>
 		<artifactId>devcase-boot-samples</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>devcase-boot-sample-hateoas</artifactId>
 	<dependencies>
@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>br.com.devcase.boot</groupId>
 			<artifactId>devcase-boot-sample-crud</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.2-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>

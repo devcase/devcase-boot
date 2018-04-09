@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>br.com.devcase.boot</groupId>
 		<artifactId>devcase-boot-build</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>devcase-boot-dependencies</artifactId>
@@ -18,7 +18,7 @@
 		<jboss-metadata.version>8.0.0.Final</jboss-metadata.version>
 		<jastow.version>2.0.3.Final.Devcase</jastow.version>
 		<sitemesh.version>3.0.1</sitemesh.version>
-		<spring-boot.version>2.0.0.RC1</spring-boot.version>
+		<spring-boot.version>2.0.1.RELEASE</spring-boot.version>
 		<guava.version>23.0</guava.version>
 		<glassfish-el.version>3.0.1-b08</glassfish-el.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
@@ -31,92 +31,92 @@
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-starter-web</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-starter-jsp</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-jsp</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-starter-crud</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-crud</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-webcrud</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-starter-webcrud</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-dwftaglibs</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-starter-dbmigration</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-sitemesh</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-labels</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-starter</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-starter-kotlin</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-ws-logging</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-web</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-htmldecorator</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-users-domain</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-users-security</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
@@ -126,17 +126,17 @@
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-users-webadmin</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-users-oauth2client</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>br.com.devcase.boot</groupId>
 				<artifactId>devcase-boot-users-dbmigrations</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2-SNAPSHOT</version>
 			</dependency>
 			
 			<!-- JAVAX -->
