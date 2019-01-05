@@ -38,7 +38,7 @@ public class WebFormAuthenticationConfig {
 	/**
 	 * Após {@link org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerSecurityConfiguration}
 	 */
-	public static final int WEBFORM_SECURITY_ORDER = 5; 
+	public static final int WEBFORM_SECURITY_ORDER = 5;
 
 	@Order(WEBFORM_SECURITY_ORDER)
 	@Configuration
@@ -88,10 +88,10 @@ public class WebFormAuthenticationConfig {
 				AuthenticationException ex = (AuthenticationException) session
 						.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 				String errorMsg = ex != null ? ex.getMessage() : "";
-				errorMsg = StringEscapeUtils.escapeEcmaScript(errorMsg);
+//				errorMsg = StringEscapeUtils.escapeEcmaScript(errorMsg);
 				model.addAttribute("authenticationErrorMessage", errorMsg);
 			}
-			
+
 //			if(connectionFactoryLocator != null) {
 //				model.addAttribute("registeredProviderIds", connectionFactoryLocator.registeredProviderIds());
 //			} else {

@@ -42,11 +42,11 @@
 		<module>devcase-boot-samples</module>
 	</modules>
 
-	<scm>
+	<!-- <scm>
 		<url>https://bitbucket.org/devcase/devcase-boot</url>
-	</scm>
+	</scm> -->
 	<!-- Custom Devcase Distribuition Repository -->
-	<distributionManagement>
+	<!-- <distributionManagement>
 		<repository>
 			<id>devcase-sp-repo</id>
 			<name>Devcase Repository S3 Bucket</name>
@@ -57,7 +57,7 @@
 			<name>Devcase Repository S3 Bucket</name>
 			<url>s3p://devcase-sp-repo/snapshot</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 
 	<repositories>
 		<repository>
@@ -76,7 +76,7 @@
 			<id>jboss-releases</id>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
 		</repository>
-		<repository>
+		<!-- <repository>
 			<id>devcase-repo</id>
 			<name>Devcase Releases</name>
 			<url>http://repo.devcase.com.br/release</url>
@@ -91,7 +91,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>
+		</repository> -->
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
